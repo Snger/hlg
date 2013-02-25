@@ -2,6 +2,7 @@
 combined files : 
 
 page/mods/header
+utils/urlParse
 page/init-2
 
 */
@@ -10,6 +11,14 @@ KISSY.add('page/mods/header',function(S) {
     return function(){
        
         alert('header of refund.');
+    }
+ 
+});
+KISSY.add('utils/urlParse',function(S) {
+ 
+    return {
+       
+        aa : 'a'
     }
  
 });

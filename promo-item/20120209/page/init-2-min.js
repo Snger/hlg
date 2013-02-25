@@ -1,1 +1,0 @@
-KISSY.add("page/mods/header",function(a){return function(){alert("header of refund.")}}),KISSY.add("utils/urlParse",function(a){return{aa:"a"}}),KISSY.add("page/init-2",function(a,b,c,d){return function(){return b(),console.log(c),console.log(d),alert("a"),"this is demo page."}},{requires:["./mods/header","gallery/form/1.2/uploader/index","utils/urlParse"]}); 
