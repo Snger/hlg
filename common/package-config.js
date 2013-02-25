@@ -35,14 +35,20 @@
                 name: 'common',
                 path: config.path
             }));
+			
+			 //common package
+            pkgs.push(S.merge(packageConfig, {
+                name: 'gallery',
+                path: 'http://a.tbcdn.cn/s/kissy'
+            }));
 
             //utils package is only for dev mode
-            if (debug) {
+        //    if (debug) {
                 pkgs.push(S.merge(packageConfig, {
                     name: 'utils',
                     path: config.path
                 }));
-            }
+          //  }
 
             //page packages
             pkgs.push(S.merge(packageConfig, {
@@ -55,4 +61,9 @@
             });
         }
     };
+	
+	window.showPermissions = function(app,type){
+
+		return false
+	}
 })();
