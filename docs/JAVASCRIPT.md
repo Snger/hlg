@@ -1,8 +1,8 @@
 ## Javascript:
 
-1. 文件编码统一为utf-8, 书写过程过, 每行代码结束必须有分号; 原则上所有功能均根据XXX项目需求原生开发, 以避免网上down下	来的代码造成的代码污染(沉冗代码 || 与现有代码冲突 || ...);
+1. 文件编码统一为utf-8, 书写过程过, 每行代码结束必须有分号; 原则上所有功能均根据XXX项目需求原生开发, 以避免网上down下来的代码造成的代码污染(沉冗代码 || 与现有代码冲突 || ...);
 
-	2. 库引入: 原则上仅引入KISSY库, 若需引入第三方库, 须与团队其他人员讨论决定;目前 还有用jQuery在图表
+2. 库引入: 原则上仅引入KISSY库, 若需引入第三方库, 须与团队其他人员讨论决定;目前 还有用jQuery在图表
 
 3. 变量命名: 仅在JavaScript代码中当作hook{钩子}用的id或class,命名规则为J_UpperCamelCase，注意：如果在JavaScript和CSS中都需要用到,则不用遵守本约定。
 	4.前缀规范
@@ -17,7 +17,7 @@
 		例外情况：
 			1：作用域不大临时变量可以简写，比如：str，num，bol，obj，fun，arr。
 			2：循环变量可以简写，比如：i，j，k等。
-
+	
 		全局变量使用g作为前缀，定义在window下。例如gUserName，gLoginTime。
 		涉及返回逻辑值的函数可以使用is，has等表示逻辑的词语代替动词
 		另, 要求变量集中声明, 避免全局变量.
@@ -99,7 +99,7 @@
 ## 结构图：
 - 后端工程师
 					
-					- [D3](http://d3js.org/)/[Raphaël](http://raphaeljs.com/)/[DataV](http://datavlab.org/datavjs/)
+- [D3](http://d3js.org/)/[Raphaël](http://raphaeljs.com/)/[DataV](http://datavlab.org/datavjs/)
 ## TODO: 1.input  输入限制 
 	      2.基本验证（价格，时间，邮箱，等）	
 		3.json 传参 特殊字符处理	
