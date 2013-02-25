@@ -4,8 +4,7 @@ Javascript:
 
 	2. 库引入: 原则上仅引入KISSY库, 若需引入第三方库, 须与团队其他人员讨论决定;目前 还有用jQuery在图表
 
-	3. 变量命名: 仅在JavaScript代码中当作hook{钩子}用的id或class,命名规则为J_UpperCamelCase，
-注意：如果在JavaScript和CSS中都需要用到,则不用遵守本约定。
+	3. 变量命名: 仅在JavaScript代码中当作hook{钩子}用的id或class,命名规则为J_UpperCamelCase，注意：如果在JavaScript和CSS中都需要用到,则不用遵守本约定。
 	4.前缀规范
 		每个局部变量都需要有一个类型前缀，按照类型可以分为：
 			s：表示字符串。例如：sName，sHtml；
