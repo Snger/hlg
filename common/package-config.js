@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     var S = KISSY;
 
     window.FB = window.FB || {
@@ -36,19 +36,17 @@
                 path: config.path
             }));
 			
-			 //common package
+			 //gallery package
             pkgs.push(S.merge(packageConfig, {
                 name: 'gallery',
                 path: 'http://a.tbcdn.cn/s/kissy'
             }));
 
-            //utils package is only for dev mode
-        //    if (debug) {
-                pkgs.push(S.merge(packageConfig, {
-                    name: 'utils',
-                    path: config.path
-                }));
-          //  }
+            pkgs.push(S.merge(packageConfig, {
+                name: 'utils',
+                path: config.path
+            }));
+        
 
             //page packages
             pkgs.push(S.merge(packageConfig, {
@@ -58,12 +56,14 @@
 
             S.config({
                 packages: pkgs
-            });
+            })	
         }
     };
 	
-	window.showPermissions = function(app,type){
-
-		return false
-	}
+	window.pageConfig = {
+		'pub' : '20130230' ,
+		'dashboard' : '2013333' //首页
+		
+		
+	} 
 })();
