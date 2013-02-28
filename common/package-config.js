@@ -47,7 +47,10 @@
                 path: config.path
             }));
         
-
+  			pkgs.push(S.merge(packageConfig, {
+                name: '1.0',
+                path: config.oldpath
+            }));
             //page packages
             pkgs.push(S.merge(packageConfig, {
                 name: 'page',
@@ -56,13 +59,14 @@
 
             S.config({
                 packages: pkgs
+				
             })	
         }
     };
 	
 	window.pageConfig = {
-		'pub' : '20130230' ,
-		'dashboard' : '2013333' //首页
+		'pub' : '20130227' ,
+		'Mcore' : '' //core模块
 		
 		
 	} 
