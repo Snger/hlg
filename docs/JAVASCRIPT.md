@@ -104,8 +104,17 @@
 	
 ## 结构图： 
 - common(公用函数集，组件集)
-	- 全局变量（ 搜索宝贝关键词）
-	- [弹出框](http:jquerymsgbox.ibrahimkalyoncu.com/)
+	- 全局变量（ 搜索宝贝关键词）包配置
+
+- docs(文档)
+	- [kissy-kie](https://github.com/maxbbn/front-build) 
+	- [Raphaël](http://raphaeljs.com/)
+- util(小工具集)
+	- 日期处理 > 将日期 2011-6-27 10:22:30 格式 转为  Date
+	- FormatNumber /*格式化数字*/checkUrl checkDiscount    /*违禁词限制*/checkSpecTitle 不行
+	- ajax 传参 特殊符号处理
+	- 基本验证（价格，时间，邮箱，等）
+	-  [弹出框](http:jquerymsgbox.ibrahimkalyoncu.com/)
 	- 加载消息框
 	- 异步组件 asyncRequest 错误处理可以统一
 	- 倒计时
@@ -117,14 +126,6 @@
 	- 子账号权限控制 版本控制
 	- 链接按统计
 	- gallery 组件
-- docs(文档)
-	- [kissy-kie](https://github.com/maxbbn/front-build) 
-	- [Raphaël](http://raphaeljs.com/)
-- util(小工具集)
-	- 日期处理 > 将日期 2011-6-27 10:22:30 格式 转为  Date
-	- FormatNumber /*格式化数字*/checkUrl checkDiscount    /*违禁词限制*/checkSpecTitle 不行
-	- ajax 传参 特殊符号处理
-	- 基本验证（价格，时间，邮箱，等）
 - ...模块名(promo)
 
 ## TODO: 
