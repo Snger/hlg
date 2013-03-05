@@ -9,27 +9,33 @@
 	```
 	- mian.js  一些公共函数，头部·左菜单栏
 - docs(文档)
-	- [kissy-kie](https://github.com/maxbbn/front-build) 
+   - [kissy-kie](https://github.com/maxbbn/front-build) 
    - HTML编码规范-CSS编码规范
    - JavaScript语言规范
    
 - util(组件集 ，工具集)
-	- analytics （链接 跟踪统计）
-	- randomBox （抽奖）
-	- roll （上下无缝滚动）
+   - analytics （链接 跟踪统计）
+   - randomBox （抽奖）
+   - roll （上下无缝滚动）
    - showPages (分页)
-	- utils 基本验证（价格，时间，邮箱，等）
-	-  [弹出框](http:jquerymsgbox.ibrahimkalyoncu.com/)
-	- share （分享）
-	- showPermissions 子账号权限控制 版本控制
-	- gallery 组件
+   - utils 基本验证（价格，时间，邮箱，等）
+   -  [弹出框](http:jquerymsgbox.ibrahimkalyoncu.com/)
+   - share （分享）
+   - showPermissions 子账号权限控制 版本控制
+   - gallery 组件
 - 其他模块名(promo)
+
+## 使用
+模块名 根据 后台定义  比如 core 模块   包配置里 自动配置包名 Mcore （加了个M）
+除了 base 引入的 三个组件外，其他需要的自己引入
+
+
 
 ## TODO: 
 
 优化 ：
 	1.input  输入限制 
-	模块/一堆入口文件 mods 子模块  ？？？ 模块/子模块 /一个入口文件 mods 子模块；
+	
 
 
 
