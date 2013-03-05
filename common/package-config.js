@@ -1,4 +1,5 @@
-﻿(function () {
+
+(function () {
     var S = KISSY;
 
     window.FB = window.FB || {
@@ -35,22 +36,25 @@
                 name: 'common',
                 path: config.path
             }));
-			
 			 //gallery package
             pkgs.push(S.merge(packageConfig, {
                 name: 'gallery',
                 path: 'http://a.tbcdn.cn/s/kissy'
             }));
 
-            pkgs.push(S.merge(packageConfig, {
-                name: 'utils',
-                path: config.path
-            }));
-        
-  			pkgs.push(S.merge(packageConfig, {
+            //utils package is only for dev mode
+            if (debug) {
+                pkgs.push(S.merge(packageConfig, {
+                    name: 'utils',
+                    path: config.path
+                }));
+				S.Config.debug = true
+            };
+			pkgs.push(S.merge(packageConfig, {
                 name: '1.0',
                 path: config.oldpath
             }));
+
             //page packages
             pkgs.push(S.merge(packageConfig, {
                 name: 'page',
@@ -59,15 +63,17 @@
 
             S.config({
                 packages: pkgs
-				
-            })	
+            });
         }
     };
 	
-	window.pageConfig = {
-		'pub' : '20130227' ,
+	window.FUNCTIONLIMIT = false;//开启  功能限制
+	
+	
+	window.PAGECONFIG = {
+		'pub' : '20130301' ,
 		'Mcore' : '' //core模块
 		
 		
-	} 
+	}; 
 })();
