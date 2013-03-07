@@ -96,6 +96,18 @@ KISSY.app('H', function() {
 					//
 				}
 			},
+			/*链接跟踪
+				@parame btn  跟踪链接点，
+				@parame tag  跟踪标签名，
+				@parame url  保存地址
+			*/
+			saveTrack: function(btn,tag,url){
+					Event.on(btn,'click',function(){
+						KISSY.io.get(url,{
+					    	name:tag
+						});
+					})
+			},
 			/* * 页面刷新 * */
 			pageReload: function( url ) {
 				url = ( url || window.location.toString() ).replace(/t=(\d)+/g, '').replace(/([&|?])+$/, '');
