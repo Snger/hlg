@@ -214,6 +214,20 @@ KISSY.app('H', function() {
 				}
 				}
 			},
+			/*是否为空*/
+			isNull : function(str){
+				var result = [];
+				var error = false;
+				var msg = null;
+				if(str == null ||str == ""){
+					error = true;
+					msg = '请填写，此项不能为空！';
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+				
+			},
 			escape: function(str){
 				if (str == null) {
 					return "";
@@ -326,25 +340,23 @@ H.add('widget~msgBox', function(HLG) {
 				var divId = "msgBox" + new Date().getTime();
 			    var divMsgBoxId = divId; 
 				var divMsgBoxBackGroundId = divId + "BackGround";
-				
 				if (options.dialogType == 'dialog') {
 					var divMsgBoxContentId = divId + "Content";
 					var divMsgBoxImageId = divId + "Image";
 					var divMsgBoxButtonsId = divId + "Buttons";
-					
-					
 					var buttons = "";
 					S.each(self.options.buttons, function(button, index){
 						buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
 					})
 					var inputs = "";
+					
 					S.each(self.options.inputs, function(input, index){
 						var type = input.type;
 						if (type == "checkbox" || type == "radiobutton") {
 								inputs += "<div class=\"msgInput\">" +
 								"<input type=\"" +
 								input.type +
-								"\" name=\"" +
+								"\" id=\""+input.id+"\" name=\"" +
 								input.name +
 								"\" " +
 								(input.checked == null ? "" : "checked ='" + input.checked + "'") +
@@ -363,7 +375,7 @@ H.add('widget~msgBox', function(HLG) {
 									"<span>" +
 									"<input type=\"" +
 									input.type +
-									"\" name=\"" +
+									"\"id=\""+input.id+"\" name=\"" +
 									input.name +
 									"\" value=\"" +
 									(typeof input.value == "undefined" ? "" : input.value) +
