@@ -7,6 +7,9 @@ KISSY.add(function (S,O) {
 	var S= KISSY,DOM = S.DOM, Event = S.Event;
 	return  dashboard = {
 			msg :null ,
+			msg1 : null,
+			isLoad : false,
+			paginator:null,
 			panel : null,
 			
 			init : function(){
@@ -21,17 +24,17 @@ KISSY.add(function (S,O) {
 						      closable :true,
 						      draggable: true,
 						      aria:true
-				});
-				if(permission == 2){
-					dashboard.panel.set('bodyContent','<div class=""><div style="text-align: center;margin-bottom:15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div>');
-					dashboard.panel.show();
-				}else if(permission == 1){
-						dashboard.panel.set('bodyContent','<div style="text-align: center;margin-bottom: 15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:186px; height:29px;background-position:0 -34px; display:inline-block;"></span></div><div style="text-align: center;margin-bottom: 15px;"><a href="http://fuwu.taobao.com/item/subsc.htm?items=appstore-10687-1:12" target="_blank"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:97px; height:36px;background-position:0 -68px; display:inline-block;"></span></a></div>');
+					});
+					if(permission == 2){
+						dashboard.panel.set('body','<div class=""><div style="text-align: center;margin-bottom:15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div>');
 						dashboard.panel.show();
-			    }else if(permission == 3){
-					dashboard.panel.set('bodyContent','<div class=""><div style="text-align: center;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div><div class="clear" style="padding:10px;width:430px;margin:auto;"><div style="text-align:center;color:#f45f03; font-size:20px;">助你引爆年末店铺流量<br/>您的试用版时间小于赠送标准时间</div></div><div style="width:124px;margin:10px auto 20px auto;"><a href="http://fuwu.taobao.com/item/subsc.htm?items=appstore-10687-1:12"><input class="btm-orange" type="button" name="" value="立即年定试用版" ></a></div></div>');
-					dashboard.panel.show();			
-			    }
+					}else if(permission == 1){
+							dashboard.panel.set('body','<div style="text-align: center;margin-bottom: 15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:186px; height:29px;background-position:0 -34px; display:inline-block;"></span></div><div style="text-align: center;margin-bottom: 15px;"><a href="http://fuwu.taobao.com/item/subsc.htm?items=appstore-10687-1:12" target="_blank"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:97px; height:36px;background-position:0 -68px; display:inline-block;"></span></a></div>');
+							dashboard.panel.show();
+				    }else if(permission == 3){
+						dashboard.panel.set('body','<div class=""><div style="text-align: center;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div><div class="clear" style="padding:10px;width:430px;margin:auto;"><div style="text-align:center;color:#f45f03; font-size:20px;">助你引爆年末店铺流量<br/>您的试用版时间小于赠送标准时间</div></div><div style="width:124px;margin:10px auto 20px auto;"><a href="http://fuwu.taobao.com/item/subsc.htm?items=appstore-10687-1:12"><input class="btm-orange" type="button" name="" value="立即年定试用版" ></a></div></div>');
+						dashboard.panel.show();			
+				    }
 				Event.on('.version-li','mouseover mouseout',function(ev){
 		    		if(ev.type == 'mouseover'){
 		    			DOM.addClass(ev.currentTarget,'mouseover');

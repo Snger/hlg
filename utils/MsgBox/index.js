@@ -106,7 +106,11 @@ KISSY.add(function (S) {
 					
 					var buttons = "";
 					S.each(self.options.buttons, function(button, index){
-						buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						if(index == 0){
+							buttons += "<input class=\"btm-68-orange msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}else{
+							buttons += "<input class=\"btm-68-gray msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}
 					})
 					var inputs = "";
 					S.each(self.options.inputs, function(input, index){
@@ -130,20 +134,20 @@ KISSY.add(function (S) {
 								"</div>";
 						}
 						else {
+							var className = typeof(input.className)== "undefined" ? "input-text" : input.className;
 							inputs += "<div class=\"msgInput\">" +
 									"<span class=\"msgInputHeader\">" +
 									input.header +
-									"<span>" +
-									"<input type=\"" +
-									input.type +
-									"id=\"" +
-									input.id +
-									"\" name=\"" +
+									"</span>" +
+									"<span><input type=\"" +
+									input.type + 
+									"\"class= \""+className+
+									"\"id=\""+input.id+"\" name=\"" +
 									input.name +
 									"\" value=\"" +
 									(typeof input.value == "undefined" ? "" : input.value) +
-									"\" />" +
-									"</div>";
+									"\" /></span>" +
+									"</div>";							
 						}
 					})
 					var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";

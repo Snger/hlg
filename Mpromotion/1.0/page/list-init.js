@@ -2,7 +2,7 @@
  * @fileOverview 
  * @author  
  */
-KISSY.add(function (S,showPages) {
+KISSY.add(function (S,showPages,checkUtil) {
     // your code here
 
 	var S= KISSY,DOM = S.DOM, Event = S.Event;
@@ -255,266 +255,266 @@ KISSY.add(function (S,showPages) {
   						promotionControl.editorPromoTime(pid);
 	      			}
 				}
-		 	});
+		 		});
 			
-		},
-		pausePromo : function(pid){
-			var pauseHandle = function(o) {
-			new H.widget.msgBox({
-				    title: "暂停活动",
-				    content: "暂停活动将会取消您设置的促销活动",
-				    type: "confirm",
-				    buttons: [{ value: "暂停" }, { value: "取消" }],
-				    success: function (result) {
-				        if (result == "暂停") {
-				            var data = "pid="+pid+"&form_key="+FORM_KEY;
-							var successHandle = function(o){
-								new H.widget.msgBox({
-								    title:"温馨提示",
-								    content:'暂停成功',
-								    type:"info",
-									autoClose : true,
-									timeOut :3000
-								});
-							  	window.location.href=currentPageUrl;
-							}
-							var errorHandle = function(o){
-								if(o.desc == 'need-oauth'){
-									 KISSY.Event.fire('.J_TopExpired','click');
-									 return ;
+			},
+			pausePromo : function(pid){
+				var pauseHandle = function(o) {
+				new H.widget.msgBox({
+					    title: "暂停活动",
+					    content: "暂停活动将会取消您设置的促销活动",
+					    type: "confirm",
+					    buttons: [{ value: "暂停" }, { value: "取消" }],
+					    success: function (result) {
+					        if (result == "暂停") {
+					            var data = "pid="+pid+"&form_key="+FORM_KEY;
+								var successHandle = function(o){
+									new H.widget.msgBox({
+									    title:"温馨提示",
+									    content:'暂停成功',
+									    type:"info",
+										autoClose : true,
+										timeOut :3000
+									});
+								  	window.location.href=currentPageUrl;
 								}
-								new H.widget.msgBox({
+								var errorHandle = function(o){
+									if(o.desc == 'need-oauth'){
+										 KISSY.Event.fire('.J_TopExpired','click');
+										 return ;
+									}
+									new H.widget.msgBox({
+									    title:"错误提示",
+									    content:o.desc,
+									    type:"error"
+									});
+								}
+					     	    new H.widget.asyncRequest().setURI(pauseUrl).setMethod("GET").setHandle(successHandle).setErrorHandle(errorHandle).setData(data).send();
+				
+					        }
+					    }
+					});
+	    		};
+	    		var error = function(o){
+					new H.widget.msgBox({
 								    title:"错误提示",
 								    content:o.desc,
 								    type:"error"
 								});
-							}
-				     	    new H.widget.asyncRequest().setURI(pauseUrl).setMethod("GET").setHandle(successHandle).setErrorHandle(errorHandle).setData(data).send();
-			
-				        }
-				    }
-				});
-    		};
-    		var error = function(o){
-				new H.widget.msgBox({
-							    title:"错误提示",
-							    content:o.desc,
-							    type:"error"
-							});
-    		};
-    		var data = "pid="+pid+"&form_key="+FORM_KEY;
-     	    new H.widget.asyncRequest().setURI(getPromoTimeUrl).setMethod("GET").setHandle(pauseHandle).setErrorHandle(error).setData(data).send();
-		},
-		restartPromo : function(pid){
-			var changeTimeHandle = function(o) {
-    			promotionControl.msg.hide();
-				
-				var promoStartTime = H.util.StringToDate(o.payload.stime);
-				var promoEndTime = H.util.StringToDate(o.payload.etime);
-				var nowTime = new Date();
-				leftStartTime = (promoStartTime.getTime() - nowTime.getTime())/1000;
-				leftEndTime = (promoEndTime.getTime() - nowTime.getTime())/1000;
-				var typeId = DOM.val('#J_TypeId_'+pid);
-				if(typeId == 10){
-					var title = '开始时间 ：立即开始';
-					var inputType = 'hidden';
-				}else{
-					var title = '开始时间';
-					var inputType = 'text';
-				}
-				new H.widget.msgBox({
-				    title: "重启活动",
-				    type: "prompt",
-					inputs: [
-					    { header: title, type: inputType, value:o.payload.stime ,name: "" ,id: "J_stime"},
-					    { header: "结束时间", type: "text", value:o.payload.etime ,name: "" ,id : "J_etime"}
-						],
-				    buttons: [{ value: "确定修改" }, { value: "取消修改" }],
-				    success: function (result) {
-				        if (result == "确定修改") {
-							var stime = DOM.val(DOM.get('#J_stime'));
-							var etime = DOM.val(DOM.get('#J_etime'));
-							var data = "pid="+pid+"&etime="+etime+"&stime="+stime+"&form_key="+FORM_KEY;
-							var successHandle = function(o){
-								new H.widget.msgBox({
-								    title:"温馨提示",
-								    content:'重启成功',
-								    type:"info",
-									autoClose : true,
-									timeOut :3000
-								});
-							  	window.location.href=currentPageUrl;
-							}
-							var errorHandle = function(o){
-								if(o.desc == 'need-oauth'){
-									 KISSY.Event.fire('.J_TopExpired','click');
-									 return ;
-								}
-								new H.widget.msgBox({
-								    title:"错误提示",
-								    content:o.desc,
-								    type:"error"
-								});
-							}
-				     	    new H.widget.asyncRequest().setURI(restartUrl).setMethod("GET").setHandle(successHandle).setErrorHandle(errorHandle).setData(data).send();
-				        }
-				    }
-				});
-    			myCalendar('J_stime');
-    			myCalendar('J_etime');
-    		};
-    		var error = function(o){
-    			promotionControl.msg.hide();
-				new H.widget.msgBox({
-							    title:"错误提示",
-							    content:o.desc,
-							    type:"error"
-							});
-				
-    		};
-    		var data = "pid="+pid+"&form_key="+FORM_KEY;
-			promotionControl.msg = new H.widget.msgBox({
-								    title:"",
-									dialogType : 'loading',
-								    content:'获取活动时间，请稍候'	
-								});
-     	    new H.widget.asyncRequest().setURI(getPromoTimeUrl).setMethod("GET").setHandle(changeTimeHandle).setErrorHandle(error).setData(data).send();
- 	
-
-		},
-		editorPromoName : function(pid){
-			
-	 		DOM.hide('#J_PromoNameBox_'+pid);	
-	 		var SpromoName = KISSY.trim(DOM.val('#J_SoucePromoName_'+pid));
-	 		var str ='<input type="text"  class="input-text w-70 fl" style="_width:79px" data ="'+pid+'" id="J_InputPromoName_'+pid+'" value="">'+
-				 	 '<input class="gray-btm-h-10 w-30" style="cursor:pointer" data="'+pid+'"  id="J_SavePromoName_'+pid+'" value ="保存" />';
-			DOM.html('#J_ShowEditorPromoName_'+pid,str);
-			DOM.show('#J_ShowEditorPromoName_'+pid);
-			Event.on('#J_InputPromoName_'+pid,'blur',function(){
-				KISSY.later(function(){
-					DOM.hide('#J_ShowEditorPromoName_'+pid);
-	 				DOM.show('#J_PromoNameBox_'+pid);
-	 			},200,false,null);
-		 	});
-			DOM.get('#J_InputPromoName_'+pid).focus();
-			DOM.val('#J_InputPromoName_'+pid,SpromoName);
-			Event.on('#J_SavePromoName_'+pid,'click',function(ev){
-					var pid = DOM.attr(ev.currentTarget,'data');
-					var SpromoName = KISSY.trim(DOM.val('#J_SoucePromoName_'+pid));
-					var NpromoName = KISSY.trim(DOM.val('#J_InputPromoName_'+pid));
-					if(SpromoName == NpromoName){
-						DOM.hide('#J_ShowEditorPromoName_'+pid);
-						DOM.show('#J_PromoNameBox_'+pid);
-						return ;
-					}
-					var result = H.util.isNull(NpromoName);
-					var error = result[0];
-					var msg = result[1];
-					if(error){
-						new H.widget.msgBox({
-							    title:"错误提示",
-							    content:'出错了：'+msg,
-							    type:"error"
-							});
-			 			return ;
-					}
-					result = promotionControl.checkSpecTitle(NpromoName);
-					error = result[0];
-					msg = result[1];
-					if(error){
-						new H.widget.msgBox({
-							    title:"错误提示",
-							    content:'出错了：'+msg,
-							    type:"error"
-							});
-			 			return ;
-					}
+	    		};
+	    		var data = "pid="+pid+"&form_key="+FORM_KEY;
+	     	    new H.widget.asyncRequest().setURI(getPromoTimeUrl).setMethod("GET").setHandle(pauseHandle).setErrorHandle(error).setData(data).send();
+			},
+			restartPromo : function(pid){
+				var changeTimeHandle = function(o) {
+	    			promotionControl.msg.hide();
+					
+					var promoStartTime = H.util.StringToDate(o.payload.stime);
+					var promoEndTime = H.util.StringToDate(o.payload.etime);
+					var nowTime = new Date();
+					leftStartTime = (promoStartTime.getTime() - nowTime.getTime())/1000;
+					leftEndTime = (promoEndTime.getTime() - nowTime.getTime())/1000;
 					var typeId = DOM.val('#J_TypeId_'+pid);
-					if(typeId == '2' || typeId == '9' || typeId == '20' ||  typeId == '22'){
-						result =promotionControl.checkPromoName(NpromoName);
+					if(typeId == 10){
+						var title = '开始时间 ：立即开始';
+						var inputType = 'hidden';
+					}else{
+						var title = '开始时间：';
+						var inputType = 'text';
+					}
+					new H.widget.msgBox({
+					    title: "重启活动",
+					    type: "prompt",
+						inputs: [
+						    { header: title, type: inputType, value:o.payload.stime ,name: "" ,id: "J_stime",className:"input-text input-day-2"},
+						    { header: "结束时间：", type: "text", value:o.payload.etime ,name: "" ,id : "J_etime",className:"input-text input-day-2"}
+							],
+					    buttons: [{ value: "确定修改" }, { value: "取消修改" }],
+					    success: function (result) {
+					        if (result == "确定修改") {
+								var stime = DOM.val(DOM.get('#J_stime'));
+								var etime = DOM.val(DOM.get('#J_etime'));
+								var data = "pid="+pid+"&etime="+etime+"&stime="+stime+"&form_key="+FORM_KEY;
+								var successHandle = function(o){
+									new H.widget.msgBox({
+									    title:"温馨提示",
+									    content:'重启成功',
+									    type:"info",
+										autoClose : true,
+										timeOut :3000
+									});
+								  	window.location.href=currentPageUrl;
+								}
+								var errorHandle = function(o){
+									if(o.desc == 'need-oauth'){
+										 KISSY.Event.fire('.J_TopExpired','click');
+										 return ;
+									}
+									new H.widget.msgBox({
+									    title:"错误提示",
+									    content:o.desc,
+									    type:"error"
+									});
+								}
+					     	    new H.widget.asyncRequest().setURI(restartUrl).setMethod("GET").setHandle(successHandle).setErrorHandle(errorHandle).setData(data).send();
+					        }
+					    }
+					});
+	    			myCalendar('J_stime');
+	    			myCalendar('J_etime');
+	    		};
+	    		var error = function(o){
+	    			promotionControl.msg.hide();
+					new H.widget.msgBox({
+								    title:"错误提示",
+								    content:o.desc,
+								    type:"error"
+								});
+					
+	    		};
+	    		var data = "pid="+pid+"&form_key="+FORM_KEY;
+				promotionControl.msg = new H.widget.msgBox({
+									    title:"",
+										dialogType : 'loading',
+									    content:'获取活动时间，请稍候'	
+									});
+	     	    new H.widget.asyncRequest().setURI(getPromoTimeUrl).setMethod("GET").setHandle(changeTimeHandle).setErrorHandle(error).setData(data).send();
+	 	
+	
+			},
+			editorPromoName : function(pid){
+				
+		 		DOM.hide('#J_PromoNameBox_'+pid);	
+		 		var SpromoName = KISSY.trim(DOM.val('#J_SoucePromoName_'+pid));
+		 		var str ='<input type="text"  class="input-text w-70 fl" style="_width:79px" data ="'+pid+'" id="J_InputPromoName_'+pid+'" value="">'+
+					 	 '<input class="gray-btm-h-10 w-30" style="cursor:pointer" data="'+pid+'"  id="J_SavePromoName_'+pid+'" value ="保存" />';
+				DOM.html('#J_ShowEditorPromoName_'+pid,str);
+				DOM.show('#J_ShowEditorPromoName_'+pid);
+				Event.on('#J_InputPromoName_'+pid,'blur',function(){
+					KISSY.later(function(){
+						DOM.hide('#J_ShowEditorPromoName_'+pid);
+		 				DOM.show('#J_PromoNameBox_'+pid);
+		 			},200,false,null);
+			 	});
+				DOM.get('#J_InputPromoName_'+pid).focus();
+				DOM.val('#J_InputPromoName_'+pid,SpromoName);
+				Event.on('#J_SavePromoName_'+pid,'click',function(ev){
+						var pid = DOM.attr(ev.currentTarget,'data');
+						var SpromoName = KISSY.trim(DOM.val('#J_SoucePromoName_'+pid));
+						var NpromoName = KISSY.trim(DOM.val('#J_InputPromoName_'+pid));
+						if(SpromoName == NpromoName){
+							DOM.hide('#J_ShowEditorPromoName_'+pid);
+							DOM.show('#J_PromoNameBox_'+pid);
+							return ;
+						}
+						var result = H.util.isNull(NpromoName);
+						var error = result[0];
+						var msg = result[1];
+						if(error){
+							new H.widget.msgBox({
+								    title:"错误提示",
+								    content:'出错了：'+msg,
+								    type:"error"
+								});
+				 			return ;
+						}
+						result = checkUtil.checkSpecTitle(NpromoName);
 						error = result[0];
 						msg = result[1];
 						if(error){
 							new H.widget.msgBox({
-							    title:"错误提示",
-							    content:'出错了：'+msg,
-							    type:"error"
-							});
+								    title:"错误提示",
+								    content:'出错了：'+msg,
+								    type:"error"
+								});
 				 			return ;
 						}
-					}
-			 		var sucessHandle = function(o) {
-					  	window.location.href= currentPageUrl;
-			 		};
-			 		var error = function(o){
-			 			new H.widget.msgBox({
-							    title:"错误提示",
-							    content:o.desc,
-							    type:"error"
-							});
-			 		};
-			 		var data = "pid="+pid+"&promo_name="+encodeURI(NpromoName)+"&form_key="+FORM_KEY;
-			  	    new H.widget.asyncRequest().setURI(savePromoNameUrl).setMethod("GET").setHandle(sucessHandle).setErrorHandle(error).setData(data).send();
-			})	
-		},
-		editorPromoTime : function(pid){
-			DOM.hide(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));	
-	 		var SpromoTime = KISSY.trim(DOM.val('#J_SoucePromoStartTime_'+pid)),
-	 			EpromoTime = KISSY.trim(DOM.val('#J_SoucePromoEndTime_'+pid));
-			var str = '<div class="bianji-shijian w-170">'+
-	            '<span class="block riqi">起&nbsp;<input style="*width:135px;" type="text" readonly="readonly" id="J_startDate_'+pid+'" name="start_date" class="input-text input-day-2" value="'+SpromoTime+'" title="开始时间">'+
-	            '</span>'+
-	            '<span class="block riqi">到&nbsp;<input style="*width:135px;" type="text" readonly="readonly" id="J_endDate_'+pid+'" name="end_date" class="input-text input-day-2" value="'+EpromoTime+'" title="结束时间">'+
-	            '</span>'+
-	            '<span class="block clear"></span>'+
-	        	'</div><div style="width:163px" class="J_RestartBlock" ><input type="checkbox" checked="checked" id="J_IsRestart'+pid+'" data="'+pid+'" value="1" style="margin:0px 2px 0px 16px;"/><div style="margin:0px 2px 2px 9px; display:inline-block;" class="w-120" id="" >保存设置后重启活动</div></div><div style=" margin:0px 2px 0px 16px; _display:inline;" class="gray-btm-h-20 w-70 fl" id="J_SaveTime_'+pid+'" data="'+pid+'">保存</div><div class="gray-btm-h-20 w-70" id="J_CancelTime_'+pid+'" data="'+pid+'">取消</div>';
-			DOM.html('#J_ShowEditorPromoTime_'+pid,str);
-			DOM.show('#J_ShowEditorPromoTime_'+pid);
-			Calendar('J_startDate_',pid);
-			Calendar('J_endDate_',pid);
-			Event.remove('#J_SaveTime_'+pid);
-			Event.remove('#J_CancelTime_'+pid);
-			Event.on('#J_SaveTime_'+pid,'click',function(ev){
-				var pid = DOM.attr(ev.currentTarget,'data');
-				DOM.hide('#J_TimeMsg_'+pid);
-				var SpromoTime = KISSY.trim(DOM.val('#J_SoucePromoStartTime_'+pid)),
-	 				EpromoTime = KISSY.trim(DOM.val('#J_SoucePromoEndTime_'+pid));
-					NSpromoTime = KISSY.trim(DOM.val('#J_startDate_'+pid)),
-						NEpromoTime = KISSY.trim(DOM.val('#J_endDate_'+pid));
-					if((SpromoTime == NSpromoTime) && (EpromoTime == NEpromoTime)){
-						DOM.hide('#J_ShowEditorPromoTime_'+pid);
-			 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
-			 			DOM.hide('#J_TimeMsg_'+pid);
-						return ;
-					}
-					KISSY.later(function(){
-						DOM.hide('#J_ShowEditorPromoTime_'+pid);
-						DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
-		 			},200,false,null);
-			 		var sucessHandle = function(o) {
-					  	window.location.href=currentPageUrl;
-			 		};
-			 		var error = function(o){
-			 			promotionControl.msg.setMsg(o.desc).show();
-			 			promotionControl.msg.hide(true);
-			 		};
-					if(DOM.hasClass('#J_Promo_'+pid,'pauseing')){
-						var isReStart = DOM.prop('#J_IsRestart'+pid,"checked") ? 1 : 0; 
-					}else{
-						var isReStart = 0; 
-					}
-			 		var data = "pid="+pid+"&start_date="+NSpromoTime+"&end_date="+NEpromoTime+"&isReStart="+isReStart+"&form_key="+FORM_KEY;
-			  	    new H.widget.asyncRequest().setURI(savePromoTimeUrl).setMethod("GET").setHandle(sucessHandle).setErrorHandle(error).setData(data).send();
-			})
-			Event.on('#J_CancelTime_'+pid,'click',function(ev){
-				var pid = DOM.attr(ev.currentTarget,'data');
-				DOM.hide('#J_ShowEditorPromoTime_'+pid);
-	 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
-	 			DOM.hide('#J_TimeMsg_'+pid);
-				return ;
-			})
-		},
-		deleteHandle : function(pid) {
+						var typeId = DOM.val('#J_TypeId_'+pid);
+						if(typeId == '2' || typeId == '9' || typeId == '20' ||  typeId == '22'){
+							result = checkUtil.checkPromoName(NpromoName);
+							error = result[0];
+							msg = result[1];
+							if(error){
+								new H.widget.msgBox({
+								    title:"错误提示",
+								    content:'出错了：'+msg,
+								    type:"error"
+								});
+					 			return ;
+							}
+						}
+				 		var sucessHandle = function(o) {
+						  	window.location.href= currentPageUrl;
+				 		};
+				 		var error = function(o){
+				 			new H.widget.msgBox({
+								    title:"错误提示",
+								    content:o.desc,
+								    type:"error"
+								});
+				 		};
+				 		var data = "pid="+pid+"&promo_name="+encodeURI(NpromoName)+"&form_key="+FORM_KEY;
+				  	    new H.widget.asyncRequest().setURI(savePromoNameUrl).setMethod("GET").setHandle(sucessHandle).setErrorHandle(error).setData(data).send();
+				})	
+			},
+			editorPromoTime : function(pid){
+				DOM.hide(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));	
+		 		var SpromoTime = KISSY.trim(DOM.val('#J_SoucePromoStartTime_'+pid)),
+		 			EpromoTime = KISSY.trim(DOM.val('#J_SoucePromoEndTime_'+pid));
+				var str = '<div class="bianji-shijian w-170">'+
+		            '<span class="block riqi">起&nbsp;<input style="*width:135px;" type="text" readonly="readonly" id="J_startDate_'+pid+'" name="start_date" class="input-text input-day-2" value="'+SpromoTime+'" title="开始时间">'+
+		            '</span>'+
+		            '<span class="block riqi">到&nbsp;<input style="*width:135px;" type="text" readonly="readonly" id="J_endDate_'+pid+'" name="end_date" class="input-text input-day-2" value="'+EpromoTime+'" title="结束时间">'+
+		            '</span>'+
+		            '<span class="block clear"></span>'+
+		        	'</div><div style="width:163px" class="J_RestartBlock" ><input type="checkbox" checked="checked" id="J_IsRestart'+pid+'" data="'+pid+'" value="1" style="margin:0px 2px 0px 16px;"/><div style="margin:0px 2px 2px 9px; display:inline-block;" class="w-120" id="" >保存设置后重启活动</div></div><div style=" margin:0px 2px 0px 16px; _display:inline;" class="gray-btm-h-20 w-70 fl" id="J_SaveTime_'+pid+'" data="'+pid+'">保存</div><div class="gray-btm-h-20 w-70" id="J_CancelTime_'+pid+'" data="'+pid+'">取消</div>';
+				DOM.html('#J_ShowEditorPromoTime_'+pid,str);
+				DOM.show('#J_ShowEditorPromoTime_'+pid);
+				Calendar('J_startDate_',pid);
+				Calendar('J_endDate_',pid);
+				Event.remove('#J_SaveTime_'+pid);
+				Event.remove('#J_CancelTime_'+pid);
+				Event.on('#J_SaveTime_'+pid,'click',function(ev){
+					var pid = DOM.attr(ev.currentTarget,'data');
+					DOM.hide('#J_TimeMsg_'+pid);
+					var SpromoTime = KISSY.trim(DOM.val('#J_SoucePromoStartTime_'+pid)),
+		 				EpromoTime = KISSY.trim(DOM.val('#J_SoucePromoEndTime_'+pid));
+						NSpromoTime = KISSY.trim(DOM.val('#J_startDate_'+pid)),
+							NEpromoTime = KISSY.trim(DOM.val('#J_endDate_'+pid));
+						if((SpromoTime == NSpromoTime) && (EpromoTime == NEpromoTime)){
+							DOM.hide('#J_ShowEditorPromoTime_'+pid);
+				 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
+				 			DOM.hide('#J_TimeMsg_'+pid);
+							return ;
+						}
+						KISSY.later(function(){
+							DOM.hide('#J_ShowEditorPromoTime_'+pid);
+							DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
+			 			},200,false,null);
+				 		var sucessHandle = function(o) {
+						  	window.location.href=currentPageUrl;
+				 		};
+				 		var error = function(o){
+				 			promotionControl.msg.setMsg(o.desc).show();
+				 			promotionControl.msg.hide(true);
+				 		};
+						if(DOM.hasClass('#J_Promo_'+pid,'pauseing')){
+							var isReStart = DOM.prop('#J_IsRestart'+pid,"checked") ? 1 : 0; 
+						}else{
+							var isReStart = 0; 
+						}
+				 		var data = "pid="+pid+"&start_date="+NSpromoTime+"&end_date="+NEpromoTime+"&isReStart="+isReStart+"&form_key="+FORM_KEY;
+				  	    new H.widget.asyncRequest().setURI(savePromoTimeUrl).setMethod("GET").setHandle(sucessHandle).setErrorHandle(error).setData(data).send();
+				})
+				Event.on('#J_CancelTime_'+pid,'click',function(ev){
+					var pid = DOM.attr(ev.currentTarget,'data');
+					DOM.hide('#J_ShowEditorPromoTime_'+pid);
+		 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
+		 			DOM.hide('#J_TimeMsg_'+pid);
+					return ;
+				})
+			},
+			deleteHandle : function(pid) {
 				new H.widget.msgBox({
 				    title: "删除活动",
 				    content: '系统将为您取消此活动设置的促销信息',
@@ -533,58 +533,14 @@ KISSY.add(function (S,showPages) {
 								});
 							};
 							var data = "pid="+pid+"&form_key="+FORM_KEY;
-							promotionControl.msg.hide();
-							promotionControl.msg.setMsg('删除活动，系统正在处理').show();
 				     	    new H.widget.asyncRequest().setURI(deleteUrl).setMethod("GET").setHandle(submitHandle).setErrorHandle(error).setData(data).send();
 				        }
 				    }
 				});
-		},
-		/*违禁词限制*/
-			checkSpecTitle : function(str){
-				var result = [];
-				var error = false;
-				var msg = null;
-				var re =/(淘宝)|(聚划算)|(限时折扣)|(良品)|(淘金币)|(天天特价)|(满就送)|(vip)/i;
-				if(re.test(str)){
-				    var rt = re.exec(str);
-				    if(rt != null){
-						error = true;
-						msg = '含有违禁字'+rt[0]+'！';
-					}
-				}
-				result.push(error);
-				result.push(msg);
-				return result;
 			},
-			/*验证活动名称*/
-			checkPromoName : function(promoName){
-				var result = [];
-				var error = false;
-				var msg = null;
-				var re=/^[\u4E00-\u9FA5\uf900-\ufa2d\A-Za-z0-9]{2,5}$/;
-				if(!re.test(promoName)){
-					if(promoName.length<2 || promoName.length >5){
-						error = true;
-						msg = '长度2~5个字符！';
-					}else {
-						var reg=/[^\u4E00-\u9FA5\uf900-\ufa2d\A-Za-z0-9]+/;
-						var rt = promoName.match(reg);
-						if(rt != null){
-							error = true;
-							msg = '含有非法字符'+rt[0]+'！';
-						}
-					}
-				}
-				result.push(error);
-				result.push(msg);
-				return result;
-			},
-			
 			//搜索活动中宝贝
 	        searchPromoItems : function() {
 				if(!promotionControl.isLoad){
-						KISSY.use("1.0/promo");
 						promotionControl.isLoad = true;		
 				}
 				DOM.hide('#promoList');
@@ -681,7 +637,7 @@ KISSY.add(function (S,showPages) {
 					 }
 					
 				 }else{
-					H.promotion.deletePromotionItemHandle(promo_itemid,pidi,type);
+					promotionControl.deletePromotionItemHandle(promo_itemid,pidi,type);
 				 }
 			},
 			deletePromotionItemHandle : function(promo_itemid,pidi,type){
@@ -704,14 +660,12 @@ KISSY.add(function (S,showPages) {
 	        	    };
 	        	    var data = "pid="+pid+"&item_ids="+itemIds+"&form_key="+FORM_KEY;
 	        	    new H.widget.asyncRequest().setURI(removePromotionItemUrl).setMethod("POST").setHandle(submitHandle).setData(data).send();
-			},
-			
-		
+			}
 	}
 	
 	
 	
 	
 }, {
-    requires: ['utils/showPages/index']
+    requires: ['utils/showPages/index','./mods/check']
 });
