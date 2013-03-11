@@ -106,7 +106,11 @@ KISSY.add(function (S) {
 					
 					var buttons = "";
 					S.each(self.options.buttons, function(button, index){
-						buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						if(index == 0){
+							buttons += "<input class=\"btm-68-orange msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}else{
+							buttons += "<input class=\"btm-68-gray msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}
 					})
 					var inputs = "";
 					S.each(self.options.inputs, function(input, index){
@@ -130,20 +134,20 @@ KISSY.add(function (S) {
 								"</div>";
 						}
 						else {
+							var className = typeof(input.className)== "undefined" ? "input-text" : input.className;
 							inputs += "<div class=\"msgInput\">" +
 									"<span class=\"msgInputHeader\">" +
 									input.header +
-									"<span>" +
-									"<input type=\"" +
-									input.type +
-									"id=\"" +
-									input.id +
-									"\" name=\"" +
+									"</span>" +
+									"<span><input type=\"" +
+									input.type + 
+									"\"class= \""+className+
+									"\"id=\""+input.id+"\" name=\"" +
 									input.name +
 									"\" value=\"" +
 									(typeof input.value == "undefined" ? "" : input.value) +
-									"\" />" +
-									"</div>";
+									"\" /></span>" +
+									"</div>";							
 						}
 					})
 					var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
@@ -154,7 +158,7 @@ KISSY.add(function (S) {
 					
 					
 					if (options.type == "prompt") {
-						$("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+						$("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
 						self.divMsgBox = $("#" + divMsgBoxId);
 						self.divMsgBoxContent = $("#" + divMsgBoxContentId);
 						self.divMsgBoxImage = $("#" + divMsgBoxImageId);
@@ -172,7 +176,7 @@ KISSY.add(function (S) {
 						});
 						self.divMsgBoxContent.html(divInputs);
 					}else {
-						$("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
+						$("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"msgBox\">" + divTitle + "<div>" + divContainer + (options.showButtons ? divButtons + "</div>" : "</div>") + "</div>");
 						self.divMsgBox = $("#" + divMsgBoxId);
 						self.divMsgBoxContent = $("#" + divMsgBoxContentId);
 						self.divMsgBoxImage = $("#" + divMsgBoxImageId);
@@ -213,7 +217,7 @@ KISSY.add(function (S) {
 					
 					var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
 					options.content = options.content == null ? "系统处理中，请稍等..." : options.content;
-					$("html").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"messages-prompt\"><div class=\"fbloader\"><img  src=\"http://img.huanleguang.com/hlg//fbloader.gif\" width=\"16\" height=\"11\" /></div><div class=\"mini_dialog_content\">" + options.content + "</div></div>");
+					$("body").append(divBackGround + "<div id=" + divMsgBoxId + " class=\"messages-prompt\"><div class=\"fbloader\"><img  src=\"http://img.huanleguang.com/hlg//fbloader.gif\" width=\"16\" height=\"11\" /></div><div class=\"mini_dialog_content\">" + options.content + "</div></div>");
 					self.divMsgBox = $("#" + divMsgBoxId);
 					self.divMsgBoxBackGround = $("#" + divMsgBoxBackGroundId);
 					self.show();
@@ -246,7 +250,7 @@ KISSY.add(function (S) {
 												'<div class="noty_bar"><div class="noty_message" style="font-size: 13px; line-height: 16px; text-align: center; padding: 8px 10px 9px; width: auto; position: relative;"><span class="noty_text">'+options.content+'</span></div></div></li>';
 						 break;
 					}
-					$("html").append("<div id=" + divMsgBoxId + " class=\"\">"+divContainer+"</div>");
+					$("body").append("<div id=" + divMsgBoxId + " class=\"\">"+divContainer+"</div>");
 					self.divMsgBox = $("#" + divMsgBoxId);
 					self.show();
 					

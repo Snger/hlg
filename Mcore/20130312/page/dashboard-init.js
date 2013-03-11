@@ -1,8 +1,14 @@
+/*
+combined files : 
+
+page/dashboard-init
+
+*/
 /**
  * @fileOverview 
  * @author  
  */
-KISSY.add(function (S,O) {
+KISSY.add('page/dashboard-init',function (S,O) {
 	
 	var S= KISSY,DOM = S.DOM, Event = S.Event;
 	return  dashboard = {

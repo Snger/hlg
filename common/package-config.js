@@ -71,7 +71,7 @@
 	
 	
 	window.PAGECONFIG = {
-		'pub' : '20130301' ,
+		'pub' : '20130312' ,
 		'Mcore' : '' //core模块
 		
 		

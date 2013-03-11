@@ -340,23 +340,31 @@ H.add('widget~msgBox', function(HLG) {
 				var divId = "msgBox" + new Date().getTime();
 			    var divMsgBoxId = divId; 
 				var divMsgBoxBackGroundId = divId + "BackGround";
+				
 				if (options.dialogType == 'dialog') {
 					var divMsgBoxContentId = divId + "Content";
 					var divMsgBoxImageId = divId + "Image";
 					var divMsgBoxButtonsId = divId + "Buttons";
+					
+					
 					var buttons = "";
 					S.each(self.options.buttons, function(button, index){
-						buttons += "<input class=\"msgButton\" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						if(index == 0){
+							buttons += "<input class=\"btm-68-orange msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}else{
+							buttons += "<input class=\"btm-68-gray msgButton \" type=\"button\" name=\"" + button.value + "\" value=\"" + button.value + "\" />";
+						}
 					})
 					var inputs = "";
-					
 					S.each(self.options.inputs, function(input, index){
 						var type = input.type;
 						if (type == "checkbox" || type == "radiobutton") {
 								inputs += "<div class=\"msgInput\">" +
 								"<input type=\"" +
 								input.type +
-								"\" id=\""+input.id+"\" name=\"" +
+								"id=\"" +
+								input.id +
+								"\" name=\"" +
 								input.name +
 								"\" " +
 								(input.checked == null ? "" : "checked ='" + input.checked + "'") +
@@ -369,18 +377,20 @@ H.add('widget~msgBox', function(HLG) {
 								"</div>";
 						}
 						else {
+							var className = typeof(input.className)== "undefined" ? "input-text" : input.className;
 							inputs += "<div class=\"msgInput\">" +
 									"<span class=\"msgInputHeader\">" +
 									input.header +
-									"<span>" +
-									"<input type=\"" +
-									input.type +
+									"</span>" +
+									"<span><input type=\"" +
+									input.type + 
+									"\"class= \""+className+
 									"\"id=\""+input.id+"\" name=\"" +
 									input.name +
 									"\" value=\"" +
 									(typeof input.value == "undefined" ? "" : input.value) +
-									"\" />" +
-									"</div>";
+									"\" /></span>" +
+									"</div>";							
 						}
 					})
 					var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
