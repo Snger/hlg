@@ -303,8 +303,8 @@ KISSY.add(function (S) {
 							if (S.one("#J_endDate")) {
 								var endDate = S.one('#J_endDate').val();
 								var nowDate = new Date();
-								var startTime = H.app.smart.StringToDate(S.one('#J_startDate').val());
-								var endTime = H.app.smart.StringToDate(endDate);
+								var startTime = H.util.StringToDate(S.one('#J_startDate').val());
+								var endTime = H.util.StringToDate(endDate);
 								//var invalidate = H.app.smart.StringToDate('');
 								
 								if (endTime.getTime() <= nowDate.getTime() || endTime.getTime() <= startTime) {
@@ -392,7 +392,7 @@ KISSY.add(function (S) {
 										}
 										return ;
 									}
-									var result = H.util.checkDiscount(discount_value);
+									var result = promotionControl.checkDiscount(discount_value);
 									var error = result[0];
 									var msg = result[1];
 									if(error){
@@ -545,6 +545,25 @@ KISSY.add(function (S) {
 								}
 							}
 						})
+					},
+					/*折扣验证*/
+					checkDiscount : function(v){
+						var result = [];
+						var error = false;
+						var msg = null;
+						if(isNaN(Number(v)) || v <= 0 || v >=10){
+							error = true;
+							msg = '折扣范围在 0.00~9.99之间哦！';
+						}else {
+							var re = /(^[0-9]([.][0-9]{1,2})?$)|(^1[0-9]([.][0-9]{1,2})?$)|(^2[0-3]([.][0-9]{1,2})?$)|(^10([.]0{1,2})?$)/;
+							if(!re.test(v)){
+								error = true;
+								msg = '折扣范围在 0.00~9.99之间哦！';
+							}
+						}
+						result.push(error);
+						result.push(msg);
+						return result;
 					}
 				
 					

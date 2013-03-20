@@ -119,7 +119,7 @@ KISSY.add(function (S) {
 								inputs += "<div class=\"msgInput\">" +
 								"<input type=\"" +
 								input.type +
-								"id=\"" +
+								"\"id=\"" +
 								input.id +
 								"\" name=\"" +
 								input.name +

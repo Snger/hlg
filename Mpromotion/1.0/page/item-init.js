@@ -45,7 +45,7 @@ KISSY.add(function (S,showPages,itemHandle) {
 			                         //console.log('单击');
 			                         var sucess = function(o){
 											DOM.val('#J_TotalPromoItems',o.payload);
-											if(o.payload >= 150 && !KISSY.inArray(typeId,['130','10','22','2','32'])){
+											if(o.payload >= 150 && !KISSY.inArray(typeId,['130','10','22','2','32','107','105','207'])){
 												promotionControl.addAfter();
 												new H.widget.msgBox({
 												    title:"温馨提示",
@@ -95,7 +95,7 @@ KISSY.add(function (S,showPages,itemHandle) {
 		                    	 //console.log('双击');
 		                    	 var sucess = function(o){
 										DOM.val('#J_TotalPromoItems',o.payload);
-										if(o.payload >= 150 && !KISSY.inArray(typeId,['130','10','22','2','32'])){
+										if(o.payload >= 150 && !KISSY.inArray(typeId,['130','10','22','2','32','107','105','207'])){
 											promotionControl.addAfter();
 											new H.widget.msgBox({
 												    title:"温馨提示",
@@ -761,8 +761,8 @@ KISSY.add(function (S,showPages,itemHandle) {
 					if(flag == true){
 						var totalNum = Number(DOM.val('#J_TotalPromoItems'));	 
 						totalNum = totalNum+1;
-						//无条件免邮，一口价，一件优惠 限时折扣不限制 150个
-						if(totalNum >150 && !KISSY.inArray(typeId,['130','10','22','2','32'])){
+						//无条件免邮，一口价，一件优惠 限时折扣 限购不限制 150个
+						if(totalNum >150 && !KISSY.inArray(typeId,['130','10','22','2','32','107','105','207'])){
 								new H.widget.msgBox({
 									    title:"温馨提示",
 									    content:'非全店活动宝贝数量不能大于150个，现在已经加入'+totalNum+'请删除多余的宝贝，或酌情分多次活动创建！',

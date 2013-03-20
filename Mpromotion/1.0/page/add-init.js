@@ -8,7 +8,7 @@ KISSY.add(function (S,checkUtil) {
 	
 	return promotionControl ={
 		
-			isEidt : promotionForm.id != 0 ? true: false,
+			isEidt : promotionForm.id.value != '0' ? true: false,
 			isChange : false,  
 			msg : null,
 			NameError : false,
@@ -27,7 +27,6 @@ KISSY.add(function (S,checkUtil) {
 			carouselAll :null,
 			carouselPart : null,
 			init : function(){
-				
 				//处理 input 状态
 				promotionControl.handleInputs();
 				//初始化 日历
@@ -459,6 +458,14 @@ KISSY.add(function (S,checkUtil) {
 			
 			/* 满就送 增加层级*/
 			addRule : function(){
+				if(promotionControl.ids.length > 10){
+					new H.widget.msgBox({
+							    title:"错误提示",
+							    content:'满就送层级不能超过10层！',
+							    type:"error"
+							});
+					return ;
+				}
 				promotionControl.rule_num++;
 				for(var n = 0; n<promotionControl.ids.length; n++){
 					promotionControl.mini(promotionControl.ids[n]);
@@ -923,11 +930,12 @@ KISSY.add(function (S,checkUtil) {
 					promotionControl.msg.hide();
 					return ;
 				}
-				promotionControl.PromoDescAction(promoDesc);
-				if(promotionControl.DescError == true){
-					promotionControl.msg.hide();
-					return ;
-				}
+				//备注删除
+//				promotionControl.PromoDescAction(promoDesc);
+//				if(promotionControl.DescError == true){
+//					promotionControl.msg.hide();
+//					return ;
+//				}
 				ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
 				ParamsErrorBox.hide();
 				var typeId = promotionForm.type_id.value;

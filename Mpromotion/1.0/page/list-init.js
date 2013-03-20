@@ -267,13 +267,13 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 					        if (result == "暂停") {
 					            var data = "pid="+pid+"&form_key="+FORM_KEY;
 								var successHandle = function(o){
-									new H.widget.msgBox({
-									    title:"温馨提示",
-									    content:'暂停成功',
-									    type:"info",
-										autoClose : true,
-										timeOut :3000
-									});
+									 new H.widget.msgBox({
+										    type:"sucess",
+											dialogType : 'msg',
+										    content:'活动暂停成功',
+										    autoClose:true,
+										    timeOut:3000
+										});
 								  	window.location.href=currentPageUrl;
 								}
 								var errorHandle = function(o){
@@ -334,13 +334,13 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 								var etime = DOM.val(DOM.get('#J_etime'));
 								var data = "pid="+pid+"&etime="+etime+"&stime="+stime+"&form_key="+FORM_KEY;
 								var successHandle = function(o){
-									new H.widget.msgBox({
-									    title:"温馨提示",
-									    content:'重启成功',
-									    type:"info",
-										autoClose : true,
-										timeOut :3000
-									});
+									 new H.widget.msgBox({
+										    type:"sucess",
+											dialogType : 'msg',
+										    content:'活动重启成功',
+										    autoClose:true,
+										    timeOut:3000
+										});
 								  	window.location.href=currentPageUrl;
 								}
 								var errorHandle = function(o){
@@ -493,8 +493,11 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 						  	window.location.href=currentPageUrl;
 				 		};
 				 		var error = function(o){
-				 			promotionControl.msg.setMsg(o.desc).show();
-				 			promotionControl.msg.hide(true);
+							new H.widget.msgBox({
+								    title:"错误提示",
+								    content:o.desc,
+								    type:"error"
+								});
 				 		};
 						if(DOM.hasClass('#J_Promo_'+pid,'pauseing')){
 							var isReStart = DOM.prop('#J_IsRestart'+pid,"checked") ? 1 : 0; 
@@ -521,6 +524,13 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 				    success: function (result) {
 				        if (result == "确定删除") {
 							var submitHandle = function(o) {
+								 new H.widget.msgBox({
+										    type:"sucess",
+											dialogType : 'msg',
+										    content:'活动删除成功',
+										    autoClose:true,
+										    timeOut:3000
+										});
 							  	window.location.href= currentPageUrl;
 							};
 							var error = function(o){

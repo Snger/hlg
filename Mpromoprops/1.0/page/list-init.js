@@ -23,7 +23,6 @@ KISSY.add(function (S) {
 						    buttons: [{ value: "确定删除" }, { value: "取消" }],
 						    success: function (result) {
 						        if (result == "确定删除") {
-									ev.preventDefault();
 									var submitHandle = function(o) {
 									  	window.location.href=curentUrl;
 									};

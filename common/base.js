@@ -121,13 +121,25 @@ KISSY.app('H', function() {
 					if (window.clipboardData){
 						 window.clipboardData.clearData();
 						 window.clipboardData.setData("Text", copy);
-						 var str = '已成功复制';
-						 alert(str)
+						 new H.widget.msgBox({ 
+						 			type: "success", 
+						 			content: "已成功复制",
+									dialogType:"msg", 
+									autoClose:true, 
+									timeOut:3000
+								});
+						
 					}else if (window.netscape){
 							 try{
 									netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
 								}catch(e){
-									alert("您的firefox安全限制限制您进行剪贴板操作，请打开'about:config'将signed.applets.codebase_principal_support'设置为true'之后重试，相对路径为firefox根目录/greprefs/all.js");
+									 new H.widget.msgBox({ 
+							 			type: "error", 
+							 			content: "您的firefox安全限制限制您进行剪贴板操作，请打开'about:config'将signed.applets.codebase_principal_support'设置为true'之后重试，相对路径为firefox根目录/greprefs/all.js",
+										dialogType:"msg", 
+										autoClose:true, 
+										timeOut:3000
+									});
 									return false;
 								}
 							//netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
@@ -145,11 +157,21 @@ KISSY.app('H', function() {
 							var clipid=Components.interfaces.nsIClipboard;
 							if (!clip) return false;
 							clip.setData(trans,null,clipid.kGlobalClipboard);
-							 var str = '已成功复制';
-							 alert(str)		
+							 new H.widget.msgBox({ 
+						 			type: "success", 
+						 			content: "已成功复制",
+									dialogType:"msg", 
+									autoClose:true, 
+									timeOut:3000
+								});
 						}else if(KISSY.UA.core == 'webkit'){
-							 var str = '该浏览器暂不支持，请用 Ctrl+c 复制';
-							alert(str)
+							 new H.widget.msgBox({ 
+							 			type: "error", 
+							 			content: "该浏览器暂不支持，请用 Ctrl+c 复制",
+										dialogType:"msg", 
+										autoClose:true, 
+										timeOut:3000
+									});
 						}
 					return false;
 				})
@@ -180,6 +202,19 @@ KISSY.app('H', function() {
 					};
 				 };
 				 return myDate;
+			},
+			/*价格判断*/
+			checkPrice : function(v){
+				var result = [];
+				var error = false;
+				var msg = null;
+				if (isNaN(Number(v)) == true || v<=0) {
+					error = true;
+					msg = '价格是数字哦！';
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
 			},
 			/*格式化数字*/
 			FormatNumber: function(srcStr,nAfterDot){
@@ -315,7 +350,7 @@ H.add('widget~msgBox', function(HLG) {
 	    self.image = "";
 	    switch (self.options.type && self.options.dialogType == 'dialog') {
 	        case "alert":
-	            image = "alert.png";
+	            image = "success.png";
 	            break;
 	        case "info":
 	            image = "info.png";
@@ -394,8 +429,13 @@ H.add('widget~msgBox', function(HLG) {
 						}
 					})
 					var divBackGround = "<div id=" + divMsgBoxBackGroundId + " class=\"msgBoxBackGround\"></div>";
-					var divTitle = "<div class=\"msgBoxTitle\">" + self.options.title + "</div>";
-					var divContainer = "<div class=\"msgBoxContainer\"><div id=" + divMsgBoxImageId + " class=\"msgBoxImage\"><img src=\"" + self.msgBoxImagePath + image + "\"/></div><div id=" + divMsgBoxContentId + " class=\"msgBoxContent\"><p><span>" + options.content + "</span></p></div></div>";
+					var divTitle = "<div class=\"msgBoxTitle\"><span>" + self.options.title + "</span> <a class=\"closeButton \"></a></div>";
+					if(options.content.search('div') < 0){
+						var content = "<p><span>" + options.content + "</span></p>";
+					}else{
+						var content =  options.content ;
+					}
+					var divContainer = "<div class=\"msgBoxContainer\"><div id=" + divMsgBoxImageId + " class=\"msgBoxImage\"><img src=\"" + self.msgBoxImagePath + image + "\"/></div><div id=" + divMsgBoxContentId + " class=\"msgBoxContent\">"+content+"</div></div>";
 					var divButtons = "<div id=" + divMsgBoxButtonsId + " class=\"msgBoxButtons\">" + buttons + "</div>";
 					var divInputs = "<div class=\"msgBoxInputs\">" + inputs + "</div>";
 					
@@ -433,6 +473,9 @@ H.add('widget~msgBox', function(HLG) {
 				        }else {
 				            self.getFocus();
 				        }
+					});
+					Event.on(DOM.get('.closeButton'),'click',function (e) {
+				            self.hide();
 					});
 					Event.on(DOM.query('.msgButton'),'click',function(ev){
 						ev.preventDefault();

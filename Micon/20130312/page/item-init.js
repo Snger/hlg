@@ -609,6 +609,7 @@ KISSY.add('page/item-init',function (S,showPages) {
 			        		if(ev.currentTarget.checked == true){
 			        			DOM.addClass('#J_Item_'+iid,'selected');
 			        		}else{
+								DOM.attr('#J_RightCheckAll','checked',false);
 			        			DOM.removeClass('#J_Item_'+iid,'selected');
 			        		}
 		        		});
@@ -680,17 +681,13 @@ KISSY.add('page/item-init',function (S,showPages) {
 							return ;
 						}
 						var submitHandle = function(o) {
+							DOM.attr('#J_RightCheckAll','checked',false);
 							DOM.attr('#J_RemovePromotionItems','disabled',false);
 							DOM.replaceClass('#J_RemovePromotionItems','btm-caozuo-gray-none','btm-caozuo-orange');
-							
-							if(type != 'promoItems'){
-				        		iconControl.loadPromotionItems();
+							if(iconControl.promotionItemPaginator){
+								iconControl.promotionItemPaginator.toPage(iconControl.promotionItemPaginator.page);
 							}else{
-									if(iconControl.paginator){
-										iconControl.paginator.toPage(iconControl.paginator.page);
-									}else{
-										iconControl.searchPromoItems();
-									}
+								iconControl.loadPromotionItems();
 							}
 		        	    };
 		        	    var data = "pid="+pid+"&item_ids="+itemIds+"&form_key="+FORM_KEY;

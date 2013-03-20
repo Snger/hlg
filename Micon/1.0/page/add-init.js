@@ -120,7 +120,6 @@ KISSY.add(function (S,iconControl) {
 					var invalidate =H.util.StringToDate(invaliDate);
 					
 					if(endTime.getTime() <= nowDate.getTime() || endTime.getTime()<=startTime ){
-						iconControl.msg.hide();
 						DOM.html('#J_ParamsErrorMsg','结束时间不能小于开始时间，请重新选择');
 						if (ParamsErrorBox.css("display")==="none") {
 							ParamsErrorBox.slideDown();
@@ -138,7 +137,6 @@ KISSY.add(function (S,iconControl) {
 							if (iconControl.currentIconType==2){
 								var typeId  =	promoIds.split('_')[1];
 								if(!KISSY.inArray( typeId ,['2','9','10'])){
-									iconControl.msg.hide();
 									DOM.show('#J_ShowSmartIconMsg');
 									return ;
 								}

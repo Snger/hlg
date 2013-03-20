@@ -23,7 +23,8 @@ KISSY.add(function (S,O) {
 						      aria:true
 				});
 				if(permission == 2){
-					dashboard.panel.set('bodyContent','<div class=""><div style="text-align: center;margin-bottom:15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div>');
+//					dashboard.panel.set('bodyContent','<div class=""><div style="text-align: center;margin-bottom:15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:311px; height:34px; display:inline-block;"></span></div>');
+					dashboard.panel.set('bodyContent','<div class=""><div style="text-align:center;color:#f45f03; font-size:20px;margin-top:20px;">亲，一季度店铺运营报告功能已经赠送成功了哦~~</div><a target="_blank" onclick="window.location.href=getReportUrl" style="width:124px;display:block;margin:30px auto;"><input class="btm-orange" type="button" name="" value="马上去体验吧" ></a></div>');
 					dashboard.panel.show();
 				}else if(permission == 1){
 						dashboard.panel.set('bodyContent','<div style="text-align: center;margin-bottom: 15px;"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:186px; height:29px;background-position:0 -34px; display:inline-block;"></span></div><div style="text-align: center;margin-bottom: 15px;"><a href="http://fuwu.taobao.com/item/subsc.htm?items=appstore-10687-1:12" target="_blank"><span style=" background: url(http://cdn.huanleguang.com/img/give.jpg) no-repeat; width:97px; height:36px;background-position:0 -68px; display:inline-block;"></span></a></div>');

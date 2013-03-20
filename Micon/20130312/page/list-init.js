@@ -263,7 +263,6 @@ KISSY.add('page/list-init',function (S,showPages) {
 							    buttons: [{ value: "确定删除" }, { value: "取消" }],
 							    success: function (result) {
 							        if (result == "确定删除") {
-										ev.preventDefault();
 										var submitHandle = function(o) {
 										  	window.location.href=curentUrl;
 										};
@@ -288,10 +287,12 @@ KISSY.add('page/list-init',function (S,showPages) {
 					if(!iconControl.isLoad){
 							iconControl.isLoad = true;
 					}
+					DOM.hide('#promoList');
+					DOM.show('#itemList');
 		            var submitHandle = function(o) {
-		            	DOM.hide('#promoList');
+		            	
 		            	DOM.hide('#J_PromoDetail');
-		            	DOM.show('#itemList');
+		            	
 		            	DOM.show('#J_BackToPromoList');
 		        	    totalRecords = o.payload.totalRecords;
 						if(totalRecords > 0){

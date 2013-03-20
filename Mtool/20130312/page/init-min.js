@@ -1,0 +1,1 @@
+KISSY.add("page/init",function(a){},{requires:[]}); 

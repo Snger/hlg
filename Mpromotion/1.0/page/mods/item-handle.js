@@ -234,7 +234,7 @@ KISSY.add(function (S) {
 					}
 				}
 					//alert(promoValue);
-				if ( specPrice >= origPrice || promotionControl.checkPrice(promoValue) === false || promotionControl.checkPrice(specPrice) == false) {
+				if ( specPrice >= origPrice || itemHandle.checkPrice(promoValue) === false || itemHandle.checkPrice(specPrice) == false) {
 						new H.widget.msgBox({
 								    title:"错误提示",
 								    content:'特价金额有误（特价必须小于原价），请检查后再加入！',

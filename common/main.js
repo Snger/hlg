@@ -73,21 +73,8 @@ KISSY.add(function(S){
 						            offset : [47, 1]
 						         }
 						    });
-						     popupMsg.render();
-						     DOM.css(DOM.get('.ks-contentbox','#J_MessContent'),'border','0px'); 
-						     popupMsg.on('beforeVisibleChange',function(ev){
-						    	if(ev.newVal == true){
-						    		DOM.addClass('#J_SyetemMessage','current');
-							    }else if(ev.newVal == false){
-							    	KISSY.io.get("<?php echo $this->getUrl('news/index/afterUserRead')?>",{
-							    		type:"notice"
-							    	});
-							    	KISSY.io.get("<?php echo $this->getUrl('news/index/afterUserRead')?>",{
-							    		type:"mess"
-							    	});
-							    	DOM.removeClass('#J_SyetemMessage','current');
-								}
-							})
+						    popupMsg.render();
+						    DOM.css(DOM.get('.ks-contentbox','#J_MessContent'),'border','0px'); 
 							popupMsg.show();
 						})
 					}
@@ -99,8 +86,9 @@ KISSY.add(function(S){
 		            DOM.text('#J_MsgNum','0');
 		        }
 				var data = "type=mess";
-				new H.widget.asyncRequest().setURI("<?php echo $this->getUrl('news/index/afterUserRead')?>").setHandle(submitHandle).setMethod("GET").setData(data).setDataType('json').send();
+				new H.widget.asyncRequest().setURI(afterUserReadUrl).setHandle(submitHandle).setMethod("GET").setData(data).setDataType('json').send();
 			})
+			
 				//  左边栏
 				var menuItemHeader = S.query("#menu .title");
 				var menuUl = S.query('.menu-ul');	

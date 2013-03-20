@@ -8,7 +8,8 @@ KISSY.add(function (S,checkUtil) {
 	
 	return promotionControl ={
 		
-			isEidt : promotionForm.id ==0 ? true: false, 
+			isEidt : promotionForm.id.value != '0' ? true: false,
+			isChange : false,   
 			msg : null,
 			NameError : false,
 			DescError : false,
@@ -55,6 +56,10 @@ KISSY.add(function (S,checkUtil) {
 				//  活动保存 
 				var timeFunName = null;
 				Event.on('#J_BtnPublish','click dblclick',function(ev){
+					if(!promotionControl.isChange && promotionControl.isEidt){
+						window.location.href = nextTargerUrl;
+						return ;
+					}
 					if(ev.type == 'click'){
 			        	 clearTimeout(timeFunName);
 			        	 timeFunName = setTimeout(function () {
@@ -784,11 +789,12 @@ KISSY.add(function (S,checkUtil) {
 					promotionControl.msg.hide();
 					return ;
 				}
-				promotionControl.PromoDescAction(promoDesc);
-				if(promotionControl.DescError == true){
-					promotionControl.msg.hide();
-					return ;
-				}
+				//备注删除
+//				promotionControl.PromoDescAction(promoDesc);
+//				if(promotionControl.DescError == true){
+//					promotionControl.msg.hide();
+//					return ;
+//				}
 				ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
 				ParamsErrorBox.hide();
 				var typeId = promotionForm.type_id.value;
