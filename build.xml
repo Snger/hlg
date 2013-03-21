@@ -5,6 +5,7 @@
 	 <property name="module.name" value="Mcore"/>
 	 <!--发布目录-->
 	 <property name="public.time" value="20130322"/>
+	
 	 <!--js下载目录-->
 	<property name="jsdown.dir" value="/service/dev/abing/promo/www/js/hlg/v3/${module.name}/*"/>
      <!--js本地生成目录-->
@@ -24,6 +25,7 @@
 	    </exec>
 	</target>
     <target name= "download-js">
+    	<!--本地 kie 目录-->
   	  <mkdir dir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"/>
      <scp file="abing:binghua731@42.121.53.108:${jsdown.dir}" todir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"  trust="true"   />
  	<echo>下载完毕</echo>
