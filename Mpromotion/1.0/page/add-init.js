@@ -1,6 +1,6 @@
 /**
  * @fileOverview 
- * @author  
+ * @author nihao sdfsd
  */
 KISSY.add(function (S,checkUtil) {
     // your code here

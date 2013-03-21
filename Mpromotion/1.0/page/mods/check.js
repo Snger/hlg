@@ -11,7 +11,7 @@ KISSY.add(function (S) {
 				var result = [];
 				var error = false;
 				var msg = null;
-				var re =/(淘宝)|(聚划算)|(限时折扣)|(良品)|(淘金币)|(天天特价)|(满就送)|(vip)/i;
+				var re =/(淘宝)|(聚划算)|(限时折扣)|(限时打折)|(良品)|(淘金币)|(天天特价)|(满就送)|(vip)/i;
 				if(re.test(str)){
 				    var rt = re.exec(str);
 				    if(rt != null){

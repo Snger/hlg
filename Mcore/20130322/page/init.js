@@ -10,7 +10,7 @@ page/init
  */
 KISSY.add('page/init',function (S) {
     // your code here
-    
+    alert('a');
 }, {
     requires: []
 });

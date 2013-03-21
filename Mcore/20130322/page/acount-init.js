@@ -234,7 +234,7 @@ KISSY.add('utils/showPages/index',function (S) {
 });
 /**
  * @fileOverview 
- * @author  
+ * @author  你好
  */
 KISSY.add('page/acount-init',function (S,showPages) {
     // your code here

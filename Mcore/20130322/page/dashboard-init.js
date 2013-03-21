@@ -9,7 +9,6 @@ page/dashboard-init
  * @author  
  */
 KISSY.add('page/dashboard-init',function (S,O) {
-	
 	var S= KISSY,DOM = S.DOM, Event = S.Event;
 	return  dashboard = {
 			msg :null ,

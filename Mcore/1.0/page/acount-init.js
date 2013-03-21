@@ -1,6 +1,6 @@
 /**
  * @fileOverview 
- * @author  
+ * @author  你好
  */
 KISSY.add(function (S,showPages) {
     // your code here

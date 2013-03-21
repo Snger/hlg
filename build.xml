@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" ?>
+<project name="refound" default="common" basedir="."  xmlns:ac="antlib:net.sf.antcontrib">
+	
+	 <!--模块名称-->
+	 <property name="module.name" value="Mcore"/>
+	 <!--发布目录-->
+	 <property name="public.time" value="20130322"/>
+	 <!--js下载目录-->
+	<property name="jsdown.dir" value="/service/dev/abing/promo/www/js/hlg/v3/${module.name}/*"/>
+     <!--js本地生成目录-->
+    <property name="localjs.dir" value="/${module.name}/"/>
+	<!--js上传目录-->
+	<property name="jsupload.dir" value="/js/hlg/v3/${module.name}"/>
+    <!--js目录-->
+	<property name="js.dir" location="./${module.name}/"/>
+   
+	<target name="common" depends="download-js,process-js,upload-js">	
+			
+	</target>
+	<target name="process-js">	
+		<echo>压缩js中。。。</echo>
+		 <exec executable="cmd.exe">
+			<arg line="/c ki build ${module.name}/1.0 -t ${public.time}"/>
+	    </exec>
+	</target>
+    <target name= "download-js">
+  	  <mkdir dir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"/>
+     <scp file="abing:binghua731@42.121.53.108:${jsdown.dir}" todir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"  trust="true"   />
+ 	<echo>下载完毕</echo>
+  </target>
+	<target name="upload-js">	
+		<ftp server="ftp.ace.aliyun.com"
+			   port="2222"
+		       remotedir="${jsupload.dir}"
+			   passive ="yes"
+		       userid="smart"
+		       password="6YNp22nT"
+		       depends="yes"
+			   verbose = "yes">
+		    <fileset dir="${js.dir}" includes="**/*.js" />
+		 </ftp>
+		  <!--
+		<ftp server="ftp.ace.aliyun.com"
+			   port="2222"
+		       remotedir="${jsupload.dir}"
+			   passive ="yes"
+		       userid="resource"
+		       password="nKb2kPsp"
+		       depends="yes"
+			   verbose = "yes">
+	    	<fileset dir="${js.dir}" includes="**/*.js" />
+	  	</ftp>
+	  -->
+	  <echo>上传完毕</echo>
+  </target>
+
+</project>
