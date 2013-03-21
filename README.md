@@ -1,6 +1,6 @@
 ## 教程
-- 使用Kissy Pie快速构建 [基础知识](http://www.36ria.com/5536)
-- kissy1.2最佳实践探索 [基础知识](http://www.36ria.com/5582)
+-  [使用Kissy Pie快速构建](http://www.36ria.com/5536)
+-  [kissy1.2最佳实践探索](http://www.36ria.com/5582)
 ## 结构图： 
 
 
