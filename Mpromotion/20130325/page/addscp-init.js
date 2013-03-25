@@ -1,15 +1,131 @@
+/*
+combined files : 
+
+page/mods/check
+page/addscp-init
+
+*/
 /**
  * @fileOverview 
- * @author nihao sdfsd
+ * @author  
  */
-KISSY.add(function (S,checkUtil) {
+KISSY.add('page/mods/check',function (S) {
+    // your code here
+	
+	return checkUtil = {
+			/*违禁词限制*/
+			checkSpecTitle : function(str){
+				var result = [];
+				var error = false;
+				var msg = null;
+				var re =/(淘宝)|(限时折扣)|(限时打折)|(良品)|(淘金币)|(天天特价)|(满就送)|(vip)/i;
+				if(re.test(str)){
+				    var rt = re.exec(str);
+				    if(rt != null){
+						error = true;
+						msg = '含有违禁字'+rt[0]+'！';
+					}
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+			},
+			/*验证活动名称*/
+			checkPromoName : function(promoName){
+				var result = [];
+				var error = false;
+				var msg = null;
+				var re=/^[\u4E00-\u9FA5\uf900-\ufa2d\A-Za-z0-9]{2,5}$/;
+				if(!re.test(promoName)){
+					if(promoName.length<2 || promoName.length >5){
+						error = true;
+						msg = '长度2~5个字符！';
+					}else {
+						var reg=/[^\u4E00-\u9FA5\uf900-\ufa2d\A-Za-z0-9]+/;
+						var rt = promoName.match(reg);
+						if(rt != null){
+							error = true;
+							msg = '含有非法字符'+rt[0]+'！';
+						}
+					}
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+			},
+			/*验证活动备注*/
+			checkPromoDesc : function(promoDesc){
+				var result = [];
+				var error = false;
+				var msg = null;
+				var re=/^[\u4E00-\u9FA5\uf900-\ufa2d\w\s\，！。《》（）、—]{0,30}$/;
+				if(!re.test(promoDesc)){
+					if(promoDesc.length>30){
+						error = true;
+						msg = '长度30个字以内！';
+					}else {
+						var reg=/[^\u4E00-\u9FA5\uf900-\ufa2d\w\s\，！。《》（）、—]+/;
+						var rt = promoDesc.match(reg);
+						if(rt != null){
+							error = true;
+							msg = '含有非法字符'+rt[0]+'！';
+						}
+					}
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+			},
+			/*URL验证*/
+			checkUrl : function(v){
+				var result = [];
+				var error = false;
+				var msg = null;
+				var reUrl = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/ ;
+				if(!reUrl.test(v)){
+						error = true;
+						msg = '非法URl地址！';
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+			},
+			/*折扣验证*/
+			checkDiscount : function(v){
+				var result = [];
+				var error = false;
+				var msg = null;
+				if(isNaN(Number(v)) || v <= 0 || v >=10){
+					error = true;
+					msg = '折扣范围在 0.00~9.99之间哦！';
+				}else {
+					var re = /(^[0-9]([.][0-9]{1,2})?$)|(^1[0-9]([.][0-9]{1,2})?$)|(^2[0-3]([.][0-9]{1,2})?$)|(^10([.]0{1,2})?$)/;
+					if(!re.test(v)){
+						error = true;
+						msg = '折扣范围在 0.00~9.99之间哦！';
+					}
+				}
+				result.push(error);
+				result.push(msg);
+				return result;
+			}
+		
+		
+	}
+   		 
+});
+/**
+ * @fileOverview 
+ * @author  
+ */
+KISSY.add('page/addscp-init',function (S,checkUtil) {
     // your code here
     var DOM = S.DOM, Event = S.Event;
 	
 	return promotionControl ={
 		
 			isEidt : promotionForm.id.value != '0' ? true: false,
-			isChange : false,  
+			isChange : false,   
 			msg : null,
 			NameError : false,
 			DescError : false,
@@ -27,12 +143,10 @@ KISSY.add(function (S,checkUtil) {
 			carouselAll :null,
 			carouselPart : null,
 			init : function(){
+				
 				//处理 input 状态
 				promotionControl.handleInputs();
 				//初始化 日历
-				if(S.one("#J_lastBuy")){
-					myCalendar('J_lastBuy',new Date(2038,11,29,00,00,00));
-				}
 				if(S.one("#J_startDate")){
 					myCalendar('J_startDate',new Date(2038,11,29,00,00,00));
 				}
@@ -42,43 +156,14 @@ KISSY.add(function (S,checkUtil) {
 				
 				if(promotionControl.isEidt){
 					var typeId = DOM.val('#J_TypeId');
-					
-					switch (typeId){
-						case '107':
-						case '108':
-						case '117':
-							var levels = DOM.val(DOM.get('#J_ids'));
-							promotionControl.rule_num =levels - 1 ;
-							promotionControl.ids = [];
-							for(var m = 0;m<levels;m++){
-								promotionControl.ids.push(m);
-								promotionControl.mini(m);
-							}
-						break;
-						case '20':
-						/*阶梯价*/	
-							var ladderLevels = DOM.val('#J_laddEditNum');
-							promotionControl.ladder_num =ladderLevels - 1 ;
-							promotionControl.ladders = [];
-							for(var n = 0;n<ladderLevels;n++){
-								promotionControl.ladders.push(n);
-								if(n != 0){
-									jtjCalendar('J_StartDate'+n,n);
-									jtjCalendar('J_EndDate'+n,n);
-								}
-							}
-						break;
-						case '9':
-						//重新设置 隐藏 设置项
-						if (KISSY.one('#J_IsChange')) {
-							DOM.hide('#J_ItemPP');
+						var levels = DOM.val(DOM.get('#J_ids'));
+						promotionControl.rule_num =levels - 1 ;
+						promotionControl.ids = [];
+						for(var m = 0;m<levels;m++){
+							promotionControl.ids.push(m);
+							promotionControl.mini(m);
 						}
-						break;
-						
 					}
-					
-				}
-				
 				//详情预览
 				Event.delegate(document,'click','#J_PreviewDesc', function(ev) {
 					 promotionControl.save('preview');
@@ -419,53 +504,16 @@ KISSY.add(function (S,checkUtil) {
 				}
 			
 			},
-			
-			
-			/*阶梯价*/
-			addLadder : function(){
-				promotionControl.ladder_num++;
-				promotionControl.ladders.push(promotionControl.ladder_num);
-				var a= KISSY.Template(DOM.html(DOM.get('#J_ladder')));
-				var data = {num:promotionControl.ladder_num};
-				var b =a.render(data);
-				DOM.insertBefore(DOM.create(b),DOM.get('#J_listLadder'));
-				if(promotionControl.ladders.length>1){
-					for(var y =1; y<promotionControl.ladders.length;y++){
-						DOM.html(DOM.query('.J_paixu'+promotionControl.ladders[y]),(y+1));
-					}
-					jtjCalendar('J_StartDate'+promotionControl.ladder_num,promotionControl.ladder_num);
-					jtjCalendar('J_EndDate'+promotionControl.ladder_num,promotionControl.ladder_num);
-				}
-			},
+
 			showdate : function(n, d) {
 				//计算d天的前几天或者后几天，返回date,注：chrome下不支持date构造时的天溢出        
 				var uom = new Date(d - 0 + n * 86400000);        
 				uom = uom.getFullYear() + "/" + (uom.getMonth() + 1) + "/" + uom.getDate();        
 				return new Date(uom);    
 			},
-			removeLadder :function(num){
-				DOM.remove('.J_jtjContent'+num);
-				for(var i =1;i<promotionControl.ladders.length;i++){
-					if(promotionControl.ladders[i] == num){
-						promotionControl.ladders.splice(i,1);
-					}
-				}
-				if(promotionControl.ladders.length>1)
-					for(var y =1; y<promotionControl.ladders.length;y++){
-						DOM.html(DOM.query('.J_paixu'+promotionControl.ladders[y]),(y+1))
-				}
-			},
 			
 			/* 满就送 增加层级*/
 			addRule : function(){
-				if(promotionControl.ids.length > 10){
-					new H.widget.msgBox({
-							    title:"错误提示",
-							    content:'满就送层级不能超过10层！',
-							    type:"error"
-							});
-					return ;
-				}
 				promotionControl.rule_num++;
 				for(var n = 0; n<promotionControl.ids.length; n++){
 					promotionControl.mini(promotionControl.ids[n]);
@@ -511,35 +559,14 @@ KISSY.add(function (S,checkUtil) {
 				DOM.show(DOM.get('.fangda','#J_youhui_'+num));		
 				var con_type = DOM.val('#J_con_type0');
 				var type = con_type == 1 ? '元' : '件';
-				var con_value = DOM.val('#J_con_value_'+num) || 0 ,
-				decrease_money = DOM.val('#J_decrease_money_'+num) || 0 ,
-				discount_rate = DOM.val('#J_discount_rate_'+num) || 0 ,
-				gift_name = DOM.val('#J_gift_name_'+num),
-				gift_url = DOM.val('#J_gift_url_'+num),
-				enable_multiple = DOM.get('#J_enable_multiple_'+num).checked,
-				IsDiscount = DOM.get('#J_discount_'+num).checked, 
-				IsDecrease = DOM.get('#J_decrease_'+num).checked, 
-				IsFreePost = DOM.get('#J_post_postage_'+num).checked,
-				IsSend_gift = DOM.get('#J_send_gift_'+num).checked;
-	
-					IsSend_card = DOM.val('#J_is_send_card_'+num) == 1 ? true : false;
-					card_type = DOM.val('#J_ConTypeValue_'+num);
-					if(card_type == 201 ){
-						 card_name = '打折卡';
-					}else if(card_type == 204){
-						card_name = '优惠券';
-					}else if(card_type == 204){
-						card_name = '免邮卡 ';
-					}else{
-						card_name = '道具 ';
-					}
-					if(SHOPTYPE == 'B'){
-						var IsSend_Point = DOM.get('#J_send_point_'+num).checked,
-							point_num = DOM.val('#J_point_num_'+num) || 0;
-					}else{
-						var IsSend_Point = false,
-							point_num =  0;
-					}
+					var con_value = DOM.val('#J_con_value_'+num) || 0 ,
+					decrease_money = DOM.val('#J_decrease_money_'+num) || 0 ,
+					cp_num = DOM.val('#J_cp_num_'+num),
+					cp_type = DOM.val('#J_cpType_'+num),
+					enable_multiple = DOM.get('#J_enable_multiple_'+num).checked,
+					IsDecrease = DOM.get('#J_decrease_'+num).checked, 
+					IsFreePost = DOM.get('#J_post_postage_'+num).checked,
+					IsSend_cp = DOM.get('#J_send_cp_'+num).checked;
 					promotionControl.checkPost(num);
 					var free_post = '';
 					var len = promotionControl.free_post_name.length;
@@ -561,18 +588,18 @@ KISSY.add(function (S,checkUtil) {
 					if (con_type == 1) {
 						con_value = H.util.FormatNumber(con_value,2);
 					}
-					var data = {con_value:con_value, type:type, IsDecrease:IsDecrease,decrease_money:H.util.FormatNumber(decrease_money,2),discount_rate:discount_rate,gift_name:gift_name,enable_multiple:enable_multiple,IsDiscount:IsDiscount,IsFreePost:IsFreePost,IsSend_gift:IsSend_gift,free_post:free_post,gift_url:gift_url,IsSend_Point:IsSend_Point,point_num:point_num,IsSend_card:IsSend_card,card_name:card_name} ;
-					if((con_value == 0 && IsDiscount == false && IsDecrease == false && IsFreePost == false && IsSend_gift == false && IsSend_Point == false) || (IsDiscount == false && IsDecrease == false && IsFreePost == false && IsSend_gift == false && IsSend_Point == false)){
-						str ='<span style="color:#F00">未设置优惠内容&nbsp;&nbsp;&nbsp;<a href="#2" onclick="promotionControl.maxi('+num+');" >[重新编辑]</a></span>';
-					}else{
-						var Template= KISSY.Template(DOM.html(DOM.get('#J_Templet_Mjs')));
-						var str = Template.render(data);
-					}
-					miniBox.html(str);
-					if (contentBox.css("display")!="none") {
-						miniBox.slideDown(0.7)
-						contentBox.slideUp(0.3);
-					}
+					var data = {con_value:con_value, type:type, IsDecrease:IsDecrease,decrease_money:H.util.FormatNumber(decrease_money,2),cp_num:cp_num,enable_multiple:enable_multiple,IsFreePost:IsFreePost,IsSend_cp:IsSend_cp,free_post:free_post,cp_type:cp_type};
+				if((con_value == 0 && IsDecrease == false && IsFreePost == false && IsSend_cp == false) || ( IsDecrease == false && IsFreePost == false && IsSend_cp == false)){
+					str ='<span style="color:#F00">未设置优惠内容&nbsp;&nbsp;&nbsp;<a href="#2" onclick="promotionControl.maxi('+num+');" >[重新编辑]</a></span>';
+				}else{
+					var Template= KISSY.Template(DOM.html(DOM.get('#J_Templet_Mjs')));
+					var str = Template.render(data);
+				}
+				miniBox.html(str);
+				if (contentBox.css("display")!="none") {
+					miniBox.slideDown(0.7)
+					contentBox.slideUp(0.3);
+				}
 			},
 			/*将checkbox 值传过去*/
 			checkForm : function(){
@@ -629,6 +656,7 @@ KISSY.add(function (S,checkUtil) {
 						ParamsErrorBox.slideDown();
 					}
 					DOM.val('#J_con_value_'+num, '');
+					//DOM.get('#J_con_value_'+num).focus();
 					DOM.addClass(DOM.parent(DOM.get('#J_con_value_'+num)), 'text-error');
 					return  error=true;
 				}
@@ -646,39 +674,24 @@ KISSY.add(function (S,checkUtil) {
 					DOM.addClass(DOM.parent(DOM.get('#J_con_value_'+num)), 'text-error');
 					return  error=true;
 				}
-				if(SHOPTYPE == 'B'){
-				var IsSend_Point = DOM.get('#J_send_point_'+num).checked,
-					point_num = DOM.val('#J_point_num_'+num) || 0;
-				}else{
-					var IsSend_Point = false,
-					point_num =  0;
-					
-				}
-				if(DOM.get('#J_discount_'+num).checked === false && DOM.get('#J_decrease_'+num).checked === false && DOM.get('#J_post_postage_'+num).checked === false && DOM.get('#J_send_gift_'+num).checked === false && IsSend_Point === false ){
+				
+				if(DOM.get('#J_send_cp_'+num).checked === false ){
 					promotionControl.msg.hide();
 					//DOM.get('#J_con_value_'+num).focus();
-					DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'的优惠内容必须选择一项以上！'+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
+					DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'必须选中彩票！'+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
 					if (ParamsErrorBox.css("display")==="none") {
 						ParamsErrorBox.slideDown();
 					}
 					return  error=true;
 				}
-				if(DOM.get('#J_discount_'+num).checked === true){
-						var discount_rate = DOM.val('#J_discount_rate_'+num);
-						result = checkUtil.checkDiscount(discount_rate);
-						error = result[0];
-						msg = result[1];
-						if(error){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg',msg+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							DOM.val('#J_discount_rate_'+num, '');
-							//DOM.get('#J_discount_rate_'+num).focus();
-							DOM.addClass(DOM.parent(DOM.get('#J_discount_rate_'+num)), 'text-error');
-							return error=true;
-						}
+				if(DOM.get('#J_decrease_'+num).checked === false && DOM.get('#J_post_postage_'+num).checked === false){
+					promotionControl.msg.hide();
+					//DOM.get('#J_con_value_'+num).focus();
+					DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'的优惠内容必须选中彩票+至少其他一项！'+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
+					if (ParamsErrorBox.css("display")==="none") {
+						ParamsErrorBox.slideDown();
+					}
+					return  error=true;
 				}
 				var con_type = DOM.val('#J_con_type0');
 				if(DOM.get('#J_decrease_'+num).checked === true){
@@ -711,66 +724,9 @@ KISSY.add(function (S,checkUtil) {
 						}
 					}
 				}
-				if(con_type == 1){
-					if(DOM.get('#J_discount_'+num).checked === true && DOM.get('#J_decrease_'+num).checked === true ){
-						var isOver = (con_value*discount_rate)/10-decrease_money;
-						if(isOver <=0){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'满'+con_value+'元打'+discount_rate+'折减'+decrease_money+'元后总价等于'+isOver+'小于0<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							DOM.val('#J_decrease_money_'+num, '');
-							DOM.addClass(DOM.parent(DOM.get('#J_decrease_money_'+num)), 'text-error');
-							return  error=true;
-						}
-					}
-				}
-				if(SHOPTYPE == 'B'){
-					if(DOM.get('#J_send_point_'+num).checked === true){
-						var point_num = DOM.val('#J_point_num_'+num);
-						result = H.util.checkPrice(point_num);
-						error = result[0];
-						msg = result[1];
-						if(error){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg',result[1]+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							DOM.val('#J_point_num_'+num, '');
-							//DOM.get('#J_decrease_money_'+num).focus();
-							DOM.addClass(DOM.parent(DOM.get('#J_point_num_'+num)), 'text-error');
-							return  error=true;
-						}
-					}
-				}
-				if(DOM.get('#J_send_gift_'+num).checked === true){
-					if(DOM.val('#J_is_send_card_'+num) == 1){
-						var card_type = DOM.val('#J_ConTypeValue_'+num);
-						var datass = card_type+''+num;
-						if(card_type != 0){
-							var card_promo_id = DOM.val('#J_ConType'+datass);
-							if(card_promo_id == 0){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'请选择卡片名称！'+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								return  error=true;
-							}
-						}else{
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg','层级'+(n+1)+'请选择卡片种类!'+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							return  error=true;
-						}
-					}else{
-						var gift_name = DOM.val('#J_gift_name_'+num);
-						var gift_url = DOM.val('#J_gift_url_'+num);
-						var result = H.util.isNull(gift_name);
+				if(DOM.get('#J_send_cp_'+num).checked === true){
+						var cp_num = DOM.val('#J_cp_num_'+num);
+						var result = H.util.isNull(cp_num);
 						var error = result[0];
 						if(error){
 							promotionControl.msg.hide();
@@ -778,36 +734,19 @@ KISSY.add(function (S,checkUtil) {
 							if (ParamsErrorBox.css("display")==="none") {
 								ParamsErrorBox.slideDown();
 							}
-							//DOM.get('#J_send_gift_'+num).focus();
-							DOM.addClass(DOM.get('#J_gift_name_'+num), 'text-error');
+							DOM.addClass(DOM.get('#J_cp_num_'+num), 'text-error');
 							return  error=true;
 						}
-						var result = H.util.isNull(gift_url);
-						var error = result[0];
-						if(error){
+						var str = KISSY.trim(DOM.val('#J_CareBox_'+num));
+						var len = str.replace(/[^\x00-\xff]/g,"**").length;
+						if(len > 40){
 							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg',result[1]+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
+							DOM.html('#J_ParamsErrorMsg','彩票赠言不能超过40个字符<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
 							if (ParamsErrorBox.css("display")==="none") {
 								ParamsErrorBox.slideDown();
 							}
-							//DOM.get('#J_send_gift_'+num).focus();
-							DOM.addClass(DOM.parent(DOM.get('#J_gift_url_'+num)), 'text-error');
 							return  error=true;
-						}else{
-							var result = checkUtil.checkUrl(gift_url);
-							var error = result[0];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',result[1]+'<a href="javascript:promotionControl.checkAction('+num+')">点此修改</a>');
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								//DOM.get('#J_send_gift_'+num).focus();
-								DOM.addClass(DOM.parent(DOM.get('#J_gift_url_'+num)), 'text-error');
-								return  error=true;
-							}
 						}
-					}
 				}
 				if(DOM.get('#J_post_postage_'+num).checked === true){
 					promotionControl.checkPost(num);
@@ -846,6 +785,42 @@ KISSY.add(function (S,checkUtil) {
 						promotionControl.free_post_name.push(DOM.val(item));
 					}
 				})
+			},
+			checkTitleLen : function(str,num){
+				var len = str.replace(/[^\x00-\xff]/g, "*").length ;
+				DOM.html(DOM.get('#J_Zs_Num'+num), len);
+			
+			},
+			/*是否签订彩票协议*/
+			checkCpAgreement : function(el){
+				if(DOM.val('#J_IsSign') == 1){
+					return ;
+				}
+				DOM.prop(el,'checked',false);
+			    var submitHandle = function(o) {
+			    	if(o.payload.sign){
+			    		DOM.val('#J_IsSign','1');
+			    		DOM.prop(el,'checked',true);
+				    }else{
+						new H.widget.msgBox({
+								    title:"签订协议",
+								    content:'请先开通<a href="'+o.payload.sign_url+'" target="_blank">支付宝代购协议</a>',
+								    type:"info"
+									
+								});
+				    	DOM.val('#J_IsSign','0');
+					}
+			    };
+			    var errorHandle = function(o){
+			    	var ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
+					DOM.html('#J_ParamsErrorMsg',o.payload.desc);
+					if (ParamsErrorBox.css("display")==="none") {
+						ParamsErrorBox.slideDown();
+					}
+			 	};
+			    var data ='';
+			    new H.widget.asyncRequest().setURI(checkSignUrl).setMethod("GET").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).setDataType('json').send();
+	
 			},
 			/*宝贝数 是否超过 3000*/
 			checkTbItemNum : function(el){
@@ -939,470 +914,69 @@ KISSY.add(function (S,checkUtil) {
 				ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
 				ParamsErrorBox.hide();
 				var typeId = promotionForm.type_id.value;
-				if(typeId != '20'){
-						if(S.one("#J_startDate")){
-							var startDate = DOM.val('#J_startDate');
-							var endDate = S.one('#J_endDate').val();
-							if((endDate!='')&&(startDate>=endDate)){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg','开始时间不能大于结束时间，请重新选择');
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								DOM.addClass('#J_startDate','text-error');
-								return ;
-							}
+				if(S.one("#J_startDate")){
+					var startDate = DOM.val('#J_startDate');
+					var endDate = S.one('#J_endDate').val();
+					if((endDate!='')&&(startDate>=endDate)){
+						promotionControl.msg.hide();
+						DOM.html('#J_ParamsErrorMsg','开始时间不能大于结束时间，请重新选择');
+						if (ParamsErrorBox.css("display")==="none") {
+							ParamsErrorBox.slideDown();
 						}
-						if(S.one("#J_endDate")){
-							var endDate = S.one('#J_endDate').val();
-							var n = new Date()
-							var nowDate = new Date(n.getTime()+ (Number(DiffTime)));
-							var startTime = H.util.StringToDate(S.one('#J_startDate').val());
-							var endTime = H.util.StringToDate(endDate);
-							var invalidate =H.util.StringToDate(invaliDate);
-	
-							if(endTime.getTime() <= nowDate.getTime() || endTime.getTime()<=startTime ){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg','结束时间不能小于开始时间，请重新选择');
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								DOM.addClass('#J_endDate','text-error');
-								return ;
-							}
-						}
-						if(S.one("#J_lastBuy")){
-							var endDate = S.one('#J_endDate').val();
-							var n = new Date()
-							var nowDate = new Date(n.getTime()+ (Number(DiffTime)));
-							var eTime = H.util.StringToDate(DOM.val('#J_lastBuy'));
-							var endTime = H.util.StringToDate(endDate);
-							var invalidate =H.util.StringToDate(invaliDate);
-						}
+						DOM.addClass('#J_startDate','text-error');
+						return ;
+					}
 				}
+				if(S.one("#J_endDate")){
+					var endDate = S.one('#J_endDate').val();
+					var n = new Date()
+					var nowDate = new Date(n.getTime()+ (Number(DiffTime)));
+					var startTime = H.util.StringToDate(S.one('#J_startDate').val());
+					var endTime = H.util.StringToDate(endDate);
+					var invalidate =H.util.StringToDate(invaliDate);
+
+					if(endTime.getTime() <= nowDate.getTime() || endTime.getTime()<=startTime ){
+						promotionControl.msg.hide();
+						DOM.html('#J_ParamsErrorMsg','结束时间不能小于开始时间，请重新选择');
+						if (ParamsErrorBox.css("display")==="none") {
+							ParamsErrorBox.slideDown();
+						}
+						DOM.addClass('#J_endDate','text-error');
+						return ;
+					}
+				}
+						
 				switch(typeId) {
-					case '10':
-					case '11':
-					case '12':
-						var paramTypes = document.getElementsByName('params[type]');
-						var len = paramTypes.length;
-						for(var i=0; i<len; i++){
-							if(paramTypes[i].checked){
-								paramType = paramTypes[i].value;
-								if(paramType == '1') break;
-								switch(paramType){
-									case '2':
-										save = document.getElementsByName('params[save]');
-										result = H.util.checkPrice(save[0].value);
-										error = result[0];
-										msg = result[1];
-										if(error){
-											promotionControl.msg.hide();
-											DOM.html('#J_ParamsErrorMsg',msg);
-											if (ParamsErrorBox.css("display")==="none") {
-												ParamsErrorBox.slideDown();
-											}
-											save[0].value = '';
-											save[0].focus();
-											DOM.addClass(save[0], 'text-error');
-											return ;
-										}
-										break;
-									case '3':
-										spec = document.getElementsByName('params[spec]');
-										result = H.util.checkPrice(spec[0].value);
-										error = result[0];
-										msg = result[1];
-										if(error){
-											promotionControl.msg.hide();
-											DOM.html('#J_ParamsErrorMsg',msg);
-											if (ParamsErrorBox.css("display")==="none") {
-												ParamsErrorBox.slideDown();
-											}
-											spec[0].value = '';
-											spec[0].focus();
-											DOM.addClass(spec[0], 'text-error');
-											return ;
-										}
-										break;
-									case '4':
-										discount = document.getElementsByName('params[discount]');
-										result = checkUtil.checkDiscount(discount[0].value);
-										error = result[0];
-										msg = result[1];
-										if(error){
-											promotionControl.msg.hide();
-											DOM.html('#J_ParamsErrorMsg',msg);
-											if (ParamsErrorBox.css("display")==="none") {
-												ParamsErrorBox.slideDown();
-											}
-											discount[0].value = '';
-											discount[0].focus();
-											DOM.addClass(discount[0], 'text-error');
-											return ;
-										}
-										break;
+					
+						case '207':
+						case '208':
+						case '217':
+							for(var n = 0; n<promotionControl.ids.length; n++){
+								var flag = promotionControl.checkRule(promotionControl.ids[n] ,n);
+								if(flag == true){
+									return ;
 								}
-								break;
-							}
-						} 
-						break;
-					case '2':
-					case '9':
-					case '32':	
-						if(promotionControl.isEidt && typeId != 32){
-							var isChangeItem = document.getElementsByName('is_change_item');
-							var editFlag =isChangeItem[0].checked;	
-						}else{
-							var editFlag =true;	
-						}
-						if(editFlag){
-							var paramType = document.getElementsByName('params[type]');
-							type = paramType[0].value;
-							if (type == '0') {
-								spec = document.getElementsByName('params[value]');
-								var result = H.util.isNull(spec[0].value);
-								var error = result[0];
-								if(promotionControl.isEidt){
-									if(error){
-											promotionControl.msg.hide();
-											DOM.html('#J_ParamsErrorMsg',msg);
-											if (ParamsErrorBox.css("display")==="none") {
-												ParamsErrorBox.slideDown();
-											}
-											spec[0].focus();
-											DOM.addClass(spec[0], 'text-error');
-											return ;
-									}
-								}
-								if(!error){
-									result = H.util.checkPrice(spec[0].value);
-									error = result[0];
-									msg = result[1];
-									if(error){
+								if(n>0){
+									var con_value_pre = DOM.val('#J_con_value_'+promotionControl.ids[n-1]);
+									var con_value_now = DOM.val('#J_con_value_'+promotionControl.ids[n]);
+									if(Number(con_value_pre)-Number(con_value_now) >=0){
 										promotionControl.msg.hide();
-										DOM.html('#J_ParamsErrorMsg',msg);
+										var str = "层级"+(n+1)+"满多少要大于层级"+n+'！';
+										for(var m = 0; m<promotionControl.ids.length; m++){
+											promotionControl.mini(promotionControl.ids[m]);
+										}
+										promotionControl.maxi(promotionControl.ids[n]);
+										DOM.html('#J_ParamsErrorMsg',str+'<a href="javascript:promotionControl.checkAction('+promotionControl.ids[n]+')">点此修改</a>');
 										if (ParamsErrorBox.css("display")==="none") {
 											ParamsErrorBox.slideDown();
 										}
-										spec[0].value = '';
-										spec[0].focus();
-										DOM.addClass(spec[0], 'text-error');
-										return ;
-									}
-								}
-							} else {
-								discount = document.getElementsByName('params[value]');
-								var result = H.util.isNull(discount[0].value);
-								var error = result[0];
-								if(promotionControl.isEidt){
-									if(error){
-											promotionControl.msg.hide();
-											DOM.html('#J_ParamsErrorMsg',msg);
-											if (ParamsErrorBox.css("display")==="none") {
-												ParamsErrorBox.slideDown();
-											}
-											discount[0].focus();
-											DOM.addClass(discount[0], 'text-error');
-											return ;
-									}
-								}
-								if(!error){
-									if( typeId=='9' ){
-										var maxDiscount = 0;
-										var aaamsg = '折扣暂时不能低于7折!';
-									}else{
-										var maxDiscount = 0;
-										var aaamsg = '折扣范围在0.00~9.99折!';
-									}		
-									if(discount[0].value>=10 || discount[0].value < maxDiscount){
-										promotionControl.msg.hide();
-										DOM.html('#J_ParamsErrorMsg',aaamsg);
-										if (ParamsErrorBox.css("display")==="none") {
-											ParamsErrorBox.slideDown();
-										}
-										discount[0].value = '';
-										discount[0].focus();
-										DOM.addClass(discount[0], 'text-error');
-										return ;
-									}
-									result = checkUtil.checkDiscount(discount[0].value);
-									error = result[0];
-									msg = result[1];
-									if(error){
-										promotionControl.msg.hide();
-										DOM.html('#J_ParamsErrorMsg',msg);
-										if (ParamsErrorBox.css("display")==="none") {
-											ParamsErrorBox.slideDown();
-										}
-										discount[0].value = '';
-										discount[0].focus();
-										DOM.addClass(discount[0], 'text-error');
+										DOM.addClass(DOM.parent(DOM.get('#J_con_value_'+promotionControl.ids[n])), 'text-error');
 										return ;
 									}
 								}
 							}
-							if(typeId=='9'){
-								var start_num = document.getElementsByName('params[start_num]');
-								var min_num = document.getElementsByName('params[min_num]');
-								var max_num = document.getElementsByName('params[max_num]');
-								if(isNaN(Number(start_num[0].value)) || start_num[0].value <0 ){
-										start_num[0].value = '0';
-								}
-								if(isNaN(Number(min_num[0].value)) || min_num[0].value <0 ){
-										min_num[0].value = '0';
-								}
-								if(isNaN(Number(max_num[0].value)) || max_num[0].value <=0 || Number(max_num[0].value)<Number(min_num[0].value)){
-									promotionControl.msg.hide();
-									DOM.html('#J_ParamsErrorMsg','参团人数上线大于等于参团人数下线');
-									if (ParamsErrorBox.css("display")==="none") {
-										ParamsErrorBox.slideDown();
-									}
-									max_num[0].value = '';
-									max_num[0].focus();
-									DOM.addClass(max_num[0], 'text-error');
-									return ;
-								}
-							}
-						}
-						if(typeId=='2'){
-							if(DOM.val('#J_Show_yj') == 0){
-								DOM.val('#J_LimitNumValue',0);
-								DOM.val('#J_SelectTagId',1);
-							}else{
-								var limitNum = DOM.val('#J_LimitNumValue');
-								if(!DOM.prop('#J_LimitNum','checked')){
-									DOM.val('#J_LimitNumValue',0);
-								}else{
-									result = H.util.checkPrice(limitNum);
-									error = result[0];
-									msg = result[1];
-									if(error){
-										promotionControl.msg.hide();
-										DOM.html('#J_ParamsErrorMsg','限购 数量 大于0哦');
-										if (ParamsErrorBox.css("display")==="none") {
-											ParamsErrorBox.slideDown();
-										}
-										DOM.val('#J_LimitNumValue',0);
-										DOM.addClass(DOM.parent('#J_LimitNumValue'), 'text-error');
-										return ;
-									}
-									DOM.val('#J_LimitNumValue',Number(limitNum).toFixed(0));
-								}
-							}
-						}
-						if(typeId=='32'){
-								var limitNum = DOM.val('#J_LimitNumValue');
-								result = H.util.checkPrice(limitNum);
-								error = result[0];
-								msg = result[1];
-								if(error){
-									promotionControl.msg.hide();
-									DOM.html('#J_ParamsErrorMsg','限购 数量 大于0哦');
-									if (ParamsErrorBox.css("display")==="none") {
-										ParamsErrorBox.slideDown();
-									}
-									DOM.val('#J_LimitNumValue','');
-									DOM.addClass(DOM.parent('#J_LimitNumValue'), 'text-error');
-									return ;
-								}
-								DOM.val('#J_LimitNumValue',Number(limitNum).toFixed(0));
-						}
-						break;
-					case '20' :
-						var lists = DOM.query('.J_ladder_time');
-						var len = lists.length;
-						times = [];
-						if(len>1){
-							for(var p = 1; p<len;p++){
-								var startTime = DOM.val(lists[p-1]);
-								var endTime = DOM.val(lists[p]);
-								var nowDate = new Date();
-								var sTime = H.util.StringToDate(startTime);
-								var eTime = H.util.StringToDate(endTime);
-								var invalidate =H.util.StringToDate(invaliDate);
-								if(eTime.getTime()<=sTime.getTime()){
-									promotionControl.msg.hide();
-									var str = DOM.attr(lists[p],'title');
-									var num =  str.charAt((str.length-1));
-									DOM.html('#J_ParamsErrorMsg','时间有误，活动时间段不能重叠');
-									if (ParamsErrorBox.css("display")==="none") {
-										ParamsErrorBox.slideDown();
-									}
-									DOM.addClass(lists[p],'text-error');
-									return ;
-								}
-							}  
-						}
-						for(var q =0; q<promotionControl.ladders.length;q++){
-							var s = DOM.val('#J_StartDate'+promotionControl.ladders[q]);
-							var e = DOM.val('#J_EndDate'+promotionControl.ladders[q]);
-							var t =[s,e];	
-							times.push(t);
-						}
-						DOM.val('#J_ladd',times);
-						break;	
-					case '105':
-					case '106':
-					case '115':	
-						var con_value = document.getElementsByName('params[con_value]');
-						var is_condition = DOM.val('#J_IsConditionValue');
-						if(is_condition=='1'){
-							spec = document.getElementsByName('params[value]');
-							var result = H.util.isNull(con_value[0].value);
-							var error = result[0];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',result[1]);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								con_value[0].value = '';
-								con_value[0].focus();
-								DOM.addClass(DOM.parent(con_value[0]), 'text-error');
-								return ;
-							}
-							result = H.util.checkPrice(con_value[0].value);
-							error = result[0];
-							msg = result[1];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',result[1]);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								con_value[0].value = '';
-								con_value[0].focus();
-								DOM.addClass(DOM.parent(con_value[0]), 'text-error');
-								return ;
-							}
-							promotionControl.checkPost(0);
-							if(promotionControl.free_post_num.length == 0){
-								var str = "免邮地区未设置!!";
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',str);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								return ;
-							}
-						}
-						break;
-					case '107':
-					case '108':
-					case '117':
-						for(var n = 0; n<promotionControl.ids.length; n++){
-							var flag = promotionControl.checkRule(promotionControl.ids[n] ,n);
-							if(flag == true){
-								return ;
-							}
-							if(n>0){
-								var con_value_pre = DOM.val('#J_con_value_'+promotionControl.ids[n-1]);
-								var con_value_now = DOM.val('#J_con_value_'+promotionControl.ids[n]);
-								if(Number(con_value_pre)-Number(con_value_now) >=0){
-									promotionControl.msg.hide();
-									var str = "层级"+(n+1)+"满多少要大于层级"+n+'！';
-									for(var m = 0; m<promotionControl.ids.length; m++){
-										promotionControl.mini(promotionControl.ids[m]);
-									}
-									promotionControl.maxi(promotionControl.ids[n]);
-									DOM.html('#J_ParamsErrorMsg',str+'<a href="javascript:promotionControl.checkAction('+promotionControl.ids[n]+')">点此修改</a>');
-									if (ParamsErrorBox.css("display")==="none") {
-										ParamsErrorBox.slideDown();
-									}
-									DOM.addClass(DOM.parent(DOM.get('#J_con_value_'+promotionControl.ids[n])), 'text-error');
-									return ;
-								}
-							}
-						}
-						break;
-					case '110':
-					case '111':
-					case '120':
-						var limit_num = document.getElementsByName('params[limit_num]');
-						var result = H.util.isNull(limit_num[0].value);
-						var error = result[0];
-						if(error){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg',result[1]);
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							return ;
-						}
-						result = H.util.checkPrice(limit_num[0].value);
-						error = result[0];
-						msg = result[1];
-						if(error){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg',result[1]);
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							limit_num[0].value = '';
-							limit_num[0].focus();
-							DOM.addClass(DOM.parent(limit_num[0]), 'text-error');
-							return ;
-						}
-						var decrease = document.getElementsByName('params[decrease]');
-						var discount = document.getElementsByName('params[discount]');
-						if(decrease[0].checked === false &&  discount[0].checked === false){
-							promotionControl.msg.hide();
-							DOM.html('#J_ParamsErrorMsg','优惠内容必须选择一项以上');
-							if (ParamsErrorBox.css("display")==="none") {
-								ParamsErrorBox.slideDown();
-							}
-							return ;
-						}
-						if(decrease[0].checked==true){
-							var decrease_money = document.getElementsByName('params[decrease_money]');
-							var result = H.util.isNull(decrease_money[0].value);
-							var error = result[0];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',result[1]);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								decrease_money[0].value = '';
-								decrease_money[0].focus();
-								DOM.addClass(DOM.parent(decrease_money[0]), 'text-error');
-								return ;
-							}
-							result = H.util.checkPrice(decrease_money[0].value);
-							error = result[0];
-							msg = result[1];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',result[1]);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								decrease_money[0].value = '';
-								decrease_money[0].focus();
-								DOM.addClass(DOM.parent(decrease_money[0]), 'text-error');
-								return ;
-							}
-						}
-						if(discount[0].checked==true){
-							var discount_rate = document.getElementsByName('params[discount_rate]');
-							result = checkUtil.checkDiscount(discount_rate[0].value);
-							error = result[0];
-							msg = result[1];
-							if(error){
-								promotionControl.msg.hide();
-								DOM.html('#J_ParamsErrorMsg',msg);
-								if (ParamsErrorBox.css("display")==="none") {
-									ParamsErrorBox.slideDown();
-								}
-								discount_rate[0].value = '';
-								discount_rate[0].focus();
-								DOM.addClass(DOM.parent(discount_rate[0]), 'text-error');
-								return ;
-							}
-						}
-						break;
-					default:break;
+							break;
+						default:break;
 				}
 				if(isMbb || typeId == 2){
 					/*验证新建分组*/
@@ -1434,7 +1008,7 @@ KISSY.add(function (S,checkUtil) {
 					}
 				}
 				
-				if(typeId == '107' || typeId == '108' || typeId == '117'){
+				if(typeId == '207' || typeId == '208' || typeId == '217'){
 					if(type != 'preview'){
 						for(var m = 0; m<promotionControl.ids.length; m++){
 							DOM.attr('#J_youhui_'+promotionControl.ids[m]+' .J_ex_id', 'disabled', true);
@@ -1443,14 +1017,9 @@ KISSY.add(function (S,checkUtil) {
 					}
 					promotionControl.checkForm();
 				}
-				if(typeId == '105' || typeId == '106'){
-					promotionControl.checkForm();
-				}
 				
-				if(typeId != '20'){
-					DOM.get('#J_startDate').disabled = false;
-					DOM.get('#J_endDate').disabled = false;
-				}
+				DOM.get('#J_startDate').disabled = false;
+				DOM.get('#J_endDate').disabled = false;
 				if(promotionControl.isEidt){
 					
 		           if(type == 'preview'){
@@ -1703,36 +1272,6 @@ KISSY.add(function (S,checkUtil) {
 					DOM.val('#J_Show_yj',0);
 				}
 			},
-			// 满就送 卡片 选择卡片后操作
-			choseCon : function(value,num){
-				var lis = DOM.query('.J_ConType','#J_CardContetn_'+num);
-				DOM.hide(lis);
-				DOM.attr(lis,'disabled',true);
-				var data = value+''+num;
-				switch (value){
-					case '0' :
-						
-					break;
-					case '201' :
-					case '204' :
-					case '207' :
-					DOM.show('#J_ConType'+data);
-					DOM.attr('#J_ConType'+data,'disabled',false);
-					break;						
-				}
-				promotionControl.isChange = true;
-			},
-			IsSendCard :function(value,num){
-				if(value == 0 ){
-					DOM.show(DOM.query('.J_Liwu','#J_youhui_'+num));
-					DOM.hide(DOM.query('.J_Daoju','#J_youhui_'+num));
-				}else{
-					DOM.hide(DOM.query('.J_Liwu','#J_youhui_'+num));
-					DOM.show(DOM.query('.J_Daoju','#J_youhui_'+num))
-				}
-				promotionControl.isChange = true ;
-			},
-			
 			handleInputs : function(){
 				var inputs = DOM.filter (DOM.query('input'),function(i){if(i.type =='text')return true;})
 				Event.on(inputs,'focus blur',function(ev){
@@ -1754,6 +1293,19 @@ KISSY.add(function (S,checkUtil) {
 						}
 					}
 				})
+			},
+				//上不封顶提醒
+			showMjsTip :function(num){
+				if(DOM.prop('#J_enable_multiple_'+num,'checked')){
+					var max = Number(DOM.val('#J_con_value_'+num))*2;
+					var type = DOM.val('#J_con_type0') == 1 ?  '元' : '件';
+					//var zhu =  Number(DOM.val('#J_cp_num_'+num))*2;
+					var str = '消费满'+max+type+'会送出双倍，依此类推 ';
+					DOM.html('#J_OneWarn'+num,str);
+					DOM.show('#J_OneWarn'+num);
+				}else{
+					DOM.hide('#J_OneWarn'+num);
+				}
 			}
 	}
 	

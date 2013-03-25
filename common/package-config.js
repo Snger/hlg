@@ -76,17 +76,17 @@
 		'Mcrm' : '20130320' ,//crm模块
 		'Micon' : '' ,//icon模块
 		'Mlist' : '' ,//list模块
-		'Mmaterial' : '20130320' ,//core模块
+		'Mmaterial' : '20130322' ,//core模块
 		'Mmember' : '' ,//core模块
 		'Moptim' : '20130322' ,//core模块
 		'Mpoint' : '' ,//core模块
 		'Mpromodesc' : '' ,//core模块
 		'Mpromoprops' : '20130321' ,//core模块
-		'Mpromotion' : '20130322' ,//core模块
+		'Mpromotion' : '20130325' ,//core模块
 		'Mratedesc' : '' ,//core模块
 		'Msmart' : '20130320' ,//core模块
 		'Msub' : '' ,//core模块
-		'Mtool' : '20130321' ,//core模块
+		'Mtool' : '20130326' ,//core模块
 		'Mudp' : '' ,//core模块
 		'Mshopreport' : '20130321' //
 		

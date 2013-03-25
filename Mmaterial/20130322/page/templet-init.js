@@ -1,8 +1,14 @@
+/*
+combined files : 
+
+page/templet-init
+
+*/
 /**
  * @fileOverview 
  * @author  
  */
-KISSY.add(function (S,O) {
+KISSY.add('page/templet-init',function (S,O) {
     // your code here
 	var DOM = S.DOM, Event = S.Event;	
 	
