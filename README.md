@@ -1,6 +1,7 @@
 ## 教程
 -  [使用Kissy Pie快速构建](http://www.36ria.com/5536)
 -  [kissy1.2最佳实践探索](http://www.36ria.com/5582)
+-  [CSS模块化打包工具CSS-Combo](http://www.36ria.com/5898)
 ## 结构图： 
 
 
@@ -28,6 +29,7 @@
    - share （分享）
    - showPermissions 子账号权限控制 版本控制
    - gallery 组件
+   - [前台验证模块validator](https://github.com/chriso/node-validator)
 - 其他模块名(promo)
 
 ## 使用
