@@ -42,6 +42,7 @@ KISSY.add(function (S) {
 				//uri 	= DOM.attr( elem, DATA_URI ),
 				//move    = DOM.attr(	elem, DATA_ISMOVE);	
 			act += BAR_ACT_TPL.replace( ret, '编辑' ).replace( rec, 'edit' );
+			act += BAR_ACT_TPL.replace( ret, '删除' ).replace( rec, 'del' );
 	        baracts.innerHTML = act;
 	        bar.appendChild( barbd );
 	        bar.appendChild( baracts );

@@ -10,6 +10,10 @@ KISSY.add(function (S,O,TShop) {
 	    		msg : null,
 	    		initDesignFlag : false,
 	    		getDesignContent : function(rawDid){
+					
+					if(KISSY.inArray(rawDid,g_ds_del_list)){
+						return ;
+					}
 					var submitHandle = function(o) {
 						DOM.html('#J_DesignDiv_'+rawDid, o.payload);
 						DOM.css('#J_DesignDiv_'+rawDid,'position','relative');
@@ -21,6 +25,15 @@ KISSY.add(function (S,O,TShop) {
 						TShop.init(box);
 						Event.on('#J_DesignDiv_'+rawDid+' .ds-bar-edit', 'click', function(evt) {
 							designControl.showDesign('J_DesignDiv_'+rawDid);
+						})
+						Event.on('#J_DesignDiv_'+rawDid+' .ds-bar-del', 'click', function(evt) {
+							var box = DOM.get('#J_DesignDiv_'+rawDid), boxID = DOM.attr( box, 'newid' ), a, p = { width: "0px", height:"0px" , opacity: "0" };
+				            a = new KISSY.Anim( box, p, 0.3 ,KISSY.Easing.easeOut,function(){
+					                box.innerHTML = '';
+					                box.parentNode.removeChild( box );
+					                g_ds_del_list.push( boxID );
+				                });
+							a.run();	
 						})
 			    	};
 			    	var errorHandle = function(o){

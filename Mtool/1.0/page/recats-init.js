@@ -28,7 +28,8 @@ KISSY.add(function(S,showPages){
 	   					DOM.prop('#J_SelectCats','title',selectCats);
 	   					recats.previewCats();
 	   				} else {
-	   					var reg = new RegExp(ev.currentTarget.title+",","g");
+	   				    var title = recats.escape(DOM.prop(ev.currentTarget,'title'));
+	   					var reg = new RegExp(title+",","g");
 	   					addCats = addCats.replace(reg,'');
 	   					DOM.html('#J_changeCats',addCats);
 	   					
@@ -495,8 +496,15 @@ KISSY.add(function(S,showPages){
 						});	
         	    };
 				new H.widget.asyncRequest().setURI(updateCatsUrl).setMethod("POST").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).send();
-			}
-			
+			},
+            //转义 正则
+            escape : function(str){
+                if (str == null){
+                    return ""; 
+                } else{
+                    return  str.replace(/\//g,'\\/').replace(/\./g,"\\.").replace(/\*/g,"\\*").replace(/\+/g,"\\+").replace(/\(/g,"\\(").replace(/\)/g,"\\)").replace(/\$/g,"\\$").replace(/\?/g,"\\?").replace(/\[/g,"\\[").replace(/\]/g,"\\]").replace(/\^/g,"\\^").replace(/\{/g,"\\{").replace(/\}/g,"\\}"); 
+                }
+            }
 			
     	};
 	

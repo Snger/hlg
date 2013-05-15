@@ -83,10 +83,10 @@ KISSY.add(function(S,showPages){
 	    	    }
 				var itemPage = 10;//每页多少条
     	    	var type = DOM.val(DOM.get("#J_SearchSelling")); //出售中 库中
-    	    	var itemOrder = DOM.val(DOM.get("#J_SelectItemOrder"));//排序方式
+    	    	var cid = DOM.val(DOM.get("#J_SelectItemCid"));
     	    	
     	    	var data = "q="+title+"&type="+type;
-            	    data +="&itemOrder="+itemOrder+"&pageSize="+itemPage+"&page_id="+pageId;
+            	    data +="&pageSize="+itemPage+"&page_id="+pageId+"&cid="+cid;
             	    if(refresh){
             	    	data +="&refresh=true";
             	    }
@@ -172,10 +172,10 @@ KISSY.add(function(S,showPages){
 	    	    }
 				var itemPage = 10;//每页多少条
     	    	var type = DOM.val(DOM.get("#J_SearchSelling")); //出售中 库中
-    	    	var itemOrder = DOM.val(DOM.get("#J_SelectItemOrder"));//排序方式
+                var cid = DOM.val(DOM.get("#J_SelectItemCid"));
     	    	
-    	    	var data = "q="+title+"&type="+type;
-            	    data +="&itemOrder="+itemOrder+"&pageSize="+itemPage+"&page_id="+optimIndex.pageId;
+    	    	var data = "q="+title+"&type="+type+"&cid="+cid;
+            	    data +="&pageSize="+itemPage+"&page_id="+optimIndex.pageId;
             	    if(refresh){
             	    	data +="&refresh=true";
             	    }

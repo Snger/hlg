@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview 
  * @author nihao sdfsd
@@ -141,7 +142,7 @@ KISSY.add(function (S,checkUtil) {
 			},
 			/*加载规则*/
 			loadRules : function(ruleId){
-
+				promotionControl.isChange = true;
 		        if(ruleId.split('_')[1] == 1){
 				    var submitHandle = function(o) {
 				    	DOM.show('#J_LoadRule');
@@ -162,6 +163,7 @@ KISSY.add(function (S,checkUtil) {
 			},
 			/*新建分组*/
 			addGroup : function(em){
+				promotionControl.isChange = true;
 				var typeId = promotionForm.type_id.value;
 				DOM.attr('#J_SelectTagId','disabled','disabled');
 				DOM.addClass('#J_GroupManage','current');
@@ -458,6 +460,7 @@ KISSY.add(function (S,checkUtil) {
 			
 			/* 满就送 增加层级*/
 			addRule : function(){
+				promotionControl.isChange = true;
 				if(promotionControl.ids.length > 10){
 					new H.widget.msgBox({
 							    title:"错误提示",
@@ -1692,6 +1695,7 @@ KISSY.add(function (S,checkUtil) {
 			},
 			//优惠对象提示 
 			showTip :function(){
+				promotionControl.isChange = true;
 				if(DOM.val('#J_SelectTagId')!=1){
 					if(DOM.val('#J_SelectTagId')!=1){
 						DOM.html('#J_IsAllMemberContent','非全网会员，搜索页会显示原价');

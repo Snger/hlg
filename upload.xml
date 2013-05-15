@@ -20,7 +20,7 @@
 		       remotedir="${jsupload.dir}"
 			   passive ="yes"
 		       userid="smart"
-		       password=""
+		       password="6YNp22nT"
 		       depends="yes"
 			   verbose = "yes">
 		    <fileset dir="${js.dir}" includes="**/*.js" />
@@ -31,7 +31,7 @@
 		       remotedir="${jsupload.dir}"
 			   passive ="yes"
 		       userid="resource"
-		       password=""
+		       password="nKb2kPsp"
 		       depends="yes"
 			   verbose = "yes">
 	    	<fileset dir="${js.dir}" includes="**/*.js" />

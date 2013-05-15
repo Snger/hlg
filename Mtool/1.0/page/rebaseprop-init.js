@@ -28,6 +28,7 @@ KISSY.add(function(S,showPages){
 					if(totalRecords > 0){
 						DOM.css(DOM.get('#J_REmpty') ,'display','none');
 						DOM.css(DOM.query(".J_PromotionItemBtnHolder") ,'display' , '');
+                        DOM.css(DOM.query(".J_ControlBtm") , 'display' , '');
 					} else {
 						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
 						DOM.css(DOM.query(".J_PromotionItemBtnHolder") , 'display' , 'none');

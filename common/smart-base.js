@@ -252,9 +252,9 @@ H.add('SMART', function(HLG) {
 			var	errorHandle = function(result){
 				DOM.html('#'+id,'0');
 			}
-			var data ="item_id="+id.substr(9)+"&nick="+nick+"&mode="+mode;
+			var data ="item_id="+id.substr(9)+"&nick="+encodeURIComponent(nick)+"&mode="+mode;
 			new H.widget.asyncRequest().setURI(uri).setMethod("GET").setHandle(infoHandle).setErrorHandle(errorHandle).setData(data).send();
-		},
+		},   
 
 		getItemCollect : function(uri, id){
 			var	infoHandle = function(result){

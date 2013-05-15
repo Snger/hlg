@@ -106,9 +106,11 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+					    DOM.css(DOM.get('#J_Tab3List') ,'display','');
+						DOM.css(DOM.get('#J_Tab3Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+					    DOM.css(DOM.get('#J_Tab3List'), 'display' , 'none');
+						DOM.css(DOM.get('#J_Tab3Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab3List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
@@ -135,9 +137,11 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+					    DOM.css(DOM.get('#J_Tab3List'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab3Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+					    DOM.css(DOM.get('#J_Tab3List'), 'display' , 'none');
+						DOM.css(DOM.get('#J_Tab3Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab3List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
@@ -163,9 +167,11 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+					    DOM.css(DOM.get('#J_Tab4List') ,'display','');
+						DOM.css(DOM.get('#J_Tab4Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+					    DOM.css(DOM.get('#J_Tab4List') ,'display','none');
+						DOM.css(DOM.get('#J_Tab4Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab4List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
@@ -192,16 +198,18 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+						DOM.css(DOM.get('#J_Tab4List') ,'display','');
+						DOM.css(DOM.get('#J_Tab4Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab4Empty'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab4Empty'), 'display' , 'none');
 					}
 					DOM.html('#J_Tab4List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
 					optimView.paginator.setPage(pageId).setPageCount(pageCount).printHtml('#J_Tab4Paging',3);
 				};
 				if(DOM.val(DOM.get("#J_Tab4Keyword")) != '输入热词'){
-					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab3Keyword"))); //标题
+					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab4Keyword"))); //标题
 				}else{
 					var keyword ='';
 				}
@@ -220,9 +228,11 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+						DOM.css(DOM.get('#J_Tab5List') ,'display','');
+						DOM.css(DOM.get('#J_Tab5Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab5List'), 'display' , 'none');
+						DOM.css(DOM.get('#J_Tab5Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab5List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
@@ -249,16 +259,18 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+						DOM.css(DOM.get('#J_Tab5List') ,'display','');
+						DOM.css(DOM.get('#J_Tab5Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab5List'), 'display' , 'none');
+						DOM.css(DOM.get('#J_Tab5Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab5List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
 					optimView.paginator.setPage(pageId).setPageCount(pageCount).printHtml('#J_Tab5Paging',3);
 				};
 				if(DOM.val(DOM.get("#J_Tab5Keyword")) != '输入热词'){
-					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab3Keyword"))); //标题
+					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab5Keyword"))); //标题
 				}else{
 					var keyword ='';
 				}
@@ -277,9 +289,11 @@ KISSY.add(function(S,showPages,O){
 					totalRecords = o.payload.totalRecords;
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
-						DOM.css(DOM.get('#J_REmpty') ,'display','none');
+						DOM.css(DOM.get('#J_Tab6List') ,'display','');
+						DOM.css(DOM.get('#J_Tab6Empty') ,'display','none');
 					} else {
-						DOM.css(DOM.get('#J_REmpty'), 'display' , '');
+						DOM.css(DOM.get('#J_Tab6List'), 'display' , 'none');
+						DOM.css(DOM.get('#J_Tab6Empty'), 'display' , '');
 					}
 					DOM.html('#J_Tab6List' ,o.payload.body);
 					var pageCount = Math.ceil(totalRecords/o.payload.pageNum); 
@@ -287,7 +301,7 @@ KISSY.add(function(S,showPages,O){
 					optimView.paginator = new showPages('optimView.paginator').setRender(optimView.handlePagination).setPageCount(pageCount).printHtml('#J_TopPaging',3);
 				};
 				if(DOM.val(DOM.get("#J_Tab6Keyword")) != '输入热词'){
-					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab3Keyword"))); //标题
+					var keyword = encodeURIComponent(DOM.val(DOM.get("#J_Tab6Keyword"))); //标题
 				}else{
 					var keyword ='';
 				}

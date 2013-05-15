@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview 
  * @author  
@@ -580,7 +581,7 @@ KISSY.add(function (S,O) {
 					if(typeId == 9){
 						var item = {"parent":"","parentUrl":"http://","children":[{"name":"长袖","url":"http://","isHight":"0"}]};
 					}else{
-						var item = {"parent":"客服分组名称","parentUrl":"http://","children":[{"name":"小冰","url":"欢乐逛:小冰","isHight":"0"}]};
+						var item = {"parent":"客服分组名称","parentUrl":"http://","children":[{"name":"","url":"","isHight":"0"}]};
 					}
 					category.selectItem.push(item);
 					category.renderSelectItems();

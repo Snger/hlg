@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview 
  * @author  
@@ -31,7 +32,7 @@ KISSY.add(function (S,O) {
 									buttons: [{ value: "继续体验" }, { value: "关闭" }],
 									success: function (result) {
 									        if (result == "继续体验") {
-												window.location.href = url;
+												window.open(url, "_blank");
 									        }
 				    				}
 								});
@@ -186,7 +187,7 @@ KISSY.add(function (S,O) {
 					}
 				}
 				var uri = designUrl+"&templet_id="+tmpId;
-				window.location = uri;
+				window.open(uri, "_blank");
 			},
 			designOld : function(id){
 				var tmpId = '';
@@ -198,7 +199,7 @@ KISSY.add(function (S,O) {
 					}
 				}
 				var uri = designUrl+"&templet_id="+tmpId+"&isOld=1";
-				window.location = uri;
+				window.open(uri, "_blank");
 			},
 			turn : function(id, tmpId){
 				var submitHandle = function(o) {

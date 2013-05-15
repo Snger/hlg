@@ -44,7 +44,6 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 				init : function() {
 					//列表参数 宝贝参数 初始化
 					ListParam.init();
-					
 					if(DOM.hasClass('#body-html','w-1000')){
 			  	        var str ='<select id="J_SelectItemPage" name="Page">'+
 					  	        '<option selected="selected" value="10">10条</option>'+
@@ -83,7 +82,21 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 								 				DOM.show('#J_Preview_Box');
 								 				Event.remove('#J_SaveBtn');
 								 				DOM.replaceClass(DOM.get('#J_SaveBtn'),'btm-gray-xiayibu btm-orange-baocun','btm-orange-xiayibu');
-								 				Event.on('#J_SaveBtn','click',function(){list.preview();iconTabs.switchTo(1);});
+								 				Event.on('#J_SaveBtn','click',function(){
+								 				    list.preview();
+								 				    iconTabs.switchTo(1);
+								 				    if(list.useMeal && meal_id!='0'){
+							                            new H.widget.msgBox({
+							                                title:"温馨提示",
+							                                content:'您已开通官方搭配套餐服务，可以在下方选择官方搭配套餐！',
+							                                type: "confirm",
+					                                        buttons: [{ value: "明白" }],
+					                                        success: function (result) {
+							                                
+					                                        }
+							                            });
+								 				   }
+							 				    });
 								 				
 								 				Event.remove('#J_PreviewBtn');
 								 				if(list.preSelectItem.length>0 || list.selectItem.length>0){
@@ -159,12 +172,12 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 						DOM.hide('.J_TurnMealButt');
 						DOM.hide('#J_TurnSelItemLi');
 					}
-				 	if(list.useMeal){
-				 		DOM.show('#J_ShowMealDiv');
-				 	}else {
+//				 	if(list.useMeal){
+//				 		DOM.show('#J_ShowMealDiv');
+//				 	}else {
 				 		list.searchTbItems();
 				 		DOM.show('#J_ShowTbItemDiv');
-				 	}
+//				 	}
 			 		//在编辑列表中显示已经选中的宝贝
 				 	if (list.selectItem.length > 0) {
 				 		list.renderSelectItems(1, true);
@@ -202,6 +215,35 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 							});
 							return;
 						}
+						
+						var meal = list.meals;
+						var mealCheckTrue = false;
+						var mealLimitNum = '';
+						for(var i=0;i<meal.length;i++){
+    		                if(meal[i].item_list.length == limit){
+    		                    mealCheckTrue = true; 
+    		                    break;
+    		                }else{
+    		                    mealLimitNum += meal[i].item_list.length + ',';
+    		                }
+						}
+                        var delComma = new RegExp(",$","g");
+						mealLimitNum = mealLimitNum.replace(delComma,'');
+						if(!mealCheckTrue){
+						    new H.widget.msgBox({
+						        title:"错误提示",
+						        content:'您选中的模板规格支持的宝贝数为:'+limit+'个,与您的官方搭配套餐支持的宝贝数('+mealLimitNum+')不符!请返回第二步选择合适的“规格x宽度x个数”',
+						        type: "confirm",
+                                buttons: [{ value: "返回第二步" }, { value: "取消" }],
+                                success: function (result) {
+                                    if (result == "返回第二步") {
+                                        iconTabs.switchTo(0);
+                                    }
+                                }
+						    });
+                            return;
+						}
+						
 						list.selectItem = [];
 						list.preSelectItem = [];
 						if(list.lastedMealOffset != null) {
@@ -474,13 +516,13 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 				var pageCount = Math.ceil(list.meals.length/list.mealPageNum); 
 				list.mealPaginator = new showPages('list.mealPaginator').setRender(handlePagination).setPageCount(pageCount).printHtml('#J_MealBottomPaging',2);
 				list.mealPaginator.printHtml('#J_MealTopPaging',3);
-				if(list.useMeal) {
-					list.initPreMealItem();
-				}
+//				if(list.useMeal) {
+//					list.initPreMealItem();
+//				}
 				handlePagination(list.mealPageId);
-				if(list.useMeal && meal_id!='0'){
-					list.preview();
-				}
+//				if(list.useMeal && meal_id!='0'){
+//					list.preview();
+//				}
 			},
 			//初始化meal_id、mealPageId、设置套餐参数、把宝贝加入selectItem
 			initPreMealItem : function(){
@@ -1164,9 +1206,26 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 					    type:"error"
 					});
 	        	};
+				//第一次预览designPics为空，之后从预览的内容中获取(class=J_DesignDiv)
+				var designPics = [],data ='';
+				if(!KISSY.isEmptyObject(list.designPics)){
+					S.each(list.designPics , function(item,i){
+	            		designPics.push(i+','+item['designId']);
+	            	});
+					//如果删除了海报 ，不传值
+					if(KISSY.inArray(designPics[0].split(',')[0],g_ds_del_list)){
+						data += "designPics=[]";
+					}else{
+						var designPics = KISSY.JSON.stringify(designPics);
+						data += "designPics="+designPics;
+					}
+				}else{
+					data += "designPics=[]";
+				}
+	        	
 				itemsJson = itemsJson.replace(/%25/g, '%!').replace(/&/g, '%26');
 		        listParamsJson = listParamsJson.replace(/%25/g, '%!');
-	     	    var data = "items="+itemsJson+"&listParams="+listParamsJson+"&proto_id="+protoId+"&form_key="+FORM_KEY;
+	     	    data += "&items="+itemsJson+"&listParams="+listParamsJson+"&proto_id="+protoId+"&form_key="+FORM_KEY;
 	    	    new H.widget.asyncRequest().setURI(previewUrl).setMethod("POST").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).send();
 			},
 			
@@ -1401,23 +1460,32 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 					});
 					
 	        	};
-	        	//第一次预览designPics为空，之后从预览的内容中获取(class=J_DesignDiv)
-				var designPics = [];
-	        	S.each(list.designPics , function(item,i){
-	            	designPics.push(i+','+item['designId']);
-	            });
-	        	var designPics = KISSY.JSON.stringify(designPics);
-	        	//alert(designPics);
-
 	        	var data = '';
 	        	if(mtype==7){
-	           	  	data = "meal_id="+meal_id+"&";
+	           	  	data = "&meal_id="+meal_id+"&";
 	            }else {
-	            	data = "meal_id=0&";
+	            	data = "&meal_id=0&";
 	            }
+	        	//第一次预览designPics为空，之后从预览的内容中获取(class=J_DesignDiv)
+				var designPics = [];
+				if(!KISSY.isEmptyObject(list.designPics)){
+					S.each(list.designPics , function(item,i){
+	            		designPics.push(i+','+item['designId']);
+	            	});
+					//如果删除了海报 ，不传值
+					if(KISSY.inArray(designPics[0].split(',')[0],g_ds_del_list)){
+						data += "designPics=[]";
+					}else{
+						var designPics = KISSY.JSON.stringify(designPics);
+						data += "designPics="+designPics;
+					}
+				}else{
+					data += "designPics=[]";
+				}
 				itemsJson = itemsJson.replace(/%25/g, '%!').replace(/&/g, '%26');
 		        listParamsJson = listParamsJson.replace(/%25/g, '%!');
-	     	    data += "items="+itemsJson+"&listParams="+listParamsJson+"&designPics="+designPics+"&list_id="+listId+"&proto_id="+protoId+"&form_key="+FORM_KEY;
+				
+	     	    data += "&items="+itemsJson+"&listParams="+listParamsJson+"&list_id="+listId+"&proto_id="+protoId+"&form_key="+FORM_KEY;
 	    	    new H.widget.asyncRequest().setURI(saveUrl).setMethod("POST").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).send();
 			},
     	 

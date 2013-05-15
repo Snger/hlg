@@ -19,6 +19,7 @@ KISSY.add(function(S,showPages){
 			},
 	 		searchTbItems : function() {
 	            var submitHandle = function(o) {
+					DOM.attr("#J_LCheckAll-b",'checked',false);
 					DOM.hide('#J_RightLoading');
 					DOM.show('#J_MainRightContent');
 	        	    totalRecords = o.payload.totalRecords;
@@ -73,6 +74,7 @@ KISSY.add(function(S,showPages){
 					DOM.hide('#J_RightLoading');
 					DOM.show('#J_MainRightContent');
 	        	    totalRecords = o.payload.totalRecords;
+					DOM.attr("#J_LCheckAll-b",'checked',false);
 					DOM.css(DOM.get('#J_NoteIcon') ,'display','none');
 					if(totalRecords > 0){
 						DOM.css(DOM.get('#J_REmpty') ,'display','none');
@@ -168,7 +170,6 @@ KISSY.add(function(S,showPages){
 					tbItem.delistTime = DOM.val(DOM.get('.delistTime', Ltd));
 					items.push(tbItem);
 					DOM.html("#add-item-msg",'');
-					items = JSON.stringify(items);
 					specifyAdd.ajaxPostProcessItems(1, items);
 				},
 				addItemsToSpecify : function(){
@@ -202,16 +203,34 @@ KISSY.add(function(S,showPages){
 						return false;
 					}
 					DOM.html("#add-item-msg",'');
-					items = JSON.stringify(items);
 					specifyAdd.ajaxPostProcessItems(1, items);
 				},
 				ajaxPostProcessItems : function(added, items){
+						var len = items.length;
+						items = JSON.stringify(items);
 						items = encodeURIComponent(items)
 						var data = 'isAjax=1&recommend='+recommend+'&added='+added+'&items='+items;
 						if(recommend){
+							
+							var remain_count = DOM.val('#remain_count')-len;
+							
+							if(remain_count<0){
+								var remain_num = DOM.val('#J_RemainNum');
+								specifyAdd.msg.hide();
+								var str ="亲，必推荐的宝贝不能多余"+remain_num+"个哦";
+								if(Math.abs(remain_count) > 0){
+									str += "请删除"+Math.abs(remain_count)+"个宝贝，再加入！";
+								}
+								new H.widget.msgBox({
+								    title:"错误提示",
+								    content:str,
+								    type:"error"
+								});
+								return false;
+							}
 							data += '&remain_count='+DOM.val('#remain_count');
 						}
-
+						
 						var ajaxProcessItemsReturnHandle = function(result){
 							var added=result.payload.added;
 							var items = result.payload.items;

@@ -1,0 +1,61 @@
+https://github.com/xiaoz/node-validator
+
+List of validation methods
+
+
+is()                            //Alias for regex()
+not()                           //Alias for notRegex()
+isEmail()
+isUrl()                         //Accepts http, https, ftp
+isIP()                          //Combines isIPv4 and isIPv6
+isIPv4()
+isIPv6()
+isAlpha()
+isAlphanumeric()
+isNumeric()
+isHexadecimal()
+isHexColor()                    //Accepts valid hexcolors with or without # prefix
+isInt()                         //isNumeric accepts zero padded numbers, e.g. '001', isInt doesn't
+isLowercase()
+isUppercase()
+isDecimal()
+isFloat()                       //Alias for isDecimal
+notNull()
+isNull()
+notEmpty()                      //i.e. not just whitespace
+equals(equals)
+contains(str)
+notContains(str)
+regex(pattern, modifiers)       //Usage: regex(/[a-z]/i) or regex('[a-z]','i')
+notRegex(pattern, modifiers)
+len(min, max)                   //max is optional
+isUUID(version)                 //Version can be 3 or 4 or empty, see http://en.wikipedia.org/wiki/Universally_unique_identifier
+isUUIDv3()                      //Alias for isUUID(3)
+isUUIDv4()                      //Alias for isUUID(4)
+isDate()                        //Uses Date.parse() - regex is probably a better choice
+isAfter(date)                   //Argument is optional and defaults to today. Comparison is non-inclusive
+isBefore(date)                  //Argument is optional and defaults to today. Comparison is non-inclusive
+isIn(options)                   //Accepts an array or string
+notIn(options)
+max(val)
+min(val)
+isCreditCard()                  //Will work against Visa, MasterCard, American Express, Discover, Diners Club, and JCB card numbering formats
+
+
+List of sanitization / filter methods
+
+trim(chars)                     //Trim optional `chars`, default is to trim whitespace (\r\n\t )
+ltrim(chars)
+rtrim(chars)
+ifNull(replace)
+toFloat()
+toInt()
+toBoolean()                     //True unless str = '0', 'false', or str.length == 0
+toBooleanStrict()               //False unless str = '1' or 'true'
+entityDecode()                  //Decode HTML entities
+entityEncode()
+escape()                        //Escape &, <, >, and "
+xss()                           //Remove common XSS attack vectors from user-supplied HTML
+xss(true)                       //Remove common XSS attack vectors from images
+
+

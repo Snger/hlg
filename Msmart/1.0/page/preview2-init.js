@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview 
  * @author  
@@ -22,7 +23,11 @@ KISSY.add(function (S,showPages) {
 				     }else{
 				    	 smartControl.pageNum = 6;
 					 }									
-					smartControl.promoId = DOM.val("#J_PromoId")
+			   	 	if(!(DOM.get('#J_PromoId'))){
+			   	 		smartControl.promoId = 0;
+			   	 	 }else{
+			   	 		smartControl.promoId = DOM.val("#J_PromoId")
+			   	 	 }
 					Event.on('#J_SearchBtn','click',smartControl.searchPromoItems);
 					Event.on('#J_PreviewToggle','click',smartControl.toggle);
 					
@@ -33,7 +38,7 @@ KISSY.add(function (S,showPages) {
 				 			smartControl.searchPromoItems();
 						}
 					 }
-					 if(smartControl.selectedPromoItemIds.length >0) {
+					 if(smartControl.selectedPromoItemIds.length >0 || templetIdd == 112 || templetIdd == 113) {
 					 	smartControl.preview();
 					 }
 					Event.delegate(document,'mouseenter mouseleave','.J_LookIt', function(ev) {
@@ -257,23 +262,32 @@ KISSY.add(function (S,showPages) {
 				},
 				
 				preview : function() {
-					if(smartControl.selectedPromoItemIds.length==0){
-						DOM.hide('#J_SelectItems');
-						DOM.hide('#J_Yulan');
-						DOM.hide('#J_ToggleC');
-						return;
-					}else{
-						DOM.show('#J_SelectItems');
-						DOM.show('#J_Yulan');
-						DOM.show('#J_ToggleC');
-					}
-			        var elem = this;
 					smartControl.msg1 = new H.widget.msgBox({
-								    title:"",
-									dialogType : 'loading',
-								    content:'正在获取模块信息, 请稍候...'	
-								});
+					    title:"",
+						dialogType : 'loading',
+					    content:'正在获取模块信息, 请稍候...'	
+					});
+					if(templetIdd == 113 || templetIdd == 112){
+						
+					}else{
+						if(smartControl.selectedPromoItemIds.length==0){
+							smartControl.msg1.hide();
+							DOM.hide('#J_SelectItems');
+							DOM.hide('#J_Yulan');
+							DOM.hide('#J_ToggleC');
+							return;
+						}else{
+							smartControl.msg1.hide();
+							DOM.show('#J_SelectItems');
+							DOM.show('#J_Yulan');
+							DOM.show('#J_ToggleC');
+						}
+						
+					}
+					
+			        var elem = this;
 			        var success = function(data) {
+			        	 smartControl.msg1.hide();
 			        	 if ( /^({")/i.test( data ) ) {
 			                 var result = smartControl.parseJSON( data );
 			                 //TS.util.Msg.val( result.message[0],  result.message[1] ); 
@@ -290,14 +304,12 @@ KISSY.add(function (S,showPages) {
 									html = data.replace(RE_SCRIPT, ''), //先去除模块内包含的脚本
 									re_script = new RegExp(RE_SCRIPT);
 									DOM.html('#J_PreviewDiv', data);
-								
 								while ( match = re_script.exec(data) ) {   //检查是否存在脚本
 									if( (text = match[2]) && text.length > 0 ) {
 										S.globalEval(text); 
 									}
 								}
 			             }
-						 smartControl.msg1.hide();
 			        };
 			        var failure = function() {
 						smartControl.msg1.hide();
@@ -318,16 +330,21 @@ KISSY.add(function (S,showPages) {
 					if(isVersionPer('smart')){
 							return ;
 					}
-					if(smartControl.selectedPromoItemIds.length==0){
-						new H.widget.msgBox({
+					if(templetIdd == 113 || templetIdd == 112){
+						
+					}else{
+						if(smartControl.selectedPromoItemIds.length==0){
+							new H.widget.msgBox({
 							    title:"错误提示",
 							    content:'请先选择宝贝！',
 							    type:"error",
 								autoClose : true,
 								timeOut : 3000
 							});
-						return;
+							return;
+						}
 					}
+					
 			        var elem = this;
 					smartControl.msg = new H.widget.msgBox({
 								    title:"",
@@ -362,7 +379,8 @@ KISSY.add(function (S,showPages) {
 					            	'<div class="wenzi">'+
 					                	'<span class="wenzi-1">恭喜您发布成功!</span><br />'+
 					                    '<span class="wenzi-2">您只需在店铺里添加对应模块就可以展示了</span><br />'+
-					                    '<span class="wenzi-2">店铺设置步骤：1、进店铺装修  2、添加"促销助手"模块</span>'+  
+					                    '<span class="wenzi-2">店铺设置步骤：1、进店铺装修  2、添加“欢乐逛”模块&nbsp;&nbsp;'+
+										'<a href="http://bangpai.taobao.com/group/thread/609027-272336901.htm?spm=0.0.0.0.OVljGW" target="_blank">帮助教程</a></span>'+  
 					                '</div>'+
 					            '</div>'+
 					        '</div>';

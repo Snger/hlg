@@ -2,9 +2,10 @@
 <project name="refound" default="common" basedir="."  xmlns:ac="antlib:net.sf.antcontrib">
 	
 	 <!--模块名称-->
-	 <property name="module.name" value="Mtool"/>
+	 <property name="module.name" value="Mmonitor"/>
 	 <!--发布目录-->
-	 <property name="public.time" value="20130326"/>
+	 
+	 <property name="public.time" value="20130510"/>
 	
 	 <!--js下载目录-->
 	<property name="jsdown.dir" value="/service/dev/abing/promo/www/js/hlg/v3/${module.name}/*"/>
@@ -15,7 +16,8 @@
     <!--js目录-->
 	<property name="js.dir" location="./${module.name}/"/>
    
-	<target name="common" depends="download-js,process-js,upload-js">	
+    <!--download-js,process-js,upload-js, uploadconfig-js-->
+	<target name="common" depends="uploadconfig-js">	
 			
 	</target>
 	<target name="process-js">	
@@ -25,10 +27,18 @@
 	    </exec>
 	</target>
     <target name= "download-js">
-    	<!--本地 kie 目录-->
+	<!--本地 kie 目录-->
   	  <mkdir dir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"/>
-     <scp file="abing:binghua731@42.121.53.108:${jsdown.dir}" todir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"  trust="true"   />
+     <scp file="abing:huanleguang123@223.4.57.27:${jsdown.dir}" todir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}"  trust="true"   />
  	<echo>下载完毕</echo>
+	<delete includeemptydirs="true">
+		<fileset dir="C:/Documents and Settings/Administrator/hlg/${localjs.dir}" >
+			<include name="**/*" />
+			<exclude name="1.0/" />
+		</fileset>
+	</delete>
+	<echo>删除线上旧包完成</echo>
+	
   </target>
 	<target name="upload-js">	
 		<ftp server="ftp.ace.aliyun.com"
@@ -36,7 +46,7 @@
 		       remotedir="${jsupload.dir}"
 			   passive ="yes"
 		       userid="smart"
-		       password=""
+		       password="6YNp22nT"
 		       depends="yes"
 			   verbose = "yes">
 		    <fileset dir="${js.dir}" includes="**/*.js" />
@@ -47,13 +57,50 @@
 		       remotedir="${jsupload.dir}"
 			   passive ="yes"
 		       userid="resource"
-		       password=""
+		       password="nKb2kPsp"
 		       depends="yes"
 			   verbose = "yes">
 	    	<fileset dir="${js.dir}" includes="**/*.js" />
 	  	</ftp>
 	  
-	  <echo>上传完毕</echo>
+	  <echo>上传cc完毕</echo>
   </target>
+  
+	
+	<target name="uploadconfig-js">	
+	
+	   	<delete includeemptydirs="true">
+			<fileset dir="C:/Documents and Settings/Administrator/hlg/common" >
+				<include name="*.js" />
+			</fileset>
+		</delete>
+	  <scp file="abing:huanleguang123@223.4.57.27:/service/dev/abing/promo/www/js/hlg/v3/common/*" todir="C:/Documents and Settings/Administrator/hlg/common/"  trust="true"   />
+	<!--js目录-->
+		<ftp server="ftp.ace.aliyun.com"
+			   port="2222"
+		       remotedir="/js/hlg/v3/common"
+			   passive ="yes"
+		       userid="smart"
+		       password="6YNp22nT"
+		       depends="yes"
+			   verbose = "yes">
+		    <fileset dir="./common/" includes="**/*.js" />
+		 </ftp>
+		  
+		<ftp server="ftp.ace.aliyun.com"
+			   port="2222"
+		       remotedir="/js/hlg/v3/common"
+			   passive ="yes"
+		       userid="resource"
+		       password="nKb2kPsp"
+		       depends="yes"
+			   verbose = "yes">
+	    	<fileset dir="./common/" includes="**/*.js" />
+	  	</ftp>
+		
+	  <echo>上传配置文件完毕</echo>
+	  
+  </target>
+
 
 </project>

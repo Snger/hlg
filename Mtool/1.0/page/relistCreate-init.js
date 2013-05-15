@@ -561,7 +561,7 @@ KISSY.add(function(S,showPages){
 				var showNum = DOM.get('#J_ShowNum_'+data);
 				var yfpNum = parseInt(DOM.html("#yfpNum"));
 				var wfpNum = parseInt(DOM.html("#wfpNum"));
-				if(isNaN(elem.value)||elem.value==''){
+				if(isNaN(elem.value)||elem.value==''||elem.value<0||!relistCreate.isInteger(elem.value)){
 					elem.value = 0;
 				}
 				var diff = elem.value - focusElemVal;
@@ -587,7 +587,7 @@ KISSY.add(function(S,showPages){
 			inputBlur : function(elem){
 				var data = DOM.attr(elem,'data');
 				var showNum = DOM.get('#J_ShowNum_'+data);
-				if(isNaN(elem.value)||elem.value==''||elem.value===0||elem.value=='0'){
+				if(isNaN(elem.value)||elem.value==''||elem.value===0||elem.value=='0'||elem.value<0||!relistCreate.isInteger(elem.value)){
 					elem.value = '';
 					DOM.html(showNum,'&nbsp;');
 					DOM.hide(elem);
@@ -597,6 +597,10 @@ KISSY.add(function(S,showPages){
 					relistCreate.countSum();
 				}
 				DOM.show(showNum);
+			},
+			isInteger : function(str ){
+			    var regu = /^[-]{0,1}[0-9]{1,}$/;
+			    return regu.test(str);
 			},
 			countSum : function(){
 				for(var w=1;w<=7;w++){
@@ -612,8 +616,8 @@ KISSY.add(function(S,showPages){
 				var wfpNum = parseInt(DOM.html("#wfpNum"));
 				if(wfpNum>1){
         	    	new H.widget.msgBox({
-					    title:"还有宝贝等待分配，请确认!",
-					    content:o.desc,
+					    title:"错误提示",
+					    content:"还有宝贝等待分配，请确认!",
 					    type:"error"
 					});
 					return;
@@ -650,11 +654,11 @@ KISSY.add(function(S,showPages){
 			stepTo5 : function(){
 				var wfpNum = parseInt(DOM.html("#wfpNum"));
 				if(wfpNum>1){
-        	    	new H.widget.msgBox({
-					    title:"还有宝贝等待分配，请确认!",
-					    content:o.desc,
-					    type:"error"
-					});
+                    new H.widget.msgBox({
+                        title:"错误提示",
+                        content:"还有宝贝等待分配，请确认!",
+                        type:"error"
+                    });
 					return;
 				}
 				var submitHandle = function(o){
@@ -719,11 +723,11 @@ KISSY.add(function(S,showPages){
 			step4Save : function(){
 				var wfpNum = parseInt(DOM.html("#wfpNum"));
 				if(wfpNum>1){
-        	    	new H.widget.msgBox({
-					    title:"还有宝贝等待分配，请确认!",
-					    content:o.desc,
-					    type:"error"
-					});
+                    new H.widget.msgBox({
+                        title:"错误提示",
+                        content:"还有宝贝等待分配，请确认!",
+                        type:"error"
+                    });
 					return;
 				}
 				var submitHandle = function(o){

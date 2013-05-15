@@ -381,6 +381,18 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 	
 			},
 			editorPromoName : function(pid){
+				if(DOM.hasClass('#J_Promo_'+pid,'ing')){
+					 new H.widget.msgBox({
+						    type:"error",
+							dialogType : 'msg',
+						    content:'活动正在编辑中！',
+						    autoClose:true,
+						    timeOut:3000
+						});
+						return ;
+				}else{
+					DOM.addClass('#J_Promo_'+pid,'ing');
+				}
 				
 		 		DOM.hide('#J_PromoNameBox_'+pid);	
 		 		var SpromoName = KISSY.trim(DOM.val('#J_SoucePromoName_'+pid));
@@ -389,6 +401,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 				DOM.html('#J_ShowEditorPromoName_'+pid,str);
 				DOM.show('#J_ShowEditorPromoName_'+pid);
 				Event.on('#J_InputPromoName_'+pid,'blur',function(){
+					DOM.removeClass('#J_Promo_'+pid,'ing');
 					KISSY.later(function(){
 						DOM.hide('#J_ShowEditorPromoName_'+pid);
 		 				DOM.show('#J_PromoNameBox_'+pid);
@@ -403,6 +416,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 						if(SpromoName == NpromoName){
 							DOM.hide('#J_ShowEditorPromoName_'+pid);
 							DOM.show('#J_PromoNameBox_'+pid);
+							DOM.removeClass('#J_Promo_'+pid,'ing');
 							return ;
 						}
 						var result = H.util.isNull(NpromoName);
@@ -414,6 +428,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 								    content:'出错了：'+msg,
 								    type:"error"
 								});
+							DOM.removeClass('#J_Promo_'+pid,'ing');	
 				 			return ;
 						}
 						result = checkUtil.checkSpecTitle(NpromoName);
@@ -425,6 +440,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 								    content:'出错了：'+msg,
 								    type:"error"
 								});
+							DOM.removeClass('#J_Promo_'+pid,'ing');	
 				 			return ;
 						}
 						var typeId = DOM.val('#J_TypeId_'+pid);
@@ -438,11 +454,12 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 								    content:'出错了：'+msg,
 								    type:"error"
 								});
+								DOM.removeClass('#J_Promo_'+pid,'ing');
 					 			return ;
 							}
 						}
 				 		var sucessHandle = function(o) {
-						  	window.location.href= currentPageUrl;
+						  		window.location.reload();
 				 		};
 				 		var error = function(o){
 				 			new H.widget.msgBox({
@@ -450,12 +467,26 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 								    content:o.desc,
 								    type:"error"
 								});
+							DOM.removeClass('#J_Promo_'+pid,'ing');
 				 		};
 				 		var data = "pid="+pid+"&promo_name="+encodeURI(NpromoName)+"&form_key="+FORM_KEY;
 				  	    new H.widget.asyncRequest().setURI(savePromoNameUrl).setMethod("GET").setHandle(sucessHandle).setErrorHandle(error).setData(data).send();
 				})	
 			},
 			editorPromoTime : function(pid){
+				if(DOM.hasClass('#J_Promo_'+pid,'ing')){
+					 new H.widget.msgBox({
+						    type:"error",
+							dialogType : 'msg',
+						    content:'活动正在编辑中！',
+						    autoClose:true,
+						    timeOut:3000
+						});
+						return ;
+				}else{
+					DOM.addClass('#J_Promo_'+pid,'ing');
+				}
+				
 				DOM.hide(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));	
 		 		var SpromoTime = KISSY.trim(DOM.val('#J_SoucePromoStartTime_'+pid)),
 		 			EpromoTime = KISSY.trim(DOM.val('#J_SoucePromoEndTime_'+pid));
@@ -483,6 +514,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 							DOM.hide('#J_ShowEditorPromoTime_'+pid);
 				 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
 				 			DOM.hide('#J_TimeMsg_'+pid);
+							DOM.removeClass('#J_Promo_'+pid,'ing');
 							return ;
 						}
 						KISSY.later(function(){
@@ -490,9 +522,10 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 							DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
 			 			},200,false,null);
 				 		var sucessHandle = function(o) {
-						  	window.location.href=currentPageUrl;
+						  		window.location.reload();
 				 		};
 				 		var error = function(o){
+							DOM.removeClass('#J_Promo_'+pid,'ing');
 							new H.widget.msgBox({
 								    title:"错误提示",
 								    content:o.desc,
@@ -512,6 +545,7 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 					DOM.hide('#J_ShowEditorPromoTime_'+pid);
 		 			DOM.show(DOM.get('.J_EditorPromoTime','#J_Promo_'+pid));
 		 			DOM.hide('#J_TimeMsg_'+pid);
+					DOM.removeClass('#J_Promo_'+pid,'ing');
 					return ;
 				})
 			},
@@ -531,7 +565,8 @@ KISSY.add(function (S,showPages,checkUtil,O) {
 										    autoClose:true,
 										    timeOut:3000
 										});
-							  	window.location.href= currentPageUrl;
+							  	window.location.reload();
+								//window.location.href= currentPageUrl;
 							};
 							var error = function(o){
 								new H.widget.msgBox({

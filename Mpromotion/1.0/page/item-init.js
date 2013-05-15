@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview 
  * @author  
@@ -543,9 +544,14 @@ KISSY.add(function (S,showPages,itemHandle) {
 						if(KISSY.inArray(typeId,['108','106','111','208']) && o.payload.sucNum == 1){
 								new H.widget.msgBox({
 									    title:"温馨提示",
-									    content:'部分参与活动宝贝数量需大于1个，否则活动不会生效！',
-									    type:"info"
-									
+									    content:'部分参与活动宝贝数量需<strong style="color:red">至少两个</strong>，否则活动不会生效！',
+									    type:"info",
+									  	buttons: [{ value: "添加宝贝" }],
+					   				 	success: function (result) {
+											if(result == '添加宝贝'){
+												tabs.switchTo(0)
+											}
+										}
 									});
 						}
 //						if(totalRecords > 150){
@@ -589,6 +595,9 @@ KISSY.add(function (S,showPages,itemHandle) {
         	    var status = DOM.val(DOM.get('#J_SearchStatus'));
         	    var itemPage = DOM.val(DOM.get("#J_RightSelectItemPage"));//每页多少条
         	    var data = "promo_id="+promotionId+"&status="+status+"&title="+title+"&pageSize="+itemPage;
+				var startPrice = DOM.val(DOM.get("#J_RightStartPrice"));
+	    	    var endPrice = DOM.val(DOM.get("#J_RightEndPrice"));
+	    	    data += "&start_price="+startPrice+"&end_price="+endPrice;
 				DOM.show('#J_RightLoading');
 				DOM.hide('#J_MainRightContent');
         	    new H.widget.asyncRequest().setURI(loadPromotionItemsUrl).setMethod("GET").setHandle(submitHandle).setData(data).send();
@@ -605,14 +614,17 @@ KISSY.add(function (S,showPages,itemHandle) {
 						DOM.val('#J_TotalPromoItems',totalRecords);
 						//部分参与：满就送，订单限购，部分参与 免邮
 						if( KISSY.inArray(typeId,['108','106','111','208'])&& o.payload.sucNum == 1){
-							if(totalRecords == 1){
 								new H.widget.msgBox({
 									    title:"温馨提示",
-									    content:'部分参与活动宝贝数量需大于1个，否则活动不会生效！',
-									    type:"info"
-									
+									    content:'部分参与活动宝贝数量需<strong style="color:red">至少两个</strong>，否则活动不会生效！',
+									    type:"info",
+									  	buttons: [{ value: "添加宝贝" }],
+					   				 	success: function (result) {
+											if(result == '添加宝贝'){
+												tabs.switchTo(0)
+											}
+										}
 									});
-							}
 						}
 //						if(totalRecords > 150){
 //							var str = '<div class="point"><span>非全店活动宝贝数量不能大于150个，请删除多余的宝贝，或酌情分多次活动创建</span><br/><div style="width:80px;" class="btm-content btm-margin-30auto"><input name="" type="button" value="关闭" onclick="promotionControl.msg.hide()" class="btm-68-orange fl" style="display:inline" /></div></div>'; 
@@ -660,7 +672,10 @@ KISSY.add(function (S,showPages,itemHandle) {
 	        	 var itemPage = DOM.val(DOM.get("#J_RightSelectItemPage"));//每页多少条
 	        	 var status = DOM.val(DOM.get('#J_SearchStatus'));
 	        	 var data = "promo_id="+promotionId+"&status="+status+"&title="+title+"&page_id="+pageId+"&pageSize="+itemPage;
-	        	    new H.widget.asyncRequest().setURI(loadPromotionItemsUrl).setMethod("GET").setHandle(submitHandle).setData(data).send();
+	        	 var startPrice = DOM.val(DOM.get("#J_RightStartPrice"));
+	    	     var endPrice = DOM.val(DOM.get("#J_RightEndPrice"));
+	    	     data += "&start_price="+startPrice+"&end_price="+endPrice; 
+				new H.widget.asyncRequest().setURI(loadPromotionItemsUrl).setMethod("GET").setHandle(submitHandle).setData(data).send();
 			},
 			
 			//将活动中宝贝移除

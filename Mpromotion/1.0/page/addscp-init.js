@@ -110,7 +110,7 @@ KISSY.add(function (S,checkUtil) {
 			},
 			/*加载规则*/
 			loadRules : function(ruleId){
-
+				promotionControl.isChange = true;
 		        if(ruleId.split('_')[1] == 1){
 				    var submitHandle = function(o) {
 				    	DOM.show('#J_LoadRule');
@@ -398,6 +398,15 @@ KISSY.add(function (S,checkUtil) {
 			
 			/* 满就送 增加层级*/
 			addRule : function(){
+				promotionControl.isChange = true;
+				if(promotionControl.ids.length > 10){
+					new H.widget.msgBox({
+							    title:"错误提示",
+							    content:'满就送层级不能超过10层！',
+							    type:"error"
+							});
+					return ;
+				}
 				promotionControl.rule_num++;
 				for(var n = 0; n<promotionControl.ids.length; n++){
 					promotionControl.mini(promotionControl.ids[n]);
@@ -697,7 +706,7 @@ KISSY.add(function (S,checkUtil) {
 			    };
 			    var errorHandle = function(o){
 			    	var ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
-					DOM.html('#J_ParamsErrorMsg',o.payload.desc);
+					DOM.html('#J_ParamsErrorMsg',o.desc);
 					if (ParamsErrorBox.css("display")==="none") {
 						ParamsErrorBox.slideDown();
 					}

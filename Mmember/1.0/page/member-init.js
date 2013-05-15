@@ -98,7 +98,43 @@ KISSY.add(function (S,showPages) {
 				}
 		        return data;  
 	
+			},
+			open:function(){
+			 var submitHandle = function(o) {
+			 		var str = '<span style="color: #FB8534;float:left;margin-right:10px">自动将在淘宝新交易的用户加入列表</span>'+ 
+              		  		  '<input class="btm-caozuo-orange" type="button" name="" value="关闭" onclick="MemberList.close()">';
+					DOM.html('#J_SaveConfigButton',str);
+						new H.widget.msgBox({ 
+				 			type: "sucess", 
+				 			content: "成功开启！",
+							dialogType:"msg", 
+							autoClose:true, 
+							timeOut:3000
+						});
+				
+	    	    };
+	    	    var data = 'no_auto=0';
+	    	    new H.widget.asyncRequest().setURI(saveConfigUrl).setMethod("GET").setHandle(submitHandle).setData(data).send();
+			},
+			close:function(){
+				 var submitHandle = function(o) {
+			 		var str = '<span style="color: #FB8534;float:left;margin-right:10px">自动将在淘宝新交易的用户加入列表</span>'+ 
+              		  		  '<input class="btm-caozuo-orange" type="button" name="" value="启用" onclick="MemberList.open()">';
+					DOM.html('#J_SaveConfigButton',str);
+						new H.widget.msgBox({ 
+				 			type: "sucess", 
+				 			content: "成功关闭！",
+							dialogType:"msg", 
+							autoClose:true, 
+							timeOut:3000
+						});
+	    	    };
+	    	    var data = 'no_auto=1';
+	    	    new H.widget.asyncRequest().setURI(saveConfigUrl).setMethod("GET").setHandle(submitHandle).setData(data).send();
+
+				
 			}
+			
 		
 	
 

@@ -1,4 +1,4 @@
-KISSY.add(function(S,showPages){
+KISSY.add('page/neutralList-init',function(S,showPages){
 	var S = KISSY,DOM = S.DOM, Event = S.Event;
 	return neutralList = {
 	    	paginator : null,
