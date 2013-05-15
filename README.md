@@ -29,6 +29,7 @@
    - share （分享）
    - showPermissions 子账号权限控制 版本控制
    - gallery 组件
+   - [前台验证模块validator](https://github.com/chriso/node-validator)
 - 其他模块名(promo)
 
 ## 使用
