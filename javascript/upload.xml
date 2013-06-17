@@ -15,6 +15,17 @@
 			
 	</target>
 	<target name="upload-js">	
+<!--	<ftp server="ftp.ace.aliyun.com"
+			   port="2222"
+		       remotedir="${jsupload.dir}"
+			   passive ="yes"
+		       userid="smart"
+		       password="6YNp22nT"
+		       depends="yes"
+			   verbose = "yes">
+		    <fileset dir="${js.dir}" includes="**/*.js" />
+		 </ftp>
+		--> 
 		<ftp server="ftp.ace.aliyun.com"
 			   port="2222"
 		       remotedir="${jsupload.dir}"

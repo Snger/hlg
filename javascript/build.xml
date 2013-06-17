@@ -41,17 +41,6 @@
 	
   </target>
 	<target name="upload-js">	
-	<!--	<ftp server="ftp.ace.aliyun.com"
-			   port="2222"
-		       remotedir="${jsupload.dir}"
-			   passive ="yes"
-		       userid="smart"
-		       password="6YNp22nT"
-		       depends="yes"
-			   verbose = "yes">
-		    <fileset dir="${js.dir}" includes="**/*.js" />
-		 </ftp>
-		-->  
 		<ftp server="ftp.ace.aliyun.com"
 			   port="2222"
 		       remotedir="${jsupload.dir}"
@@ -76,17 +65,7 @@
 		</delete>
 	  <scp file="abing:huanleguang123@223.4.57.27:/service/dev/abing/promo/www/js/hlg/v3/common/*" todir="C:/Documents and Settings/Administrator/hlg/common/"  trust="true"   />
 	<!--js目录-->
-	<!--<ftp server="ftp.ace.aliyun.com"
-			   port="2222"
-		       remotedir="/js/hlg/v3/common"
-			   passive ="yes"
-		       userid="smart"
-		       password="6YNp22nT"
-		       depends="yes"
-			   verbose = "yes">
-		    <fileset dir="./common/" includes="**/*.js" />
-		 </ftp>
-		-->  
+
 		<ftp server="ftp.ace.aliyun.com"
 			   port="2222"
 		       remotedir="/js/hlg/v3/common"
