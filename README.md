@@ -1,25 +1,29 @@
 ## about
 这里有大家建立的规范制度，这里有大家分享的精华经验，这里有大家。。。
 
+[markdown编辑器](http://www.markdownpad.com/)
+
 ## 结构图： 
 
 
 - docs(文档)
-   - [kissy-kie](https://github.com/maxbbn/front-build) 
-   - HTML编码规范-CSS编码规范
+   - HTML编码规范
+   - CSS编码规范
    - JavaScript语言规范
 - html+css(页面结构)
-   -  
-   - 
-   - 
+   -  页面组织形式
+   -  css书写结构
+   -  总结
+   -  优化建议
 - JavaScript(js结构)
-   - 
-   - 
-   - 
+   - 代码结构原理
+   - 知识点
+   - 如何快速发布
+   - 总结
+   - 优化建议
 - PPT分享
-
-- 技术知识点
-- 收藏链接
+   - 待续
+- 技术知识点（在这里学习成长）
 
    
 ## hlg

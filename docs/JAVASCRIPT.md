@@ -11,7 +11,7 @@
 > 注意：如果在JavaScript和CSS中都需要用到,则不用遵守本约定。
 	
 -4.前缀规范
-```
+
 	每个局部变量都需要有一个类型前缀，按照类型可以分为：
 		s：表示字符串。例如：sName，sHtml；
 		n：表示数字。例如：nPage，nTotal；
@@ -23,21 +23,21 @@
 	例外情况：
 		1：作用域不大临时变量可以简写，比如：str，num，bol，obj，fun，arr。
 		2：循环变量可以简写，比如：i，j，k等。
-```	
+
 > 全局变量使用g作为前缀，定义在window下。例如gUserName，gLoginTime。
 > 涉及返回逻辑值的函数可以使用is，has等表示逻辑的词语代替动词另, 要求变量集中声明, 避免全局变量.
 
 -5.模块书写：
-```
+
 		KISSY.add(function(S) {
 	    		function model(){
 	 
 	    		}
 	    		return model;
 		  }, {requires:[]});
-```
+
 -6.通用模块 （组件）书写规范：
-```
+
 		。模块返回类，使用new 方式调用；
 		。类继承kissy的Base类，使用getter/setter方式控制属性；	
 		。暴露出自定义事件供外部监听；
@@ -88,7 +88,7 @@
 			});
 	    	return Uploader;
 		});
-```		
+	
 -7.业务模块清晰明确的模块文件名： 比如 lottery-core.js 抽奖下的业务逻辑 lottery-char.js lottery-popup.js 
 
 -8. 命名语义化, 尽可能利用英文单词或其缩写;
