@@ -63,5 +63,5 @@
   - [CSS解决方案](http://www.w3cplus.com/resources/css-solution.html)
   - [练习css3](http://css3please.com/)
   - [Raphaël](http://raphaeljs.com/)
-  - [前端开发常用API-chm版](http://www.w3cplus.com/resources/676.html)
+  - [前端开发常用API-chm版](http://overapi.com/)
  
