@@ -1,3 +1,507 @@
+/* HLG.Dialog 简易模拟窗口
+ * 
+ * @creator     hlg<xiaohu@taobao.com>
+ * @date		2011.05.21
+ * @version		1.0
+ */
+
+H.add('widget~Dialog', function( HLG ) {
+	var S = KISSY, DOM = S.DOM, Event = S.Event, doc = document, IE = S.UA.ie,
+		DP = Dialog.prototype, _id_counter = 0,
+/* 默认HTML
+<div class="ui-dialog ui-dialog-dd">
+	<div class="ui-dialog-hd">hd</div>
+	<div class="ui-dialog-bd">bd</div>
+	<div class="ui-dialog-ft"><a class="close" href="#close" title="关闭"></a></div>
+</div>
+<div class="ui-dialog-mask"></div>
+*/	
+		defConfig = {
+			ID: null,
+			head: 'Title',
+			body: '<div class="ui-dialog-loading">正在加载，请稍候...</div>',
+			foot: '',
+			center: true,
+			width: '580px',
+			zIndex: '1000002',
+			keypress: true,
+			mask: false,
+			drag: false,
+			maskClassName: 'ui-dialog-mask',
+			close: true,
+			className: 'ui-dialog',
+			classNameHd: 'ui-dialog-hd',
+		    classNameBd: 'ui-dialog-bd',
+			classNameFt: 'ui-dialog-ft',
+			scroll : true
+		},
+		/**
+		 * 所有自定义事件列表
+		 */
+		CHANGE_HEADER = "changeHeader",	//修改hd
+		CHANGE_BODY = "changeBody",		//修改bg
+		CHANGE_FOOTER = "changeFooter",	//修改ft
+		CENTER = "center",					//center后
+		BEFORE_SHOW = "beforeShow",		//show之前
+		SHOW = "show",						//show
+		BEFORE_HIDE = "beforeHide",		//hide之前
+		HIDE = "hide";						//hide
+
+	function Dialog (config) {
+		var self = this; 
+        if (!(self instanceof Dialog)) { 
+            return new Dialog(config); 
+        }		
+		this.config = S.merge(defConfig, config || {});
+		var self = this, cfg = self.config, k ,DD;
+		self._createHTML();
+		if(true === cfg.keypress) Event.on(doc, 'keypress', function(evt) {
+			if (27 === evt.keyCode && 200 === self._status) {
+				self.hide();
+			}
+		});
+	}
+	//
+	S.mix(DP, S.EventTarget);
+	S.mix(DP, {
+		/*
+		 * 内部状态码 400为hide, 200为show
+		 *
+		 * */
+		_status: 400,
+
+		/**
+		 * 居中 return this
+		 */
+		center: function() { 
+			var self = this, elem = this.elem, x, y,
+				elemWidth = elem.offsetWidth,
+				elemHeight = elem.offsetHeight,
+				viewPortWidth = DOM.viewportWidth(),
+                viewPortHeight = DOM.viewportHeight();
+               
+            if (elemWidth < viewPortWidth) {
+                x = (viewPortWidth / 2) - (elemWidth / 2) + DOM.scrollLeft();
+            } else {
+                x = DOM.scrollLeft();
+            }
+            if (elemHeight < viewPortHeight) {
+                y = (viewPortHeight / 2) - (elemHeight / 2) + DOM.scrollTop();
+            } else {
+                y = DOM.scrollTop();
+			}
+            DOM.css(elem, { left: x, top: y });
+			DOM.css(self.mask, 'height', DOM.docHeight() + 'px');
+            self.fire( CENTER );
+            return self;
+		},
+		/*** setHeader */
+		setHeader: function(str) {
+            var self = this;
+            str = str + "";
+			self.elemHead.innerHTML = str;	
+			self.fire( CHANGE_HEADER );
+			return self;
+		},
+		/*** setbody */
+		setBody: function(str) {
+            var self = this;
+            if(str.nodeType) { // 如果是节点元素, 清空elemBody, 再插入节点元素
+				self.elemBody.innerHTML = '';
+				self.elemBody.appendChild(str);
+			} else {
+				str = str + "";
+				self.elemBody.innerHTML = str;
+            }
+			self.fire( CHANGE_BODY );
+			return self;
+		},
+		
+		/**
+		 * setFooter
+		 */
+		setFooter: function(str) {
+            var self = this;
+            str = str + "";
+			self.elemFoot.innerHTML = str;
+			self.fire( CHANGE_FOOTER );
+			return self;
+        },
+
+		/*** show*/
+        show: function() {
+            var self = this, cfg = this.config;
+            self.fire( BEFORE_SHOW );
+			DOM.css(self.elem, "visibility", "");
+			DOM.css(self.elem, "display", "");
+			if(true === cfg.center) self.center();
+			DOM.css(self.mask, "visibility", "");
+			if(IE && 6 === IE) {
+				DOM.addClass(doc.body, 'fix-select');
+			}			
+			self._status = 200;
+			self.fire( SHOW );
+			if (cfg.scroll) {
+				var cen = function(){
+					self.center();
+				};
+				window.onscroll = cen;
+			}
+			return self;
+		},
+		
+		/**
+		 * hide
+		 */
+        hide: function() {
+            var self = this,  cfg = self.config;
+			if ( 400 === self._status ) return;
+		    self.fire( BEFORE_HIDE );
+            //DOM.css(self.elem, "top", 0);
+            DOM.css(self.elem, "display", "none");
+			DOM.css(self.elem, "visibility", "hidden");
+            DOM.css(self.mask, "visibility", "hidden");
+            DOM.css(self.mask, "height", 0);
+			if(IE && 6 === IE) {
+				DOM.removeClass(doc.body, 'fix-select');
+			}
+			self._status = 400;
+			self.fire( HIDE );
+			return self;
+		},
+		
+		align: function() {
+			
+		
+		},
+		
+		
+		_createHTML: function() {
+			var self = this, cfg = self.config;
+			self.elem = doc.createElement('dialog');
+			self.elem.id = cfg.ID || 'ui-dialog-' + _id_counter++;
+			self.elem.className = cfg.className;
+			DOM.css(self.elem, 'width', cfg.width);
+			DOM.css(self.elem, 'visibility', 'hidden');
+			DOM.css(self.elem, 'z-index', cfg.zIndex);
+			//hd
+			self.elemHead = doc.createElement('hd');
+			self.elemHead.className = cfg.classNameHd;
+			self.elemHead.innerHTML = cfg.head;
+			
+			//bd
+			self.elemBody = doc.createElement('bd');
+            self.elemBody.className = cfg.classNameBd;
+            self.setBody( cfg.body );
+                //ft
+            self.elemFoot = doc.createElement('ft');
+            self.elemFoot.className = cfg.classNameFt;
+            self.elemFoot.innerHTML = cfg.foot;
+            //append
+			self.elem.appendChild(self.elemHead);
+            self.elem.appendChild(self.elemBody);
+            self.elem.appendChild(self.elemFoot);
+			doc.body.appendChild(self.elem);
+				if(true === cfg.close) {
+				// 注册关闭按钮
+				self.elem.appendChild(DOM.create('<a href="javascript:void(0);" class="close">closes</a>'));
+				Event.on(DOM.query('.close', self.elem ), 'click', function(evt) {
+					evt.preventDefault();
+					self.hide();
+				});
+			}
+			// 初始化遮罩层
+			if(true === cfg.mask) {
+				self.mask = doc.createElement('mask');
+				self.mask.id = self.elem.id + '_' + cfg.maskClassName;
+				self.mask.className = cfg.maskClassName;
+                DOM.css(self.mask, 'height', DOM.docHeight() + 'px');
+                DOM.css(self.mask, 'visibility', 'hidden');
+				DOM.css(self.mask, 'z-index', self.config.zIndex - 1);
+				doc.body.appendChild(self.mask);
+			}
+			
+			// 初始化拖拽
+			if(true === cfg.drag) {
+				DOM.addClass(self.elem, 'ui-dialog-dd');
+				S.use('dd',function(){
+					var node = S.one('#'+self.elem.id);
+				    new S.Draggable({
+						node:node,
+					    handlers:[S.one('.'+cfg.classNameHd)],
+					    shim:true				
+				    }).on("drag", function(ev) {
+                    	if (ev.left < 0||ev.top<0) return;
+                    	this.get("node").offset(ev);
+                        });
+					});
+			   }
+		}
+	});
+
+   H.widget.Dialog = Dialog;
+    
+   H.widget.DialogMgr = {
+        /* 存储已初始化的dialog */
+        list: {},
+        /**
+            * 返回H.widget.Dialog对象
+            */
+        get: function(id, config) {
+            if(!id || !this.list[id]) {
+                var D = new H.widget.Dialog(config);
+                id = !id ? D.elem.id : id;
+                this.list[id] = D;
+            }
+            return this.list[id];
+        }
+    };
+});
+
+/* vim: set et sw=4H=4 sHLG=4 fdm=indent ff=unix fenc=gbk: */
+/**
+ *H.Msg 简易消息提示
+ *
+ *   new msg = H.util.Msg();  
+ * 方法：setHeader(str);  设置头部
+ 		 setMsg(value); 设置消息 
+         show(): 居中显示遮罩， 
+ * 		 show(id)  特定容器里 显示消息  
+ *		 showDialog() 简易对话
+ * 
+ * 					
+ */
+ H.add('widget~msg', function( HLG ) {
+    var S = KISSY, DOM = S.DOM, Event = S.Event,doc = document,
+		HIDDEN = 'hidden'; num = 0;
+	
+	function Msg() {
+		var self = this; 
+        if (!(self instanceof Msg)) { 
+            return new Msg(); 
+        }
+		//遮罩
+        this.msgMask = null,
+        this.elem = null;
+        this.panel =null;
+        this.msg = null;
+        this.header = "错误提示";
+		//显示 消息  id 的容器
+        this.contain = null;
+		this.status = 'msg'
+	}
+
+	S.mix(Msg.prototype, {
+		/*
+		 * 
+		 * 设置消息
+		 *
+		 * @param value {String} 消息内容
+         * show(mode) 
+		 *			   
+		 * */
+		setHeader: function(str){
+			 var self =this;
+			 if(S.isString( str )){
+				 self.header =str;
+			 }
+			 return this;
+		 },
+		setMsg: function(value){
+			 var self = this;
+			 if(value ==undefined){
+				 self.msg = null;
+			 }else{
+				 self.msg = value;
+			 }
+			 return this;
+		 }, 
+		setBody: function( value ,mode) {
+			 var self = this;
+			 if(mode==1){
+				 if ( S.isString( value ) ) {
+					 self.elem.innerHTML = value;
+				 } 
+			 }else if(mode==2){
+				 if ( S.isString( value ) ) {
+					 self.contain.innerHTML = value;
+				 } 
+			 }else {
+				 self.panel.setBody(value);
+			 }
+			return this;
+        },
+        createDiv: function(){
+	        	var parent = DOM.create('<div class="messages-prompt" ><div class="fbloader"><img  src=" http://img.huanleguang.com/hlg//fbloader.gif" width="16" height="11" /></div></div>');
+	        	this.elem = doc.createElement('div'); 
+				this.elem.className = "mini_dialog_content";
+	        	DOM.append(this.elem,parent);
+				doc.body.appendChild(parent);
+        },
+        createDialog: function(){
+        	var Id = 'msg_panel'+num++;
+			this.panel = H.widget.DialogMgr.get(Id,{
+				 ID: Id,
+				 head: '错误提示',
+				 body: '',
+				 foot: '',
+				 center: true,
+				 width: '400px',
+				 keypress: true,
+				 mask: true,
+				 drag: true	
+			});
+        },
+        
+        /**
+		 * 居中 
+		 */
+		center: function() { 
+			var self = this, x, y;
+			var elem = DOM.parent(this.elem),
+				elemWidth = elem.offsetWidth,
+				elemHeight = elem.offsetHeight;
+			viewPortWidth = DOM.viewportWidth(),
+			viewPortHeight = DOM.viewportHeight();
+            if (elemWidth < viewPortWidth) {
+                x = (viewPortWidth / 2) - (elemWidth / 2) + DOM.scrollLeft();
+            } else {
+                x = DOM.scrollLeft();
+            }
+
+            if (elemHeight < viewPortHeight) {
+                y = (viewPortHeight / 2) - (elemHeight / 2) + DOM.scrollTop();
+            } else {
+                y = DOM.scrollTop();
+			}
+            DOM.css(elem, { left: x, top: y });
+            return self;
+		},
+		
+		show: function( id ) {
+			var self = this;
+			var value = self.msg;
+            if(id == undefined){
+	            	if(!this.elem){
+	            		self.createDiv();
+	            	}
+	            	DOM.css(DOM.parent(self.elem),'opacity','1');
+	            	self.setBody(value,1);
+	            	self.mask();
+	            	DOM.show(DOM.parent(self.elem));
+	            	self.center();
+	            	function  msgRoll(){
+	            		self.center();
+	            	}
+	            	window.onscroll = msgRoll;
+					self.status = 'msg'
+            }else {
+            	this.contain = DOM.get(id);
+            	self.setBody(value,2);
+            	DOM.show(self.contain);
+				self.status = 'contain'
+            }
+		},
+		/*一般错误消息提示 body 样式
+		 * <div class="point relative"><div class="point-w-1">团购初始参团人数必须大于等于0</div></div>
+		 * */
+		showDialog: function(){
+			var self = this;
+			if(!this.panel){
+				self.createDialog();
+			}
+			self.panel.setHeader(self.header);
+			self.setBody(self.msg);
+			self.panel.show();
+			self.status = 'dialog'
+		},
+	   // 初始化遮罩层
+		mask: function() {
+			var self = this;
+				mask = doc.createElement('mask');
+				self.msgMask = mask;
+				mask.id = 'messageMask';
+				mask.className = 'msg-mask';
+				DOM.css(mask, 'height', DOM.docHeight() + 'px');
+				DOM.css(mask, 'height', DOM.docHeight() + 'px');
+				doc.body.appendChild(mask);
+				if(KISSY.UA.ie == 6){
+		        	DOM.append(DOM.create('<iframe style="position:absolute; top:0px; left:0px; width:100%; height:100%; opacity:0; filter:alpha(opacity=0);z-index:-1; scrolling:no; visibility:inherit" frameborder="5" src=""></iframe>'),DOM.get('#messageMask'));
+		        }
+			return this;
+		},
+		/*
+		 * 隐藏
+		 *
+		 * @param b {Boolean} 是否延时隐藏, 默认false
+		 * */
+		hide: function(b, status){
+			var self = this;
+			if (b == undefined) {
+				if (self.panel != null) {
+					self.panel.hide();
+				}
+				if (self.elem) {
+					DOM.hide(DOM.parent(self.elem));
+					DOM.remove(self.msgMask);
+				}
+				if (self.contain) {
+					DOM.hide(self.contain);
+					DOM.remove(self.msgMask);
+				}
+			}else {
+				if (isNaN(Number(b)) == true || b <= 0 || b== true) {
+					b = 3000;
+				}
+				if (status == undefined) {
+					KISSY.later(function(panel, elem, contain, msgMask){
+						if (panel != null) {
+							panel.hide();
+						}
+						if (elem) {
+							DOM.hide(DOM.parent(elem));
+							DOM.remove(msgMask);
+						}
+						if (contain) {
+							DOM.hide(contain);
+							DOM.remove(msgMask);
+						}
+					}, b, false, null, [self.panel, self.elem, self.contain, self.msgMask]);
+				}
+				else 
+					if (status == 'dialog') {
+						KISSY.later(function(panel){
+							if (panel != null) {
+								panel.hide();
+							}
+						}, b, false, null, self.panel);
+					}
+					else 
+						if (status == 'msg') {
+							KISSY.later(function(elem, msgMask){
+								if (elem) {
+									DOM.hide(DOM.parent(elem));
+									DOM.remove(msgMask);
+								}
+							}, b, false, null, [self.elem, self.msgMask]);
+							
+						}
+						else 
+							if (status == 'contain') {
+								KISSY.later(function(contain, msgMask){
+									if (contain) {
+										DOM.hide(contain);
+										DOM.remove(msgMask);
+									}
+								}, b, false, null, [self.contain, self.msgMask]);
+							}
+			}
+		}
+
+	});
+	 H.util.Msg = Msg;
+});
+ 
 H.add('widget~RandomBox', function( HLG ) { 	
 	var S = KISSY;
 	    var $ = S.all,
