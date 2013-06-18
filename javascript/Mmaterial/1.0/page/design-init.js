@@ -49,6 +49,7 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
                     });
 					//列表参数 宝贝参数 初始化
 					ListParam.init();
+					//window.g_ds_del_list = [];
 					if(DOM.hasClass('#body-html','w-1000')){
 			  	        var str ='<select id="J_SelectItemPage" name="Page">'+
 					  	        '<option selected="selected" value="10">10条</option>'+
@@ -1172,7 +1173,7 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 				}
 				var postItems = list.generatePostItems(items);
 				var itemsJson = KISSY.JSON.stringify(postItems);
-//				alert(itemsJson);
+				//alert(itemsJson);
 				var postListParams = new Array();
 				S.each(DOM.query('.J_ListParams'),function(item, i){
 					var listPar = {};
@@ -1212,7 +1213,7 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 	            		designPics.push(i+','+item['designId']);
 	            	});
 					//如果删除了海报 ，不传值
-					if(KISSY.inArray(designPics[0].split(',')[0],g_ds_del_list)){
+					if(KISSY.inArray(designPics[0].split(',')[1],g_ds_del_list)){
 						data += "designPics=[]";
 					}else{
 						var designPics = KISSY.JSON.stringify(designPics);
@@ -1472,7 +1473,7 @@ KISSY.add(function (S,showPages,O,TShop,ListParam,designControl) {
 	            		designPics.push(i+','+item['designId']);
 	            	});
 					//如果删除了海报 ，不传值
-					if(KISSY.inArray(designPics[0].split(',')[0],g_ds_del_list)){
+					if(KISSY.inArray(designPics[0].split(',')[1],g_ds_del_list)){
 						data += "designPics=[]";
 					}else{
 						var designPics = KISSY.JSON.stringify(designPics);

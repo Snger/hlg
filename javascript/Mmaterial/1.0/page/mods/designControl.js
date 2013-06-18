@@ -118,7 +118,6 @@ KISSY.add(function (S,O,TShop) {
 	        		DOM.get('#hlgFlash').style.visibility = 'hidden';
 	    			designControl.designPicPanel.hide();
 	    		}
-				
 	}
 	
 }, {

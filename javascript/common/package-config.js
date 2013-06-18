@@ -75,7 +75,7 @@
 		'Mcrm' : '20130610' ,//crm模块
 		'Micon' : '20130610' ,//icon模块
 		'Mlist' : '20130610' ,//list模块
-		'Mmaterial' : '20130520' ,//core模块
+		'Mmaterial' : '20130618' ,//core模块
 		'Mmember' : '20130331' ,//core模块
 		'Moptim' : '20130516' ,//core模块
 		'Mpoint' : '' ,//core模块

@@ -145,7 +145,7 @@ KISSY.add(function (S,O) {
 				var submitHandle = function(o) {
 		    		DOM.html("#J_Content_"+id, o.payload);
 		    		DOM.html("#J_TempletIdBox"+id, tmpId);
-		    		DOM.html("#J_TempletUseNumBox"+id, num);
+		    		//DOM.html("#J_TempletUseNumBox"+id, num);
 	        	};
 	    	    var data = "&templet_id="+tmpId;
 	    	    //alert(data);
