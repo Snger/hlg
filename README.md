@@ -2,6 +2,8 @@
 这里有大家建立的规范制度，这里有大家分享的精华经验，这里有大家。。。
 
 [markdown编辑器](http://www.markdownpad.com/)
+[markdown语法说明](http://wowubuntu.com/markdown/)
+
 
 ## 结构图： 
 
