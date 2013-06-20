@@ -49,7 +49,8 @@
  	<td align="center">
             <table width="宝贝宽度" cellspacing="0" cellpadding="0" border="0">
            </table>
-    </td>
+    </td>   
+
 ## 模板原型样例
 	规则的模板
 	<div style="width:模板宽度;" class="liebiao-templet">
