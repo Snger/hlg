@@ -4,62 +4,140 @@
 
 
 ## 模板的组成部分
-- 1 、 **海报头**</br>
-注意：如果列表有海报时，写入如下代码，反之省略不写。
->
+  - 1 .**海报头**     
+ >注意：如果列表有海报时，写入如下代码，反之省略不写。  
+   
 	<tr>
         <td align="left" colspan="跨行数">
            <!--DESIGN-BEGIN--><div id="J_DesignDiv_海报id" newId="海报id" class="J_DesignDiv"></div><!--DESIGN-END-->
         </td>
     </tr>
  
-- 2 、 **宝贝块**</br>
+   - 2 、 **宝贝块**</br>
 
-注意：<br/>
-(1) **#main_blocks#****：**代表列表结构中存放所有宝贝区域块<br/>
+>注意：  
+  (1) **#main_blocks#**：代表列表结构中存放所有宝贝区域块  
+  (2) **#child_blocks#**: 该区域代表存放列表单个宝贝的区域块<br/>
+  (3)  规则列表中，各个宝贝用**#el#**分隔开，代码一个完整的宝贝块，不规则使用**#feature_el#**
+  (4) **宝贝块：**为列表中属于一个宝贝的内容代码段，而判断该代码是否是宝贝块，可通过测试该代码是否可以代替该列表中的其余宝贝项的内容。如下示例所示：
 
-(2) **#child_blocks#****:**该区域代表存放列表单个宝贝的区域块<br/>
-
-(3)规则列表中，各个宝贝用**#e1#**分隔开，代码一个完整的宝贝块，不规则使用**#feature_el#**
-
-(3) **宝贝块：**为列表中属于一个宝贝的内容代码段，而判断该代码是否是宝贝块，<br/>可通过测试该代码是否可以代替该列表中的其余宝贝项的内容。如下示例所示：
-
-<!--第一行宝贝块-->
-			<table><tr>
+	<!--第一行宝贝块-->
+		<table>
+			<tr>
 			<td align="center">
 				<!--列表主要区域块开始-->
 				#main_blocks#
 				<!--列表主要区域块结束-->
 			</td>
-			</tr></table>
-			#el#
-			<!--one_line start-->
-			<table>
+			</tr>
+		</table>
+		#el#
+		<!--one_line start-->
+		<table>
 			<tr> 
 			<!--单个宝贝块开始-->
 			#child_blocks#  
 			<!--单个宝贝块结束-->
 			</tr>
-			</table>
-			<!--宝贝块结束-->
-  	#el#
+		</table>
+	<!--宝贝块结束-->
+  		#el#
     
 - 3 、 **预留宝贝块**</br>
-作用：预留宝贝块，是为了防止列表操作时，实际选择宝贝数与列表要求宝贝数不一致，</br>导致列表显示不正常，则在配置列表最后需要加上预留宝贝块代码。如下代码：
+>作用：预留宝贝块，是为了防止列表操作时，实际选择宝贝数与列表要求宝贝数不一致，</br>导致列表显示不正常，则在配置列表最后需要加上预留宝贝块代码。如下代码：
 >
  	<td align="center">
             <table width="宝贝宽度" cellspacing="0" cellpadding="0" border="0">
            </table>
     </td>
+## 模板原型样例
+	规则的模板
+	<div style="width:模板宽度;" class="liebiao-templet">
+		<table width="模板宽度;" cellspacing="0" cellpadding="0" border="0" >
+			<tr>
+		        <td align="left" colspan="跨行数">
+		           <!--DESIGN-BEGIN--><div id="J_DesignDiv_海报id" newId="海报id" class="J_DesignDiv"></div><!--DESIGN-END-->
+		        </td>
+	    	</tr>
+			<tr>
+	        	<td>
+	            	<table>
+	                	#main_blocks#  
+	                </table>
+	            </td>
+        	</tr>
+		</table>
+	</div>
+	#el#
+	<tr>
+		#child_blocks#                  
+	</tr>
+	#el# //具体宝贝
+	<td width="246"  align="center" style="padding:3px 0px;">
+		<div style="padding:2px; width:242px; overflow:hidden; ">
+			<table cellspacing="0" cellpadding="0" border="0">
+	        	#pic_url#
+	 			标题：  #title#
+    		 	原价：  #price#
+	        </table>
+		</div>
+	</td>
+	#el#   //空宝贝
+	<td width="246"  align="center" style="padding:3px 0px;">
+		<div style="padding:2px; width:242px; overflow:hidden; ">
+	   		<table cellspacing="0" cellpadding="0" border="0">
+	         </table>
+		</div>
+	</td>
+	#el#
+	不规则的模板
+	<div class="liebiao-templet" style="width:750px;">
+		#main_blocks#
+	</div>
+	#el#
+	<table cellpadding="0" cellspacing="0" border="0" width="750" style="font-size:12px;background-color:#FFFFFF;">
+	        <tr>
+	        <td colspan="4" align="left" style="padding:0 0 9px;">
+	            <!--DESIGN-BEGIN--><div id="J_DesignDiv_1995072" newId="1995072" class="J_DesignDiv"></div><!--DESIGN-END-->
+	        </td>
+	    </tr>
+	    <tr>
+			#child_blocks# 
+	    </tr>
+	</table>
+	#el#
+		<td>宝贝1</td>
+       #feature_el#
+            <td align="center">
+            	<table  height="460" cellpadding="0" cellspacing="0" border="0">
+                	<tr>
+					 	<td style="padding:1px 1px;">	
+            			宝贝2
+           				 </td> 
+						#feature_el#
+			             <td style="padding:1px 1px;">		
+			                 宝贝3           
+			             </td> 
+						#feature_el#
+	                    </tr>
+	                    <tr>
+	         				<td style="padding:1px 1px;">宝贝4</td> 
+						#feature_el#
+			 				<td style="padding:1px 1px;">宝贝5</td> 
+						#feature_el#
+					   <td>宝贝6</td> 
+				    </tr>
+				</table>
+		   </td>
+	#el#
 
 
- ## 列表录入模型
+## 列表如何配置？
 
- ![Alt text](/path/to/列表配置图.jpg)
-
- ## 列表如何配置？
-
- ![Alt text](/path/to/模板原型说明.jpg)
+ ![步骤1](https://raw.github.com/xiaoz/hlg/master/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/%E5%85%B3%E8%81%94%E5%88%97%E8%A1%A8%E5%88%B6%E4%BD%9C/images/%E5%88%97%E8%A1%A8%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A41.png)
+ ![步骤2](https://raw.github.com/xiaoz/hlg/master/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/%E5%85%B3%E8%81%94%E5%88%97%E8%A1%A8%E5%88%B6%E4%BD%9C/images/%E5%88%97%E8%A1%A8%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A42.png)
+ ![步骤3](https://raw.github.com/xiaoz/hlg/master/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/%E5%85%B3%E8%81%94%E5%88%97%E8%A1%A8%E5%88%B6%E4%BD%9C/images/%E5%88%97%E8%A1%A8%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A43.png)
+ ![步骤4](https://raw.github.com/xiaoz/hlg/master/%E6%95%99%E7%A8%8B%E6%96%87%E6%A1%A3/%E5%85%B3%E8%81%94%E5%88%97%E8%A1%A8%E5%88%B6%E4%BD%9C/images/%E5%88%97%E8%A1%A8%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A44.png)
 
 
 
@@ -170,17 +248,12 @@
 	
 
 ## 列表制作注意事项：
- (1) 如果列表需要用到图片，比如按钮、标签等，制作时一定要将图片，写在tb标签中<br/>,否则列表正确制作后，将不能在详情页正常显示出所引用的图片。<br/>
+ （1） 如果列表需要用到图片，比如按钮、标签等，制作时一定要将图片，写在tb标签中,否则列表正确制作后，将不能在详情页正常显示出所引用的图片。  
 
- (2) 列表制作完成后，一定要在火狐、谷歌、360、ie中测试是否正常后，才可共享制作的列表。<br/>
-
- (3) 列表制作时，有宝贝参数和列表参数，宝贝参数注意是针对宝贝相关参数的设定，比如宝贝销量<br/>
-  数量、宝贝按钮上的文字，而列表参数常用来表示一个列表的标题文字等。<br/>
-
-（4）在配置列表时，需要预留一块宝贝块代码，防止列表不能正常显示。<br/>
-
-（5）列表制作需要与效果图保持一致，针对不可实现效果，开发中可与设计者沟通。<br/>
-
+（2）列表制作完成后，一定要在火狐、谷歌、360、ie中测试是否正常后，才可共享制作的列表。  
+ （3） 列表制作时，有宝贝参数和列表参数，宝贝参数注意是针对宝贝相关参数的设定，比如宝贝销量数量、宝贝按钮上的文字，而列表参数常用来表示一个列表的标题文字等。  
+（4）在配置列表时，需要预留一块宝贝块代码，防止列表不能正常显示。  
+（5）列表制作需要与效果图保持一致，针对不可实现效果，开发中可与设计者沟通。  
 （6）图片切图，保存图片时，图片的名字要用图片的颜色来命名，方便后面颜色参数表示。
 
 
