@@ -9,7 +9,7 @@
   
 	<tr>
         <td align="left" colspan="跨行数">
-           <!--DESIGN-BEGIN--><div id="J_DesignDiv_海报id" newId="海报id" class="J_DesignDiv"></div><!--DESIGN-END-->
+           <div id="J_DesignDiv_海报id" newId="海报id" class="J_DesignDiv"></div>
         </td>
     </tr>  
 
@@ -83,7 +83,7 @@
 	        </table>
 		</div>
 	</td>
-	#el#   //空宝贝
+	#el#   //预留宝贝块
 	<td width="246"  align="center" style="padding:3px 0px;">
 		<div style="padding:2px; width:242px; overflow:hidden; ">
 	   		<table cellspacing="0" cellpadding="0" border="0">
