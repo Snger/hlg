@@ -71,7 +71,7 @@
 	window.PAGECONFIG = {
 		'pub' : '20130312' ,
 		'Mcore' : '20130421' ,//core模块 
-		'Mcare' : '20130606' ,//care模块
+		'Mcare' : '20130619' ,//care模块
 		'Mcrm' : '20130610' ,//crm模块
 		'Micon' : '20130610' ,//icon模块
 		'Mlist' : '20130610' ,//list模块

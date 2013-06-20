@@ -1,8 +1,14 @@
+/*
+combined files : 
+
+page/config0-init
+
+*/
 /**
  * @fileOverview 
  * @author  
  */
-KISSY.add(function (S) {
+KISSY.add('page/config0-init',function (S) {
 	
 	var S= KISSY,DOM = S.DOM, Event = S.Event;
 	return CareControl = {
