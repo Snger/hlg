@@ -5,15 +5,15 @@
 
 ## 模板的组成部分
  - 1 .**海报头**     
- >注意：如果列表有海报时，写入如下代码，反之省略不写。     
-  
-	<tr>
+>注意：如果列表有海报时，写入如下代码，反之省略不写.  
+>     
+ 	  <tr>
         <td align="left" colspan="跨行数">
            <div id="J_DesignDiv_海报id" newId="海报id" class="J_DesignDiv"></div>
         </td>
-    </tr>  
-
-  - 2 、 **宝贝块**  
+    </tr>    
+  
+ - 2 、 **宝贝块**  
 
 >注意：  
   (1) **#main_blocks#**：代表列表结构中存放所有宝贝区域块  
@@ -46,7 +46,8 @@
 - 3 、 **预留宝贝块**   
 >作用：预留宝贝块，是为了防止列表操作时，实际选择宝贝数与列表要求宝贝数不一致，</br>导致列表显示不正常，则在配置列表最后需要加上预留宝贝块代码。如下代码：
 >
-     <td align="center">
+    
+	 <td align="center">
             <table width="宝贝宽度" cellspacing="0" cellpadding="0" border="0">
            </table>
       </td>   
