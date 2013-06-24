@@ -1,0 +1,45 @@
+/**
+ 
+	 底部样式文件footer.css
+ 
+**/
+
+.hlg-app .footer{ width:1200px; margin:15px auto; color:#999;}
+.hlg-app .footer p{ text-align:center;}
+
+/*返回顶部*/
+.hlg-app .footer .scroll-top{ display:inline-block; width:65px; height:65px; position:fixed; bottom:50px; right:20px; background:url(http://cdn.huanleguang.com/img/hlg-app/common/scroll-top.png) no-repeat;}
+ html.ie6 .hlg-app .footer .scroll-top{ position:absolute; bottom:auto; top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight));}
+.hlg-app .footer .scroll-top:hover{ background-position:-65px 0;}
+
+/* 授权窗口   */
+.J_Iframe{ overflow: hidden; width: 498px; height: 435px;}
+.J_Iframe iframe{ overflow: hidden; margin-top: -290px; }
+.ks-ext-mask{position:absolute;z-index:10000;top:0;right:0;bottom:0;left:0; width:100%;background-color:#000;;opacity:0.1;filter:alpha(opacity=10);}
+.upgrade-hd{ margin:0 10px;}
+.upgrade-hd a{ padding:3px 8px; background:#ec6900; border-radius:8px;}
+.nav-user .msgs{width:750px;}
+
+/*在线帮助 反馈建议 漂浮块   start*/
+#page_zshelp{ width:191px; position:fixed; _position:absolute; bottom:0px; _bottom:auto; _top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight));right:20px;border:1px solid #dddddd;-webkit-box-box-shadow: -3px -3px 1px #e9e9e9;-moz-box-box-shadow:-3px -3px 1px #e9e9e9;box-shadow: -3px -3px 1px #e9e9e9;z-index:300;}
+.page_zs{ position:relative;width:96px;height:30px;background:url(http://cdn.huanleguang.com/img/hlg-app/common/page_online_help.jpg) no-repeat;}
+#J_help { background:#fff; position:absolute; left:-1px; bottom:0; _left:-96px; _bottom:32px; display:none; width:95px; line-height:30px; text-align:left; border:1px solid #dddddd; border-bottom:0;-webkit-box-box-shadow: -3px -3px 1px #e9e9e9;-moz-box-box-shadow:-3px -3px 1px #e9e9e9;box-shadow: -3px -3px 1px #e9e9e9;}
+#J_help a{ width:71px;display:block;padding:0px 12px;height:30px;line-height:30px;color:#666666;}
+#J_help a:hover{ width:71px;display:block;padding:0px 12px;height:30px;line-height:30px;background:#eee;color:#E35A2F;text-decoration:none;}
+#online_help a:hover{ background-position:0px -30px;}
+.boder_top_0{ border-top:0;}
+#J_fkjy a{ background-position:-96px 0px;}
+#J_fkjy a:hover{ background-position:-96px -30px;}
+#J_SuggestAddForm ul{ padding:20px;}
+#J_SuggestAddForm li{ margin-bottom:6px;min-height:30px;line-height:22px;}
+.textarea_text{ width:320px;height:50px;border:1px solid #A7A6AA;color:#7D7D7D;}
+.ks-dialog .ks-ext-close{ background-position:0 -201px;}
+.ks-ext-close .ks-ext-close-x{ background:none;}
+.ks-ext-close:hover{ border-color:#fff;}
+#J_SuggestAddForm .ke-draft-title,
+#J_SuggestAddForm .ke-draft-time{ display:none;}
+.ks-popup,.ke-menu{ z-index:19999 !important;}
+#J_Suggest_ProjectType{ border:1px solid #DDDDDD; border-radius:3px;}
+.suggest_input_text{ width:200px;font-size:12px;height:22px;line-height:22px;padding:0 4px;font-family:Arial;border:1px solid #DDDDDD;border-radius:3px;color:#7d7d7d;}
+.ks-dialog .ks-contentbox, 
+.ks-popup .ks-contentbox{background:#FFFFFF;border:1px solid #DDDDDD;}

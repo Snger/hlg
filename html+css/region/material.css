@@ -1,0 +1,11 @@
+/**
+ 
+	 欢乐逛素材入口样式文件material.css
+ 
+**/
+
+/*投放记录样式material.css*/
+@import '../Mlist/list.css';
+
+/*素材样式material.css*/
+@import '../Mmaterial/material.css';

@@ -1,0 +1,31 @@
+/**
+ 
+	头部样式文件header.css
+ 
+**/
+
+.hlg-app .header{ height:32px; margin-bottom:15px;}
+.hlg-app .header .head-fixed{ width:100%; background:#494949; position:fixed; top:0; left:auto; z-index:999;}
+ html.ie6 .hlg-app .header .head-fixed{ position:absolute; top:auto; top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight));}
+.hlg-app .header .bd-user{ width:1200px; height:32px; line-height:32px; margin:auto;}
+.hlg-app .header .bd-user li.user-nav{ height:32px; float:right; padding:0 10px; color:#999; border-right:1px #585858 solid;}
+.hlg-app .header .bd-user li.user-nav a{ color:#999;}
+.hlg-app .header .bd-user li.user-msg a{ width:25px; height:16px; line-height:16px; margin-top:8px; text-align:center; display:block; border-radius:6px; background:#de3715; color:#fff;}
+.hlg-app .header .bd-user li.user-name{ min-width:90px; position:relative; padding:0; text-align:center; border-left:1px #494949 solid;}
+.hlg-app .header .bd-user li.user-name span{ padding:0 10px;}
+.hlg-app .header .bd-user li.hlg-app-logo{ float:left; border:0; padding:0;}
+/*弹出个人资料，退出样式*/
+.hlg-app .header .bd-user li.current{ background:#fff; border-left:1px #dfdfdf solid; border-right:1px #dfdfdf solid; }
+.hlg-app .header .bd-user li.user-name .user-data{ position:absolute; top:32px; left:-1px; background:#fff; text-align:center; display:none; z-index:99; border:1px #dfdfdf solid; border-top:0;}
+.hlg-app .header .bd-user li.user-name .user-data li{ height:27px; line-height:27px; padding:0 10px; overflow:hidden;}
+.hlg-app .header .bd-user li.user-name .user-data li.hover{ background:#eee;}
+.hlg-app .header .bd-user li.user-name .user-data li.user-quit{ text-align:right; background:#dfdfdf;}
+/*弹出续费*/
+.hlg-app .header .bd-user li.user-renewal{ width:90px; position:relative; padding:0; text-align:center; border-left:1px #494949 solid; z-index:50;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data{ width:740px; padding:15px 10px; position:absolute; top:32px; right:-1px; border:1px #dfdfdf solid; border-top:0; background:#fff; overflow:hidden; display:none;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data ul{ margin-bottom:5px; overflow:hidden;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data li{ width:140px; margin:0 5px; _display:inline; border:1px #dfdfdf solid; border-radius:5px; background:#fefefe; float:left;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data li b{ color:#f16611;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data li em{ color:#cecece; text-decoration:line-through;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data li span{ color:#666;}
+.hlg-app .header .bd-user li.user-renewal .renewal-data li.user-version{ width:100px; text-align:right; padding:0; border:0; font-weight:bold; color:#474747;}

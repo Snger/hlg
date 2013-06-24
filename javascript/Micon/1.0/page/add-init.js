@@ -185,6 +185,13 @@ KISSY.add(function (S,iconControl) {
 			if(KISSY.inArray( typeId ,['2','9','10'])){
 				DOM.hide('#J_ShowSmartIconMsg');
 			}
+			var startTime = H.util.StringToDate(S.one('#J_startDate').val());
+			var endTime = H.util.StringToDate(S.one('#J_endDate').val());
+			var leftsecond = parseInt((endTime.getTime() - startTime.getTime()) / 1000);
+            d = parseInt((leftsecond / 86400) % 10000);
+            h = parseInt((leftsecond / 3600) % 24);
+			str = '活动持续<b class="color-red">'+d+'</b>天<b class="color-red">'+h+'</b>小时';
+			DOM.html("#J_PromoTimeLast" , str);
 
 		}
 					

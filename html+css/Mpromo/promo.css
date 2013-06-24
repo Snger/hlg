@@ -1,0 +1,20 @@
+/**
+ 
+	 Mpromo入口样式文件promo.css
+ 
+**/
+ 
+/*promo公共样式*/
+@import 'mods/public.css';
+
+/*promo创建活动样式*/
+@import 'mods/add.css';
+
+/*promo活动列表样式*/
+@import 'mods/list.css';
+
+/*promo添加宝贝样式*/
+@import 'mods/item.css';
+
+
+

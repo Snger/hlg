@@ -1,0 +1,166 @@
+/**
+ 
+	列表样式文件ui-list.css
+	
+	<div class="ui-list">
+		<div class="list-hd">
+			 <ul>
+			 	<li style="width:2%">&nbsp;</li>
+			</ul>
+		</div>
+		<div id="J_RightLoading" class="loading"></div>
+	    <div id="J_MainRightContent" class="list-bd">
+	    	<div class="no-details" id="J_REmpty" style="display:none">
+		    	<div>
+		    		<span class="no-details-pic"></span>
+			        <span class="prompt-1">没有找到任何记录</span>
+				</div>
+		    </div>
+		  	<ul id="J_PromotionItemList">
+		  		<li class="list-item">
+					<ul>
+				        <li style="width:2%"><input type="checkbox"/></li> 
+				    </ul>
+				</li>   
+			</ul>
+		    <div class="ui-page J_PromotionItemBtnHolder" id="J_PromotionItemPaging"></div>
+	    </div>
+	</div>
+	
+	
+	列表js ：
+	
+	KISSY.add(function (S,showPages) {
+	
+		var S = KISSY,DOM = S.DOM, Event = S.Event;
+		return  message = {
+					msg :null,
+					isLoad : false,
+					paginator:null,
+					init : function() {
+						message.searchMsgItems();
+						Event.delegate(document,'click','.J_msmDel',function(ev){
+							var pid = DOM.attr(ev.currentTarget,'pid');						
+							new H.widget.msgBox({
+							    title: "删除列表",
+							    content: '是否删除此列表',
+							    type: "confirm",
+							    buttons: [{ value: "确定删除" }, { value: "取消" }],
+							    success: function (result) {
+							        if (result == "确定删除") {
+							        	message.delMsg(pid);
+							        }
+							    }
+							});
+				        });
+					},
+					
+					//获取列表
+					searchMsgItems : function(){
+						if(!message.isLoad){
+							message.isLoad = true;
+						}
+			            var submitHandle = function(o) {
+			            	DOM.hide('#J_HlgLoading');
+							DOM.show('#J_MainContent');
+			        	    totalRecords = o.payload.totalRecords;
+							if(totalRecords > 0){
+								DOM.get('#J_LEmpty').style.display = 'none';
+							} else {
+								DOM.get('#J_LEmpty').style.display = '';
+							}
+							DOM.html('#J_ContentList',o.payload.body);
+							pageCount = Math.ceil(totalRecords/o.payload.pageSize); 
+							message.paginator = new showPages('message.paginator').setRender(message.handleMsgPagination).setPageCount(pageCount).printHtml('#J_ItemPaging',2);
+			    	    };
+			    	    var errorHandle = function(o){
+			            	DOM.hide('#J_HlgLoading');
+							DOM.show('#J_MainContent');
+							new H.widget.msgBox({
+							    title:"错误提示", 
+							    content:o.desc,
+							    type:"error"
+							});
+							
+			    	    };	
+			    	    var itemPage = 6;
+				    	var data = "pageSize="+itemPage;
+				    	DOM.show('#J_HlgLoading');
+						DOM.hide('#J_MainContent');
+			    	    new H.widget.asyncRequest().setURI(loadMessageURL).setMethod("GET").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).setDataType('json').send();
+					},
+			    	handleMsgPagination : function(turnTo) {
+				    	pageId = turnTo;
+			    		var submitHandle = function(o) {
+			    			DOM.hide('#J_HlgLoading');
+							DOM.show('#J_MainContent');
+			    			totalRecords = o.payload.totalRecords;
+			   				if(totalRecords > 0){
+			   					DOM.get('#J_LEmpty').style.display = 'none';
+			   				} else {
+			   					DOM.get('#J_LEmpty').style.display = '';
+			   				}
+			   				DOM.html('#J_ContentList',o.payload.body);
+							pageCount = Math.ceil(totalRecords/o.payload.pageSize); 
+							message.paginator.setPage(pageId).setPageCount(pageCount).printHtml('#J_ItemPaging',2);
+				    	};
+				    	var itemPage = 6;
+				    	var data = "pageSize="+itemPage+"&page_id="+pageId;
+				    	DOM.show('#J_HlgLoading');
+						DOM.hide('#J_MainContent');
+			    	    new H.widget.asyncRequest().setURI(loadMessageURL).setMethod("GET").setHandle(submitHandle).setData(data).send();
+					},
+					
+					//删除列表
+			        delMsg : function(mess_id){
+			            var submitHandle = function(o) {
+			            	KISSY.later(function(){
+		        	    		if(message.page){
+		    						message.paginator.toPage(message.paginator.page);
+		    					}else{
+		    						message.searchMsgItems();
+		    					}
+		            	    },1000,false)
+						};
+			    	    var errorHandle = function(o){
+							new H.widget.msgBox({
+							    title:"错误提示",
+							    content:o.desc,
+							    type:"error"
+							});
+			    	    };	
+			    	    var data = "&mess_id="+mess_id;
+			    	    new H.widget.asyncRequest().setURI(deleteMessURL).setMethod("GET").setHandle(submitHandle).setErrorHandle(errorHandle).setData(data).setDataType('json').send();
+					}
+					
+			}
+	   
+	}, {
+	    requires: ['utils/showPages/index']
+	});
+ 
+**/
+
+.ui-list{ width:100%;}
+.ui-list ul:after,.ui-list ul li:after{ content:'\20'; display:block; height:0; clear:both; visibility:hidden;}
+ html.lte8 .ui-list ul,html.lte8 .ui-list ul li{ zoom:1;}
+.ui-list .list-hd{ padding:6px 10px; background:#f4f4f4;}
+.ui-list .list-hd li{ float:left; color:#989898;}
+.ui-list .list-hd .list-edit{ width:15%; float:right;}
+.ui-list .list-hd li .refresh-list img{ vertical-align:middle;}
+
+.ui-list .list-bd .list-item{ padding-top:10px; padding-bottom:10px; border-bottom:1px #eee dotted;}
+.ui-list .list-bd .list-item ul{ padding-left:10px; padding-right:10px;}
+.ui-list .list-bd .current{ background:#f6f6f6; } 
+.ui-list .list-bd .list-item li{ float:left;}
+.ui-list .list-bd .list-item li.list-edit{ width:15%; float:right;}
+
+/*列表操作*/
+.ui-list .list-edit{ width:15%; float:right;}
+
+/*含有宝贝图 and 标题*/
+.ui-list .list-bd .list-item .item-pic{ width:60px; height:60px; display:block; float:left; background-repeat: no-repeat; background-position:50% 50%;}
+.ui-list .list-bd .list-item .summary{ width:110px; height:40px; line-height:20px; float:left; overflow:hidden; margin-left:5px;}
+.ui-list .list-bd .list-item .price{ display:block; float:left; margin-left:5px;}
+.ui-list .list-bd .list-item .price em{ color:#e54022;}
+

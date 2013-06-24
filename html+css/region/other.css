@@ -1,0 +1,27 @@
+/**
+ 
+	 欢乐逛非应用模块入口样式文件other.css
+ 
+**/
+
+/*页面基础样式*/
+@import '../common/base.css';
+
+/*页面布局样式*/
+@import '../layout/layout.css';
+ 
+/*页面utils样式*/
+@import '../utils/ui-list.css';  /*列表*/
+@import '../utils/ui-edit.css'; /*编辑*/
+@import '../utils/ui-page.css'; /*分页*/
+@import '../utils/ui-calendar.css';  /*日历*/
+@import '../utils/ui-tab.css';  /*tab*/
+
+/*账户明细样式core.css*/
+@import '../Mcore/core.css';
+
+/*子账户管理样式sub.css*/
+@import '../Msub/sub.css';
+
+/*消息样式news.css*/
+@import '../Mnews/news.css';

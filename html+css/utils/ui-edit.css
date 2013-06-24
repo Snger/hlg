@@ -1,0 +1,41 @@
+/**
+ 
+	创建操作样式文件index.css
+	
+	<div class="ui-edit">
+		<form id="J_editForm">
+	    	<ul>
+	    		<li>
+	    			<div class="ui-edit-title">姓名：</div>
+	    			<div class="ui-edit-fill">
+						<input type="text" value="" class="input-text-200" name="name"/>
+					</div>
+	    		</li>
+	    		<li>
+	    			<div class="ui-edit-title">&nbsp;</div>
+	    			<div class="ui-edit-fill">
+	    				<div id="J_ParamsErrorBox" style="display:none;" class="ui-msg">
+				             <div class="error-msg"><div class="img-16-1"></div><div id="J_ParamsErrorMsg" class="text-16 red"></div></div>
+				        </div>
+						<div id="J_ParamsSucessBox" style="display:none; margin:0;" class="ui-msg">
+				             <div class="success-msg"><div class="img-16-6"></div><div id="J_ParamsSucessMsg" class="text-16"></div></div>
+				        </div>
+	    				<input type="button" id="J_validation" class="submit-btn">
+	    			</div>
+	    		</li>
+	    	</ul>
+    	</form>
+    </div>
+**/
+
+.ui-edit{ margin:20px 0; overflow:hidden;}
+.ui-edit li{ margin-bottom:10px; overflow:hidden; color:#333; line-height:22px;}
+.ui-edit li .ui-edit-title{ width:80px; float:left; text-align:right; margin-right:10px;}
+.ui-edit li .ui-edit-fill{ float:left;}
+.ui-edit .ui-msg{ width:400px; margin-bottom:10px;}
+.ui-edit .submit-btn{ margin-top:10px;}
+/*提示图标*/
+.ui-edit .success-img,
+.ui-edit .error-img{ background:url(http://cdn.huanleguang.com/img/hlg/v3/msg_bg.png) no-repeat;}
+.ui-edit .success-img{ width:16px; height:16px; display:inline-block; background-position:0 -250px; vertical-align:middle;}
+.ui-edit .error-img{ padding-left:20px; height:16px; color: red; background-position:0 0;}

@@ -1,0 +1,18 @@
+/**
+ 
+	 布局页面入口样式文件layout.css
+ 
+**/
+
+/*整体布局样式*/
+@import 'mods/global.css';
+
+/*头部样式*/
+@import 'mods/header.css';
+
+/*左边菜单样式*/
+@import 'mods/left.css';
+
+/*底部样式*/
+@import 'mods/footer.css';
+

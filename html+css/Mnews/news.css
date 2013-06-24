@@ -1,0 +1,15 @@
+/**
+ 
+	 Mnews入口样式文件news.css
+ 
+**/
+ 
+/*news公共样式*/
+@import 'mods/public.css';
+
+/*消息列表样式*/
+@import 'mods/mess/list.css';
+
+
+
+

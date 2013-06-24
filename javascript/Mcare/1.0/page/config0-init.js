@@ -18,6 +18,7 @@ KISSY.add(function (S) {
 				DOM.attr('#J_Checkbox_' + data, 'checked', true);
 				var tem = DOM.html('#J_Templet_' + data);
 				CareControl.checkTitleLen(tem);
+
 				DOM.val('#J_CareBox', tem);
 				DOM.show('#J_CareContent');
 				DOM.hide('#J_MsgContentBox');
@@ -43,7 +44,7 @@ KISSY.add(function (S) {
 				}
 				//==0 为新添加 其他为修改
 				if (data != 0) {
-					DOM.html('#J_Templet_' + data, tem);
+					DOM.text('#J_Templet_' + data, tem);
 					DOM.hide('#J_CareContent');
 				}
 				else if(Num != 0) {
@@ -244,7 +245,7 @@ KISSY.add(function (S) {
 			S.each(S.all('.J_TempletParames'),function(item, i){
 				var listPar = {};
 				listPar.is_checked = DOM.prop(DOM.get('.J_CheckBox', item),'checked')? 1:0;
-				listPar.content = H.util.strProcess(DOM.html(DOM.get('.J_Content', item)));
+				listPar.content = H.util.strProcess(DOM.text(DOM.get('.J_Content', item)));
 				listPar.templet_id = DOM.val(DOM.get('.J_TempletId', item));
 				listPar.is_sys_tmp = DOM.val(DOM.get('.J_IsSysTmp', item))
 				postListParams.push(listPar);

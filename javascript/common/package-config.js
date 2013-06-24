@@ -71,9 +71,9 @@
 	window.PAGECONFIG = {
 		'pub' : '20130312' ,
 		'Mcore' : '20130421' ,//core模块 
-		'Mcare' : '20130619' ,//care模块
+		'Mcare' : '20130624' ,//care模块
 		'Mcrm' : '20130610' ,//crm模块
-		'Micon' : '20130610' ,//icon模块
+		'Micon' : '20130624' ,//icon模块
 		'Mlist' : '20130610' ,//list模块
 		'Mmaterial' : '20130618' ,//core模块
 		'Mmember' : '20130331' ,//core模块
@@ -81,7 +81,7 @@
 		'Mpoint' : '' ,//core模块
 		'Mpromodesc' : '' ,//core模块
 		'Mpromoprops' : '20130521' ,//core模块
-		'Mpromotion' : '20130614' ,//core模块
+		'Mpromotion' : '20130620' ,//core模块
 		'Mratedesc' : '' ,//core模块
 		'Msmart' : '20130429' ,//core模块
 		'Msub' : '' ,//core模块

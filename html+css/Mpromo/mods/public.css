@@ -1,0 +1,24 @@
+/**
+ 
+	promo公共样式文件pub.css
+ 
+**/
+
+/*未创建活动*/
+.hlg-app .main .content .start-hd{ width:580px; margin:200px auto;}
+.hlg-app .main .content .start-hd span{ display:block; height:22px; margin:0 auto 30px auto; background:url(http://cdn.huanleguang.com/img/hlg-pop/promotion-guide.jpg) no-repeat;}
+.hlg-app .main .content .start-hd .hd-guide{ text-align:center; margin-top:20px;}
+
+/*活动类型选择*/
+.hlg-app .main .content .hd-type{ height:57px;}
+.hlg-app .main .content .hd-type ul{ overflow:hidden;}
+.hlg-app .main .content .hd-type li{ width:57px; height:57px; margin:0 3px; cursor:pointer; _display:inline; float:left; background:url(http://cdn.huanleguang.com/img/hlg-app/Mpromo/fn-icon.jpg) no-repeat;}
+.hlg-app .main .content .hd-type li.hd-xianshi{ background-position:0 0;}
+.hlg-app .main .content .hd-type li.hd-manjiusong{ background-position:0 -57px;}
+.hlg-app .main .content .hd-type li.hd-yikoujia{ background-position:0 -114px;}
+.hlg-app .main .content .hd-type li.hd-xiangou{ background-position:0 -171px;}
+.hlg-app .main .content .hd-type li.hd-tuangou{ background-position:0 -228px;}
+.hlg-app .main .content .hd-type li.hd-mianyou{ background-position:0 -285px;}
+.hlg-app .main .content .hd-type li.hd-jieti{ background-position:0 -342px;}
+.hlg-app .main .content .hd-type li.hd-onetbspec{ background-position:0 -399px;}
+.hlg-app .main .content .hd-type li.hd-caipiao{ background-position:0 -627px;}

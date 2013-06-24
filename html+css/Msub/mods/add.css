@@ -1,0 +1,20 @@
+/**
+ 
+	sub子账户添加页面样式文件add.css
+ 
+**/
+
+.hlg-app .main .content .ui-edit li .ui-edit-title{ width:120px;}
+
+/*tree*/
+.hlg-app .main .content .edit-tree{ width:428px; height:130px; border:1px solid #EEEEEE; overflow:auto;}
+.hlg-app .main .content .edit-tree label{ font-size:12px;}
+.hlg-app .main .content .goog-inline-block { position:relative; display:-moz-inline-box; /* Ignored by FF3 and later. */display: inline-block;}
+.hlg-app .main .content .goog-tree-row { white-space:nowrap;font: icon;line-height: 26px;height: 26px;font-size:12px;}
+.hlg-app .main .content .goog-tree-row span { overflow:hidden;text-overflow: ellipsis;}
+.hlg-app .main .content .goog-tree-icon { background-image:url("http://cdn.huanleguang.com/img/hlg-app/Msub/tree.png");}
+.hlg-app .main .content .goog-tree-expand-icon { vertical-align: middle;height: 26px;width: 26px;cursor: default;}
+.hlg-app .main .content .goog-tree-expand-icon-lminus { width: 19px;background-position: -120px 0;}
+.hlg-app .main .content .goog-tree-expand-icon-t{ width:19px;background-position: -144px 0;}
+.hlg-app .main .content .goog-tree-expand-icon-l{ width:19px;background-position: -168px 0;}
+.hlg-app .main .content .goog-tree-lchildren { padding-left:19px;}

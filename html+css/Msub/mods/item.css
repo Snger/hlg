@@ -1,0 +1,24 @@
+/**
+ 
+	sub子账户列表页面样式文件item.css
+ 
+**/
+
+.hlg-app .main .content .yuanjiao .role-list{ height:58px; margin:8px 0; overflow-y:auto; overflow-x:hidden;}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul{ border-left:1px solid #ccc; padding:0 12px 0 11px;background:#F1F6F9 url(http://img.huanleguang.com/hlg/v2/yuanjiao-right-y.png) right repeat-y;}
+.hlg-app .main .content .yuanjiao .role-list li{ height:20px;line-height:20px;overflow:hidden; clear:both;}
+
+/* 圆角*/
+.hlg-app .main .content .yuanjiao{ width:164px; position: absolute; left:-85px; top:30px; z-index:9999; visibility: hidden;}
+.hlg-app .main .content .yuanjiao .yuanjiao-top{ background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-top-center.png) no-repeat; width:16px; height:11px; position:absolute; top:-10px; left:90px;}
+.hlg-app .main .content .yuanjiao .panel-top{ height:12px;}
+.hlg-app .main .content .yuanjiao .panel-top .yuanjiao-top-left{ width:12px; height:12px; float:left; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-top-left.png) no-repeat; overflow: hidden/*ie6 DIV最小高度设置*/}
+.hlg-app .main .content .yuanjiao .panel-top .yuanjiao-top-center{ width:140px; height:12px; float:left; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-top-x.png) repeat-x; overflow: hidden}
+.hlg-app .main .content .yuanjiao .panel-top .yuanjiao-top-right{ width:12px; height:12px; float:right; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-top-right.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .panel-bottom{ height:12px;}
+.hlg-app .main .content .yuanjiao .panel-bottom .yuanjiao-bottom-left{ width:12px; height:12px; float:left; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-bottom-left.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .panel-bottom .yuanjiao-bottom-center{ width:140px; height:12px; float:left; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-bottom-x.png) repeat-x;overflow: hidden}
+.hlg-app .main .content .yuanjiao .panel-bottom .yuanjiao-bottom-right{ width:12px; height:12px; float:right; background:url(http://img.huanleguang.com/hlg/v2/yuanjiao-bottom-right.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .iconDeletelink { width:16px; height:16px; display:block; position:absolute; right:12px; top:0; *zoom:1; background:url("http://img.huanleguang.com/hlg/msg_bg.png") no-repeat;}
+
+ 

@@ -1,0 +1,15 @@
+/**
+ 
+	 Mcore入口样式文件core.css
+ 
+**/
+
+/*core公共样式*/
+@import 'mods/public.css';
+
+/*首页样式*/
+@import 'mods/dashboard.css';
+
+
+
+

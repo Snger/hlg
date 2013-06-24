@@ -1,0 +1,24 @@
+/**
+ 
+	tab样式文件ui-tab.css
+ 
+ 	<section class="ui-tab">
+		<menu class="ui-tab-list ks-switchable-nav" id="icon_list" role="tablist">
+			<li class="current"><a>订购记录</a></li>
+			<li><a>赠送记录</a></li>
+		</menu>
+		<div class="action-btn">
+			<input type="button" value="创建新角色" class="btm-caozuo-orange">  //tab中有按钮
+		</div>
+	</section>
+**/
+
+.ui-tab{ height:60px; border-bottom:1px #ebebeb solid; background:#fafafa; position:relative;}
+.ui-tab .ui-tab-list{ position:absolute; top:1px;}
+.ui-tab li{ line-height:60px; float:left; border-right:1px #ebebeb solid; font-weight:bold; cursor:pointer; font-size:14px;}
+.ui-tab li a{ min-width:60px; text-align:center; color:#000; padding:0 20px; display:inline-block;}
+.ui-tab li.current{ background:#fff; color:#f46851;}
+.ui-tab li.current a{ color:#f46851;}
+.ui-tab .action-btn{ position:absolute; right:10px; top:18px;}
+
+

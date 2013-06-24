@@ -1,0 +1,13 @@
+/**
+ 
+	promo创建活动样式文件add.css
+ 
+**/
+
+.hlg-app .main .content .content-left{ width:60%; float:left; padding-right:10px; border-right:1px #ccc dashed;}
+.hlg-app .main .content .content-left .active-add-type{ padding-bottom:10px; text-align:center;}
+.hlg-app .main .content .content-left .active-add-type .hd-name{ font-size:14px;}
+.hlg-app .main .content .content-left .activity-edit .ui-edit-title{width:60px;}
+.hlg-app .main .content .content-left .ui-edit li .ui-edit-fill .note{ color:#FB8534;}
+.hlg-app .main .content .content-right{ padding-left:30px; float:left;}
+.hlg-app .main .content .ui-msg .notice-msg{clear: both; margin-top:10px;}

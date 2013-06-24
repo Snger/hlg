@@ -1,0 +1,19 @@
+/**
+ 
+	 欢乐逛会员入口样式文件crm.css
+ 
+**/
+
+/*会员等级，会员分组样式crm.css*/
+@import '../Mcrm/crm.css';
+
+/*会员关怀样式care.css*/
+@import '../Mcare/care.css';
+
+/*会员数据库样式member.css*/
+@import '../Mmember/member.css';
+
+/*会员积分样式point.css*/
+@import '../Mcare/point.css';
+
+

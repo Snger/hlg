@@ -1,0 +1,184 @@
+/**
+ 
+	 整体布局样式文件global.css
+ 
+**/
+
+body{ background:#e6e6e6;}
+.hlg-app{ width:100%; min-width:1200px;}
+.hlg-app .main{ width:1200px; min-height:700px; margin:auto; overflow:hidden; border:1px #d9d9d9 solid; background:#fff;}
+.hlg-app .main .menu{ width:160px; float:left; background:#f5f5f5; border-right:1px #e6e6e6 solid; margin-bottom:-5000px; padding-bottom:5000px;}
+.hlg-app .main .content{ width:1039px; float:right;}
+.hlg-app .main .content .spacing{ padding:15px;}
+
+/*加载效果*/
+.hlg-app .main .content .loading{ display:none; background:url(http://cdn.huanleguang.com/img/hlg-app/common/hlg-loading.gif) no-repeat; width:32px; height:32px; margin:200px auto 0 auto;}
+
+/*自定义搜索栏目*/
+.hlg-app .main .content .main-select{ overflow:hidden; line-height:24px; padding:5px 10px; background:#ececec; margin-bottom:15px;}
+.hlg-app .main .content .main-select li{ float:left; margin-right:10px; color:#666;}
+
+/*活动搜索*/
+.hlg-app .main .content .main-head{ background:#FFF; zoom:1; overflow:auto; line-height:25px; padding:15px 0;}
+.hlg-app .main .content .main-head .main-head-title{ color:#666; float:left; }
+.hlg-app .main .content .main-head .main-head-title b{ color:#3E3E3E; font-size:14px;}
+.hlg-app .main .content .main-head .main-head-title span{ color: #C00; font-weight:bold;}
+.hlg-app .main .content .main-head .main-head-add-btm{ float:right;}
+.hlg-app .main .content .main-head .main-head-add-btm .input-text-2{ border:0; width:200px;}
+
+/*搜索--无详情--部分样式*/
+.no-details{color:#999999; margin:160px auto 0 auto;}
+.no-details div{ text-align:center; margin:0px auto;}
+.no-details div span.prompt-1,.no-details div span.prompt-2,.no-details span.no-details-pic{display:block; clear:both;}
+.no-details div span.prompt-1{ margin-top:30px;}
+.no-details .no-details-pic{ width:104px; height:104px; background:url(http://cdn.huanleguang.com/img/hlg-app/common/no-details.jpg) no-repeat scroll 0 0; margin:0 auto;}
+.no-details .not-making a:link,.no-details .not-making a:visited{ color:#333; text-decoration:underline;}
+/* 弹出对话框外框架样式*/
+.point-w{ margin:0px auto; font-size:14px; padding:60px 0 20px 0; width:310px; height:120px;text-align:center  }
+.point-w-1{ margin:0px auto; font-size:14px; padding:40px 10px; text-align:center }
+.point-w-2{ margin:0px auto; font-size:14px; padding:20px 10px; text-align:center }
+.point-w-380{ margin:0px auto; font-size:14px; padding:60px 0 20px 0; width:380px; height:120px; }
+
+/*新版弹窗样式*/
+div.msgBox{ position: absolute;z-index: 1000; width: 430px; min-height:160px; color: #00335e;background-color:#fff;-moz-box-shadow: 0px 0px 11px #000000; -webkit-box-shadow: 0px 0px 11px #000000; box-shadow: 0px 0px 11px #000000;}
+div.msgBoxBackGround{ top:0;left:0; position:absolute; padding:0; margin:0;width:100%; height:100%; background-color:#000000; opacity:0.1; z-index:999;}
+div.msgBoxTitle{ padding:8px 0 8px 0; font-variant:small-caps; font-size:16px; font-weight:bolder; color:#000;width:90%;margin:0 auto; border-bottom : 1px solid #d9d9d9;}
+div.msgBoxTitle .closeButton{ position: absolute;z-index: 100;right: 22px;top: 15px;overflow: hidden;text-indent: -9em;width: 15px;height: 15px;background-repeat: no-repeat;background-position: 0 -201px; background-image: url(http://cdn.huanleguang.com/img/hlg-app/common/ui-dialog.gif);}
+div.msgBoxImage{ margin:20px 5px 0 25px; display:inline-block; float:left;height:75px;width:45px;}
+div.msgBoxImage img{height:40px; width:40px;}
+div.msgBoxContent{font-size:11pt; margin:0 3px 6px 3px; display:inline-block; float:left; height:90px;width:319px;}
+div.msgBoxContent p{ padding:0; margin:0; display: table; height: 100%; width: 100%;}
+div.msgBoxContent span { display: table-cell; vertical-align: middle; color: #000;}
+div.msgBoxButtons{display:inline-block; width:100%;background-color:#f2f2f2; text-align:center;padding-top: 15px;vertical-align: middle;height: 45px;}
+div.msgBoxButtons input[type='button']{cursor:pointer; margin:2px; height:31px; width:68px; border:0px;display: inline-block;}
+div.msgBoxButtons input[type='button']:hover{}
+div.msgBoxInputs{margin:0 auto; padding-top:2px; padding-bottom:2px; margin-top:5px; width:240px;}
+div.msgInput {margin :10px 0px}
+div.msgInput input[type='text'],div.msgInput input[type='password']{ width:180px;}
+div.msgInput text{ color:#2f2f2f;font-size:10pt;}
+
+/***弹出框 START***/
+/*搜索时弹出框*/
+.messages-prompt{ background:rgba(122,122,122,.5); filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#7f7A7A7A',EndColorStr='#7f7A7A7A');padding:1px;position:absolute;z-index: 1000004 ;border:1px #e4e4e4 solid}
+.messages-prompt div{ padding:10px; background:#FFF; z-index: 1000004}
+.messages-prompt .fbloader{padding:10px 0px 0 0px;text-align: center;}
+/*对话框*/
+.point{ margin:0px auto; font-size:14px; padding:40px 0 10px 0; width:360px; height:120px;text-align:center;}
+.point-w-1{ margin:0px auto; font-size:12px; padding:40px 10px; text-align:center }
+.point-w-2{ margin:0px auto; font-size:12px; padding:20px 10px; text-align:center }
+.point-w-380{ margin:0px auto; font-size:12px; padding:60px 0 20px 0; width:380px; height:120px; }
+#ds-toolbar,
+#ds-toolbar .ds-logo a,
+.ui-dialog .close,
+.ks-dialog .ks-dialog-close,
+.ks-dialog .ks-ext-close,
+.release-msg i,
+#speed-tips a span,
+#ds-toolbar i,
+addmodbar i,
+.ui-dialog .ui-dialog-hd,
+.ks-dialog .ks-stdmod-header,
+.ui-dialog .gengxin-btm,
+.point-text{background-image:url(http://cdn.huanleguang.com/img/hlg-app/common/ui-dialog.gif);}
+#ds-toolbar,
+#ds-toolbar .ds-logo a,
+.ui-dialog .close,
+.ks-dialog .ks-dialog-close,
+.ks-dialog .ks-ext-close,
+.release-msg i,
+#speed-tips a span,
+#ds-toolbar i,
+addmodbar i{width:15px; height:15px; background-repeat:no-repeat; background-position:0 -201px;}
+.ui-dialog,.ks-dialog {position:absolute;z-index:10001;border:1px solid #979797; background:#fff;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;padding:0;}
+.ks-dialog {left:20px;top:20px;}
+.ui-dialog .ui-dialog-hd,.ks-dialog .ks-stdmod-header{height:30px; display: block; padding-left:20px; line-height:30px; position:relative; z-index:2;border-bottom-width:0; background-repeat:repeat-x; background-color:#ddd; background-position:0 -218px; font-size:12px; color:#555555; text-align:left;  border-bottom:1px dotted #bbbbbb;}
+.ui-dialog .ui-dialog-bd,.ks-dialog .ks-stdmod-body {position:relative;z-index:2;display:block;border-top-width:0;zoom:1;}
+.ui-dialog .ui-dialog-ft {position:absolute;z-index:2;top:14px;right:16px;}
+.ui-dialog .close {position:absolute;z-index:100;right:15px;top:9px;width:13px;height:13px;overflow:hidden;text-indent:-9em;}
+.ui-dialog .ui-dialog-ft .close {position:absolute;z-index:100;right:0px;top:0px;width:15px;height:15px;overflow:hidden;text-indent:-9em;}
+.ks-dialog .ks-ext-close {background-position:0 -35px;height:15px;overflow:hidden;position:absolute;right:16px;text-indent:-9em;top:16px;width:15px;z-index:3;}
+.ui-dialog-dd .ui-dialog-hd,.ui-dd {cursor:move;}
+.ui-dialog-mask {position:absolute;z-index:10000;top:0;right:0;bottom:0;left:0;width:100%;background-color:#fff;opacity:0;filter:alpha(opacity=0);}
+.ui-dialog-loading {padding:20px;color:#000;text-align:center;}
+.ui-dialog button {margin-right:15px;padding:4px 8px;border:none;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;color:#000;background-color:#d5d5d5;}
+.ui-dialog .container-btn {margin-top:20px;}
+.ui-dialog button.btn-ok {color:#fff;background-color:#0085ce;}
+.ui-dialog iframe.ifr {display:block;width:100%;height:120px;border:none;}
+/*对话框小图标样式*/
+.point-text{ background-repeat:no-repeat; padding-left:15px;}
+.point .prompt{background-position:0 -151px; width:6px; height:14px;}
+.point .success{background-position:0 -167px; width:15px; height:12px;padding-left:20px;}
+.point .fail{background-position:0 -184px; width:13px; height:13px;padding-left:20px;}
+/***弹出框END***/
+
+/*messages消息框 START*/
+.ui-msg .messages{margin-bottom:15px;}
+.ui-msg .text-16,.ui-msg .text,.ui-msg .text-32{float:left;}
+.ui-msg .text-16{line-height:18px;}
+.ui-msg .text-32{line-height:35px;}
+.warning-msg,.success-msg,.error-msg,.ui-msg .notice-msg{color:#3E3E3E; zoom:1; overflow:auto; padding:8px 6px;}
+.warning-msg{border:1px solid #FFCC7F; background:#FFFFE5;}
+.success-msg{ border:1px solid #AADBAD; background:#EFFFEA;}
+.error-msg{ border:1px solid #FFCC7F; background:#FFFFE5;}
+.notice-msg{ border:1px solid #A9DEED; background:#F3FAFC;}
+/*messages 消息16*16图标*/
+.ui-msg .img-16-1,
+.ui-msg .img-error,
+.ui-msg .img-16-2,
+.ui-msg .img-warnning,
+.ui-msg .img-16-3,
+.ui-msg .img-16-4,
+.ui-msg .img-notice,
+.ui-msg .img-16-5,
+.ui-msg .img-16-6,
+.ui-msg .img-success,
+.ui-msg .img-16-7,
+.ui-msg .img-16-8,
+.ui-msg .img-16-9,
+.ui-msg .img-32-1,
+.ui-msg .img-32-2,
+.ui-msg .img-32-3,
+.ui-msg .img-32-4,
+.ui-msg .img-32-5,
+.input-point-error span em,
+.input-point-success,
+.input-point-error-2 span em,
+.active-add-edit-edit .success-img,
+.active-add-edit-edit .error-img,
+.diqushezhi .diqushezhi-btm-on{ background-image: url(http://cdn.huanleguang.com/img/hlg-app/common/msg_bg.png); _background-image: url(http://cdn.huanleguang.com/img/hlg-app/common/msg_bg.gif); background-repeat:no-repeat;}
+.ui-msg .img-16-1,
+.ui-msg .img-error,
+.ui-msg .img-16-2,
+.ui-msg .img-warnning,
+.ui-msg .img-16-3,
+.ui-msg .img-16-4,
+.ui-msg .img-notice,
+.ui-msg .img-16-5,
+.ui-msg .img-16-6,
+.ui-msg .img-success,
+.ui-msg .img-16-7,
+.ui-msg .img-16-8,
+.ui-msg .img-16-9{ width:16px;height:16px; float:left; margin-right:8px;}
+.ui-msg .img-16-1,.ui-msg .img-error{ background-position:0 0;}
+.ui-msg .img-16-2,.ui-msg .img-warnning{ background-position:0 -50px;}
+.ui-msg .img-16-3{ background-position:0 -100px;}
+.ui-msg .img-16-4,.ui-msg .img-notice{ background-position:0 -150px;}
+.ui-msg .img-16-5{ background-position:0 -200px;}
+.ui-msg .img-16-6,.ui-msg .img-success{ background-position:0 -250px;}
+.ui-msg .img-16-7{ background-position:0 -300px;}
+.ui-msg .img-16-8{ background-position:0 -350px;}
+.ui-msg .img-16-9{ background-position:0 -1200px;}
+.ui-msg .img-32-1,
+.ui-msg .img-32-2,
+.ui-msg .img-32-3,
+.ui-msg .img-32-4,
+.ui-msg .img-32-5{ width:32px; height:32px; float:left; margin-right:16px}
+.active-add-edit-edit .success-img{ background-position:0 -250px;}
+.active-add-edit-edit .error-img{ background-position:0 0;}
+.diqushezhi .diqushezhi-btm-on{ background-position:100% -1308px;}
+/*messages消息32*32图标*/
+.messages-prompt{background:rgba(122,122,122,.5);filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#7f7A7A7A',EndColorStr='#7f7A7A7A');padding:1px;position:absolute;z-index: 1000004 ;border:1px #e4e4e4 solid}
+.messages-prompt div{ padding:10px; background:#FFF; z-index: 1000004}
+.messages-prompt .fbloader{padding:10px 0px 0 0px;text-align: center;}
+.msg-mask{position: absolute; top:0px; left:0px;right:0px;bottom:0px;z-index: 1000003;filter:alpha(opacity=10);width:100%;background-color:#000000;opacity:0.1}
+/*messages消息框 END*/

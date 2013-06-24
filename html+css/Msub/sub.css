@@ -1,0 +1,21 @@
+/**
+ 
+	 Msub入口样式文件sub.css
+ 
+**/
+
+/*sub公共样式*/
+@import 'mods/public.css';
+
+/*子帐号列表样式*/
+@import 'mods/item.css';
+
+/*子帐号添加样式*/
+@import 'mods/add.css';
+
+/*子帐号管理样式*/
+@import 'mods/list.css';
+
+
+
+

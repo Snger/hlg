@@ -1,0 +1,32 @@
+/**
+ 
+	分页样式文件calendar.css
+ 
+**/
+
+.ui-page{padding-top:15px; clear: both;}
+.ui-page .a-padding{padding:0 11px;}
+.ui-page .page-pic-no{background: url(http://cdn.huanleguang.com/img/hlg/v3/page.png) no-repeat;_background:url(http://cdn.huanleguang.com/img/hlg/v3/page.gif) no-repeat;}
+.ui-page .sabrosus {padding:0; width:auto; height:auto; margin:auto; text-align:center;}
+.ui-page .sabrosus font{ height:25px;}
+.ui-page .sabrosus a{border:1px solid #d3d3d3;border-left:0; margin-left:0px;color:#2e6ab1; text-decoration:none; display:inline-block;background:#f3f3f3; vertical-align:middle ; height:25px; display:inline-block; line-height:25px;}
+.ui-page .sabrosus a:hover { border:#FF5500 1px solid; background:#fff;z-index:999; position:relative;margin-left:-1px;}
+.ui-page .sabrosus .current {margin-left:-1px; border: #FF5500 1px solid;color:#CC0000; background: #FFEEE5; display:inline-block;z-index:999;  vertical-align:middle; height:25px; line-height:25px;padding:0 11px;}
+.ui-page .pre{border-left:1px solid #d3d3d3; display:inline-block;background-position:0 -169px; height:25px; width:30px;vertical-align:middle;}
+.ui-page .pre-none{border:1px solid #d3d3d3; display:inline-block;margin-left:-1px;background-position:0 -219px; vertical-align:middle; height:25px; width:30px;}
+.ui-page .sabrosus .next{vertical-align:middle;display:inline-block;background-position:0 -117px; height:25px; width:30px;}
+.ui-page .sabrosus .next-none{border:1px solid #d3d3d3;border-left:0;  margin-left:0px;display:inline-block;vertical-align:middle;height:25px; width:30px;  display:inline-block;background-position:0 -93px;}
+.ui-page .sabrosus .number{padding-left:5px; background:#f3f3f3; color:#999999; border:1px #d3d3d3 solid;  margin-left:10px; height:25px; _line-height:15px; line-height:25px; overflow:hidden; display:inline-block; vertical-align:middle;}
+.ui-page .sabrosus .number input{ vertical-align:middle}
+.ui-page .sabrosus .bg-img{display:inline-block;border:1px solid #dbdbdb; border-top:0; border-bottom:0; text-align:center; color:#999999;width:34px; height:25px; line-height:25px;background-position:0 -27px; margin-top:-3px; *margin-top:0}
+.ui-page .sabrosus .btm-go{width:34px; height:25px; display: inline-block;background-position:0 0;margin-top:-2px; *margin-top:0;}
+.ui-page .border-left-dedede{ border-left:1px solid #dedede;}
+.ui-page .sabrosus .gray-btm-h-go{margin-left:3px; width:34px; height:26px; border:0; cursor:pointer; border-left:1px #cccccc solid;}
+.ui-page .sabrosus input{ margin:0; padding:0;}
+.page-top{ margin:0 3px 3px 3px}
+.page-top .sabrosus .pre{ border-left:1px solid #d3d3d3;height:20px; width:30px;vertical-align:middle; display:inline-block;background-position:0 -172px;}
+.page-top .sabrosus .pre-none{border:1px solid #d3d3d3; margin-left:-1px;display:inline-block;background-position:0 -249px; vertical-align:middle;height:20px; width:30px;}
+.page-top .sabrosus .next{vertical-align:middle;height:20px; width:30px;display:inline-block;background-position:0 -120px}
+.page-top .sabrosus .next-none{border:1px solid #d3d3d3; margin:0;display:inline-block;margin-left: -1px;vertical-align:middle;height:20px; width:30px;display:inline-block;background-position:0 -71px;}
+.page-top .count{display: inline-block; height:22px; line-height:22px; padding-right:15px}
+.page-top .sabrosus a {border:1px solid #d3d3d3; border-left:0;margin-left:0px;color:#2e6ab1; text-decoration:none; display:inline-block;background:#f3f3f3; vertical-align:middle ; height:20px; display:inline-block; line-height:20px;}

@@ -135,7 +135,7 @@ KISSY.add(function (S) {
 					DOM.show('#J_MsgContentBox');
 					var str = DOM.html('#'+id);
 					var len = str.replace(/【[\u4e00-\u9fa5]+】/g, "").replace(/[^\x00-\xff]/g, "*").length ;
-					DOM.html(DOM.get('#J_Zs_Num2'), len);
+					DOM.html(DOM.get('#J_Zs_NumFirst'), len);
 		
 				});				
 				
@@ -325,6 +325,7 @@ KISSY.add(function (S) {
 					return;
 				}
 				var listParamsJson = KISSY.JSON.stringify(postListParams);
+				
 				var careId = DOM.val('#J_CareId');
 				var careType = DOM.val('#J_Type');
 				ParamsErrorBox = KISSY.one('#J_ParamsErrorBox');
@@ -349,9 +350,9 @@ KISSY.add(function (S) {
 					}
 					return ;			 			
 					//CareControl.msg.setMsg('<div class="point relative"><div class="point-w-1">'+o.desc+'</div></div>').showDialog();
-					
+
 		 		};
-		 		var data = 'type='+careType+'&care_id='+careId+'&templets='+listParamsJson
+		 		var data = 'type='+careType+'&care_id='+careId+'&templets='+listParamsJson;
 		 		//alert(data);return;
 		  	    new H.widget.asyncRequest().setURI(saveCareUrl).setMethod("POST").setHandle(sucessHandle).setErrorHandle(errorHandle).setData(data).send();
 				return true;
@@ -383,7 +384,7 @@ KISSY.add(function (S) {
 				return error;
 			},
             strProcess : function(str){
-                return str.replace(/\\/g, '\\\\').replace(/\"/g, '\\"').replace(/[\t\n&]/g, '');
+                return str.replace(/\\/g, '\\\\').replace(/\"/g, '\\"').replace(/[\t\n&]/g, '').replace(/%26/g, '&!');
 			}
 	}
    

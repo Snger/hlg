@@ -1,0 +1,13 @@
+/**
+ 
+	mess消息页面样式文件list.css
+ 
+**/
+
+.hlg-app .main .content .msg-list li{padding:10px 0; margin-bottom:15px; border:1px #e4e4e4 solid; background:#f3f3f3; color:#666;}
+.hlg-app .main .content .msg-list li .msg-title{color:#000;font-weight:700;}
+.hlg-app .main .content .msg-list li.unread{border:1px #f7c371 solid;background-color:#fff7e2;}
+.hlg-app .main .content .msg-list li.unread .msg-title{color:#ff5000}
+.hlg-app .main .content .msg-list li.unread a{font-weight:normal;}
+.hlg-app .main .content .msg-list li div{ height:20px; padding:0px 10px 5px 10px;}
+.hlg-app .main .content .msg-list li p{padding:10px 10px 0px 10px; line-height:22px;}

@@ -1,0 +1,41 @@
+/**
+ 
+	promo添加宝贝样式文件item.css
+ 
+**/
+
+/*全选操作栏目*/
+.hlg-app .main .content .all-select{ border:1px #EDEDED solid; border-top:0;}
+
+/*优惠内容提示框*/
+.hlg-app .main .content .ui-list .list-bd .list-item li .duoguige img{ position:absolute; left:10px; top:-6px;}
+.hlg-app .main .content .ui-list .list-bd .list-item li .duoguige p{ background:#FEFFE5; border:1px solid #C6C6C6; padding:8px; text-align:left; margin-top:28px;}
+
+/*弹出框圆角（来自数据-宝贝分析）*/
+.hlg-app .main .content .yuanjiao .yuanjiao-top-left{ width:12px; height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-top-left.png) no-repeat; overflow:hidden;}
+.hlg-app .main .content .yuanjiao .yuanjiao-top-center{ height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-top-x.png) repeat-x;overflow: hidden}
+.hlg-app .main .content .yuanjiao .yuanjiao-top-right{ width:12px; height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-top-right.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .yuanjiao-bottom-left{ width:12px; height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-bottom-left.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .yuanjiao-bottom-center{ height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-bottom-x.png) repeat-x;overflow: hidden}
+.hlg-app .main .content .yuanjiao .yuanjiao-bottom-right{ width:12px; height:12px; background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-bottom-right.png) no-repeat;overflow: hidden}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul{border-left:1px solid #ccc; padding:0 12px 0 11px;background:#F1F6F9 url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-right-y.png) right repeat-y;}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul li{ float:left; margin:6px 10px; padding:0 2px; _display:inline; }
+.hlg-app .main .content .yuanjiao .yuanjiao-ul li a,
+.hlg-app .main .content .yuanjiao .yuanjiao-ul li a:link{ color:#666}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul .current{ background:#FD7517; color:#fff}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul .current a,
+.hlg-app .main .content .yuanjiao .yuanjiao-ul .current a:link{color:#fff}
+.hlg-app .main .content .yuanjiao .yuanjiao-top{background:url(http://cdn.huanleguang.com/img/hlg/v3/yuanjiao-top-center.png) no-repeat; width:16px; height:11px; position:absolute; }
+.hlg-app .main .content .yuanjiao .yuanjiao-ul{line-height:22px;}
+.hlg-app .main .content .yuanjiao .yuanjiao-ul span{width:100px;text-align: right;font-weight: bold;display: inline-block;}
+
+/*编辑活动中的宝贝*/
+.hlg-app .main .content .item-params .edit-item-note,
+.hlg-app .main .content .status-success,
+.hlg-app .main .content .status-pendding{ color:red;}
+.hlg-app .main .content .item-params .edit-item-params{ margin-top:5px;}
+.hlg-app .main .content .item-params .edit-item-btn{ margin-top:5px;}
+
+/*活动错误信息*/
+.hlg-app .main .content .status-error{ width:85%; color:red;}
+

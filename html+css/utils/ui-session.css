@@ -1,0 +1,65 @@
+/**
+ 
+	会话窗口样式文件index.css	
+	
+	<div id="J_ListBox2939" class="dialogue-area">
+		<ul id="J_replayContentList" class="ui-session">
+			<li class="user-self">
+				<p>2013-05-20 11:27:53</p>
+				<span class="from-name">我</span>
+				<div class="msg-box">
+					<span class="msg-box-cor msg-box-shape"></span>
+					提交建议内容
+				</div>
+			</li>
+			<li class="huanleguang">
+				<p>2013-05-25 20:35:16</p>
+				<span class="from-name">欢乐逛:jj</span>
+				<div class="msg-box">
+					<span class="msg-box-cor msg-box-shape"></span>
+					<p>回复内容</p>	
+				</div>
+			</li>
+			<li class="user-self">
+				<span class="from-name">我</span>
+				<form id="J_replyForm2939">
+					<div class="msg-box">
+						<span class="msg-box-cor msg-box-shape"></span>
+						<textarea style="display:none;" name="content" id="J_msgBok2939" class="msg-reply"></textarea>
+						<a pid="2939" id="J_continue2939" class="continue J_reply">+&nbsp;我要继续回答</a>
+					</div>
+					<div id="J_ParamsErrorBox2939" style="display:none;" class="ui-msg">
+			             <div class="error-msg"><div class="img-16-1"></div><div id="J_ParamsErrorMsg2939" class="text-16 red"></div></div>
+			        </div>
+					<div id="J_ParamsSucessBox2939" style="display:none" class="ui-msg">
+			             <div class="success-msg"><div class="img-16-6"></div><div id="J_ParamsSucessMsg2939" class="text-16"></div></div>
+			        </div>
+					<span style="display:none;" pid="2939" id="J_toReply2939" class="to-reply J_to">提交</span>
+				</form>
+			</li>
+		</ul>
+	</div>
+**/
+
+/*会话窗口*/
+.ui-session{ overflow:hidden;}
+.ui-session li{ width:100%; overflow:hidden; color:#676566; margin:5px 0;}
+.ui-session li .continue{ display:block; text-align:center; font-weight:bold; font-size:14px;}
+.ui-session li .to-reply{ display:block; width:398px; height:36px; line-height:36px; margin-left:22px; color:#0098e3; cursor:pointer; font-size:14px; text-align:center; font-weight:bold; clear:both; border:1px #ddd solid; border-radius:3px; background:url(http://cdn.huanleguang.com/img/hlg-vip/point-icon.jpg) repeat-x scroll 0 -57px;}
+.ui-session li p{ clear:both; line-height:26px;}
+.ui-session .user-self .from-name{ float:left; margin:6px 10px 0 0;}
+.ui-session .user-self p{ text-align:left; margin-left:24px;}
+.ui-session .huanleguang .from-name{ float:right; margin:6px 0 0 10px;}
+.ui-session .huanleguang p{ text-align:right; margin-right:44px;}
+
+/*会话泡基本属性*/
+.ui-session .msg-box{ width:380px; line-height:20px; padding:10px; font-size:12px; position:relative; float:left; border-radius:3px;} 
+.ui-session .msg-box .msg-box-cor{ width:0; height:0; font-size:0; border-style:solid; overflow:hidden; position:absolute;}
+.ui-session .msg-box .msg-box-shape{ border-width:5px; top:10px;}
+/*自定义属性*/
+.ui-session .user-self .msg-box{ background:#ffffe7; float:left; margin-bottom:5px; border-bottom:1px #dedede solid; border-right:1px #dedede solid;}
+.ui-session .user-self .msg-box .msg-box-shape{ border-color:#ededed #ffffe7 #ededed #ededed; left:-10px;}
+.ui-session .huanleguang .msg-box{ background:#e7ffff; float:right; border-bottom:1px #dedede solid; border-left:1px #dedede solid;}
+.ui-session .huanleguang .msg-box p{ text-align:left; margin:0;}
+.ui-session .huanleguang .msg-box .msg-box-shape{ border-color:#ededed #ededed #ededed #e7ffff; right:-10px;}
+ 

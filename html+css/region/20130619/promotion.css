@@ -1,0 +1,38 @@
+/**
+ 
+	 欢乐逛促销入口样式文件promotion.css
+ 
+**/
+
+/*页面基础样式*/
+@import '../common/base.css';
+
+/*页面布局样式*/
+@import '../layout/layout.css';
+ 
+/*页面utils样式*/
+@import '../utils/ui-list.css';  /*列表*/
+@import '../utils/ui-edit.css';  /*编辑*/
+@import '../utils/ui-page.css'; /*分页*/
+@import '../utils/ui-calendar.css';  /*日历*/
+@import '../utils/ui-step.css';  /*步骤条*/
+@import '../utils/ui-tab.css';  /*tab*/
+@import '../utils/ui-return.css';  /*返回*/
+
+
+/*促销活动样式promo.css*/
+@import '../Mpromo/promo.css';
+
+/*促销道具样式promoprops.css*/
+@import '../Mpromoprops/promoprops.css';
+
+/*促销图标样式icon.css*/
+@import '../Micon/icon.css';
+
+/*促销展示样式promodesc.css*/
+@import '../Mpromodesc/promodesc.css';
+
+/*店铺模块样式smart.css*/
+@import '../Msmart/smart.css';
+
+

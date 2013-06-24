@@ -1,0 +1,21 @@
+/**
+ 
+	 Morders入口样式文件orders.css
+ 
+**/
+ 
+/*页面基础样式*/
+@import '../common/base.css';
+
+/*页面布局样式*/
+@import '../layout/layout.css';
+ 
+/*页面utils样式*/
+@import '../utils/ui-list.css';  /*列表*/
+
+/*orders公共样式*/
+@import 'mods/public.css';
+
+
+
+

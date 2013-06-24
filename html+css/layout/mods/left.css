@@ -1,0 +1,19 @@
+/**
+ 
+	 左边菜单样式文件left.css
+ 
+**/
+
+.hlg-app .main .menu .menu-list{ padding:10px;}
+/*一级菜单样式*/
+.hlg-app .main .menu .menu-item .menu-item-hd{ height:40px; line-height:40px; padding-left:12px; cursor:pointer; font-size:14px; color:#333;}
+.hlg-app .main .menu .menu-hover .menu-item-hd{ background:#fff;}
+.hlg-app .main .menu .menu-item .menu-item-hd i{ margin-right:12px; color:#ccc;}
+.hlg-app .main .menu .menu-item.current .menu-item-hd{ font-weight:bold;}
+
+/*二级菜单样式*/
+.hlg-app .main .menu .menu-item .menu-item-bd{ padding-bottom:22px;}
+.hlg-app .main .menu .menu-item .menu-item-bd li{ height:30px; line-height:30px; padding-left:21px; color:#666; cursor:pointer;}
+.hlg-app .main .menu .menu-item .menu-item-bd li i{ padding-right:17px; font-size:6px; color:#ccc; display:-webkit-inline-box; -webkit-transform:scale(0.5);}
+.hlg-app .main .menu .menu-item .menu-item-bd li.active{ color:#fff; font-weight:bold; background:#f05e4f;}
+.hlg-app .main .menu .menu-item .menu-item-bd li.active i{ color:#ffad97;}
