@@ -134,7 +134,9 @@ KISSY.add(function (S) {
 					var id = ev.currentTarget.id.replace('J_Checkbox_','J_Templet_');
 					DOM.show('#J_MsgContentBox');
 					var str = DOM.html('#'+id);
-					var len = str.replace(/【[\u4e00-\u9fa5]+】/g, "").replace(/[^\x00-\xff]/g, "*").length ;
+					var re = /(【收货人姓名】)|(【拍下日期】)|(【店铺名称】)|(【物流公司】)|(【物流单号】)|(【收货人城市】)|(【卡片名称】)|(【卡片数量】)|(【卡片有效期】)|(【卡片类型】)|(【买家昵称】)|(【买家姓名】)/g;
+					
+					var len = str.replace(re, "").replace(/[^\x00-\xff]/g, "*").length ;
 					DOM.html(DOM.get('#J_Zs_NumFirst'), len);
 		
 				});				
@@ -162,7 +164,9 @@ KISSY.add(function (S) {
 				}
 			},
 			checkTitleLen : function(str,num){
-				var len = str.replace(/【[\u4e00-\u9fa5]+】/g, "").replace(/[^\x00-\xff]/g, "*").length ;
+				var re = /(【收货人姓名】)|(【拍下日期】)|(【店铺名称】)|(【物流公司】)|(【物流单号】)|(【收货人城市】)|(【卡片名称】)|(【卡片数量】)|(【卡片有效期】)|(【卡片类型】)|(【买家昵称】)|(【买家姓名】)/g;
+//				/【[\u4e00-\u9fa5]+】/g
+				var len = str.replace(re, "").replace(/[^\x00-\xff]/g, "*").length ;
 				if(num == 'Change'){
 					DOM.html(DOM.get('#J_Zs_Num_Change'), len);
 				} else{

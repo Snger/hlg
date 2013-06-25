@@ -24,6 +24,7 @@ KISSY.add('page/config0-init',function (S) {
 				DOM.attr('#J_Checkbox_' + data, 'checked', true);
 				var tem = DOM.html('#J_Templet_' + data);
 				CareControl.checkTitleLen(tem);
+
 				DOM.val('#J_CareBox', tem);
 				DOM.show('#J_CareContent');
 				DOM.hide('#J_MsgContentBox');
@@ -49,7 +50,7 @@ KISSY.add('page/config0-init',function (S) {
 				}
 				//==0 为新添加 其他为修改
 				if (data != 0) {
-					DOM.html('#J_Templet_' + data, tem);
+					DOM.text('#J_Templet_' + data, tem);
 					DOM.hide('#J_CareContent');
 				}
 				else if(Num != 0) {
@@ -108,14 +109,17 @@ KISSY.add('page/config0-init',function (S) {
 				DOM.hide('#J_CareContent');
 				
 				var str = DOM.html('#'+id);
-				var len = str.replace(/【[\u4e00-\u9fa5]+】/g, "").replace(/[^\x00-\xff]/g, "*").length ;
+				var re = /(【收货人姓名】)|(【拍下日期】)|(【店铺名称】)|(【物流公司】)|(【物流单号】)|(【收货人城市】)|(【卡片名称】)|(【卡片数量】)|(【卡片有效期】)|(【卡片类型】)|(【买家昵称】)/g;
+				var len = str.replace(re, "").replace(/[^\x00-\xff]/g, "*").length ;
 				DOM.html(DOM.get('#J_Zs_Num2'), len);
 	
 			});				
 			
 		},
 		checkTitleLen: function(str){
-			var len = str.replace(/【[\u4e00-\u9fa5]+】/g, "").replace(/[^\x00-\xff]/g, "*").length ;
+			var re = /(【收货人姓名】)|(【拍下日期】)|(【店铺名称】)|(【物流公司】)|(【物流单号】)|(【收货人城市】)|(【卡片名称】)|(【卡片数量】)|(【卡片有效期】)|(【卡片类型】)|(【买家昵称】)/g;
+//				/【[\u4e00-\u9fa5]+】/g
+			var len = str.replace(re, "").replace(/[^\x00-\xff]/g, "*").length ;
 			DOM.html(DOM.get('#J_Zs_Num'), len);
 			
 		},
@@ -250,7 +254,7 @@ KISSY.add('page/config0-init',function (S) {
 			S.each(S.all('.J_TempletParames'),function(item, i){
 				var listPar = {};
 				listPar.is_checked = DOM.prop(DOM.get('.J_CheckBox', item),'checked')? 1:0;
-				listPar.content = H.util.strProcess(DOM.html(DOM.get('.J_Content', item)));
+				listPar.content = H.util.strProcess(DOM.text(DOM.get('.J_Content', item)));
 				listPar.templet_id = DOM.val(DOM.get('.J_TempletId', item));
 				listPar.is_sys_tmp = DOM.val(DOM.get('.J_IsSysTmp', item))
 				postListParams.push(listPar);
